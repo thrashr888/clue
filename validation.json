@@ -43,7 +43,7 @@
   },
   "limitations": "Small smoke checks, not a benchmark; source reads are bounded. No personal candidate contents were sent to TypeSafe.",
   "prior_validation_date": "2026-09-16",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "calendar_smoke": {
     "exit": 0,
     "ok": true,

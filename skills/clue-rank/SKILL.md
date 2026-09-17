@@ -35,4 +35,4 @@ Scores measure relevance from 0 to 3. Confidence describes answer-distribution c
 
 Use `clue bundle --input ranked.json --budget-bytes 8000` to preserve current order within a measured UTF-8 JSON budget for the `results` array. Original records count against the budget; oversized records are omitted and reported. Existing `clue context` searches Mac sources directly.
 
-The shared credential uses `TYPESAFE_API_KEY`, then `TYPESAFE_API_KEY_FILE`, then the shared TypeSafe file. `clue auth status` reports configuration without exposing the key. Do not place credentials in argv or saved profiles. The old `cider-ai` executable remains a compatibility alias.
+The shared credential uses `TYPESAFE_API_KEY`, then `TYPESAFE_API_KEY_FILE`, then the shared TypeSafe file. `clue auth status` reports configuration without exposing the key. Do not place credentials in argv or saved profiles.

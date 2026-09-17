@@ -2,7 +2,7 @@
 
 **Semantic ranking for the tools you already use.** Clue reads JSON/JSONL from `gh`, `bd`, Cider, SQLite, or any other CLI, preserves the original records, and optionally asks TypeSafe to rank them. Agents can also consume bounded evidence bundles.
 
-Formerly `cider-ai`. The repository is now [thrashr888/clue](https://github.com/thrashr888/clue), the primary executable is `clue`, and agent skills use the `clue-` prefix. An installed `cider-ai` compatibility executable accepts the same commands. Existing Cider search, Calendar, SQLite, and shared TypeSafe credentials continue to work.
+The executable is `clue`, and agent skills use the `clue-` prefix. Cider search, Calendar, SQLite, and shared TypeSafe credentials are supported.
 
 ## Install
 
@@ -10,7 +10,7 @@ Formerly `cider-ai`. The repository is now [thrashr888/clue](https://github.com/
 brew install thrashr888/tap/clue
 ```
 
-The Homebrew formula builds from source with Rust and installs both `clue` and the `cider-ai` compatibility command. Cider is optional and needed only for Mac source commands.
+The Homebrew formula builds from source with Rust and installs `clue`. Cider is optional and needed only for Mac source commands.
 
 Or install with Cargo:
 
