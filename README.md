@@ -7,6 +7,14 @@ Formerly `cider-ai`. The repository is now [thrashr888/clue](https://github.com/
 ## Install
 
 ```sh
+brew install thrashr888/tap/clue
+```
+
+The Homebrew formula builds from source with Rust and installs both `clue` and the `cider-ai` compatibility command. Cider is optional and needed only for Mac source commands.
+
+Or install with Cargo:
+
+```sh
 cargo install --git https://github.com/thrashr888/clue --locked
 # Or from a checkout:
 cargo install --path . --locked
