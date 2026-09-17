@@ -1,0 +1,6 @@
+/target/
+/dist/
+/private/
+.env
+.env.*
+*.key

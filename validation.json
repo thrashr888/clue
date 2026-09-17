@@ -1,0 +1,45 @@
+{
+  "validated_on_local_date": "2026-09-16",
+  "tests_passed": 13,
+  "skills_validated": 3,
+  "local_reads": [
+    {
+      "source": "reminders",
+      "query": "sync",
+      "returned": 3,
+      "elapsed_ms": 413
+    },
+    {
+      "operation": "context",
+      "returned": 3,
+      "context_bytes": 2978,
+      "budget_bytes": 4000,
+      "elapsed_ms": 252
+    },
+    {
+      "source": "files",
+      "query": "sandbox",
+      "returned": 5,
+      "fetched": 200,
+      "matched": 135,
+      "elapsed_ms": 2592
+    },
+    {
+      "source": "notes",
+      "query": "Alchemy",
+      "returned": 3,
+      "fetched": 177,
+      "elapsed_ms": 743
+    }
+  ],
+  "typesafe_synthetic_smoke": {
+    "model": "jev-1.13.0",
+    "candidates": 4,
+    "top_id": "note-sync",
+    "top_score": 2.98,
+    "elapsed_ms": 262,
+    "input_tokens": 899,
+    "output_tokens": 60
+  },
+  "limitations": "Small smoke checks, not a benchmark; source reads are bounded. No personal candidate contents were sent to TypeSafe."
+}
