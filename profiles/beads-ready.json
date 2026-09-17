@@ -1,0 +1,6 @@
+{
+  "name": "beads-ready",
+  "description": "Ready issues in the current Beads repository. bd handles dependencies and retrieval.",
+  "argv": ["bd", "--readonly", "--sandbox", "ready", "--json", "--limit", "50"],
+  "mapping": {"id":"id", "title":"title", "text":"description", "source":"beads"}
+}

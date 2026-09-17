@@ -22,7 +22,7 @@ esac
 #[test]
 fn partial_failures_preserve_results_and_source_ids() {
     let (_temp, path) = fixture();
-    let output = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+    let output = Command::new(env!("CARGO_BIN_EXE_clue"))
         .args([
             "--cider",
             &path,
@@ -58,7 +58,7 @@ fn partial_failures_preserve_results_and_source_ids() {
 #[test]
 fn all_failed_is_error_not_empty_success() {
     let (_temp, path) = fixture();
-    let output = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+    let output = Command::new(env!("CARGO_BIN_EXE_clue"))
         .args(["--cider", &path, "search", "test", "--sources", "safari"])
         .output()
         .unwrap();
@@ -70,7 +70,7 @@ fn all_failed_is_error_not_empty_success() {
 #[test]
 fn context_budget_matches_actual_serialized_records() {
     let (_temp, path) = fixture();
-    let output = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+    let output = Command::new(env!("CARGO_BIN_EXE_clue"))
         .args([
             "--cider",
             &path,
@@ -92,7 +92,7 @@ fn context_budget_matches_actual_serialized_records() {
 
 #[test]
 fn rank_never_reads_stdin_or_network_without_sharing_opt_in() {
-    let output = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+    let output = Command::new(env!("CARGO_BIN_EXE_clue"))
         .args(["rank", "test"])
         .output()
         .unwrap();
@@ -109,7 +109,7 @@ fn rank_never_reads_stdin_or_network_without_sharing_opt_in() {
 #[test]
 fn credential_environment_precedes_file_without_leaking_key() {
     let temp = tempfile::tempdir().unwrap();
-    let output = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+    let output = Command::new(env!("CARGO_BIN_EXE_clue"))
         .args(["auth", "status"])
         .env("TYPESAFE_API_KEY", "environment-placeholder")
         .env("TYPESAFE_API_KEY_FILE", temp.path().join("missing"))
@@ -124,7 +124,7 @@ fn credential_environment_precedes_file_without_leaking_key() {
 #[test]
 fn calendar_search_exposes_event_metadata() {
     let (_temp, path) = fixture();
-    let out = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+    let out = Command::new(env!("CARGO_BIN_EXE_clue"))
         .args([
             "--cider",
             &path,
@@ -153,7 +153,7 @@ fn sqlite_cli_queries_are_rank_compatible_and_sharing_is_explicit() {
         .unwrap()
         .execute_batch(include_str!("../examples/projects.sql"))
         .unwrap();
-    let out = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+    let out = Command::new(env!("CARGO_BIN_EXE_clue"))
         .args([
             "sqlite",
             "query",
@@ -169,9 +169,9 @@ fn sqlite_cli_queries_are_rank_compatible_and_sharing_is_explicit() {
         String::from_utf8_lossy(&out.stdout)
     );
     let data: Value = serde_json::from_slice(&out.stdout).unwrap();
-    let items: Vec<cider_ai::Candidate> = serde_json::from_value(data["results"].clone()).unwrap();
-    cider_ai::api::validate_candidates(&items).unwrap();
-    let out = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+    let items: Vec<clue::Candidate> = serde_json::from_value(data["results"].clone()).unwrap();
+    clue::api::validate_candidates(&items).unwrap();
+    let out = Command::new(env!("CARGO_BIN_EXE_clue"))
         .args([
             "sqlite",
             "search",

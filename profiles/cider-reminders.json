@@ -1,0 +1,6 @@
+{
+  "name": "cider-reminders",
+  "description": "Read reminders with Cider in its default scope. Use explicit argv to select a list.",
+  "argv": ["cider", "reminders", "list", "--limit", "50"],
+  "mapping": {"id":"id", "title":"title", "text":"notes", "source":"reminders"}
+}

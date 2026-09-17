@@ -1,6 +1,6 @@
 {
   "validated_on_local_date": "2026-09-17",
-  "tests_passed": 22,
+  "tests_passed": 33,
   "skills_validated": 4,
   "local_reads": [
     {
@@ -43,7 +43,7 @@
   },
   "limitations": "Small smoke checks, not a benchmark; source reads are bounded. No personal candidate contents were sent to TypeSafe.",
   "prior_validation_date": "2026-09-16",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "calendar_smoke": {
     "exit": 0,
     "ok": true,
@@ -130,5 +130,58 @@
     },
     "returned": 2,
     "top_title": "Share notebooks across devices"
-  }
+  },
+  "clue_smoke": {
+    "github_live_collect": {
+      "ok": true,
+      "exit": 0,
+      "records": 0
+    },
+    "beads_fixture_collect": {
+      "ok": true,
+      "exit": 0,
+      "records": 2
+    },
+    "github_synthetic_rank": {
+      "ok": true,
+      "exit": 0,
+      "records": 3,
+      "api": {
+        "elapsed_ms": 320,
+        "model": "jev-1.13.0",
+        "sent_candidates": 3,
+        "usage": {
+          "input_tokens": 750,
+          "output_tokens": 46
+        }
+      },
+      "top_title": "Notebook changes disappear offline",
+      "top_score": 2.94,
+      "originals_preserved": true
+    },
+    "beads_synthetic_rank": {
+      "ok": true,
+      "exit": 0,
+      "records": 2,
+      "api": {
+        "elapsed_ms": 306,
+        "model": "jev-1.13.0",
+        "sent_candidates": 2,
+        "usage": {
+          "input_tokens": 585,
+          "output_tokens": 32
+        }
+      },
+      "top_title": "Optimize SQLite lookup",
+      "top_score": 2.96,
+      "originals_preserved": true
+    },
+    "bundle": {
+      "ok": true,
+      "budget_bytes": 1500,
+      "context_bytes": 1196,
+      "selected": 2
+    }
+  },
+  "github_repository": "https://github.com/thrashr888/clue"
 }

@@ -1,0 +1,2 @@
+{"id":"demo-1","title":"Optimize SQLite lookup","description":"Add an index for repeated document lookups and measure query latency.","priority":1,"status":"open"}
+{"id":"demo-2","title":"Write installation guide","description":"Document CLI installation and shared credentials.","priority":2,"status":"open"}

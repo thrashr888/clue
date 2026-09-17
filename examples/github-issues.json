@@ -1,0 +1,5 @@
+[
+  {"number":11,"title":"Notebook changes disappear offline","body":"Editing notes on two devices can overwrite unsynced changes. Keep every edit and reconcile when connectivity returns.","url":"https://example.org/synthetic/issues/11","labels":["bug","sync"]},
+  {"number":12,"title":"Improve notebook theme colors","body":"Adjust accent colors and code highlighting.","url":"https://example.org/synthetic/issues/12","labels":["design"]},
+  {"number":13,"title":"Search calendar events","body":"Add a date window and preserve all-day flags.","url":"https://example.org/synthetic/issues/13","labels":["feature"]}
+]

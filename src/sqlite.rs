@@ -299,7 +299,7 @@ impl Database {
             let id = serde_json::to_string(&json!([self.path(),scope,id]))?;
             ensure!(id.len() <= 8192 && seen.insert(id.clone()), "candidate IDs must be unique and bounded; choose a primary key or alias one in SQL");
             let title = row[title_column].as_str().context("candidate title column must contain text")?;
-            Ok(Candidate { id:format!("sqlite:{id}"), title:clip(title,500), text:serde_json::to_string(row)?, source:"sqlite".into(), location:Some(self.path()), modified:None, event:None, lexical_score:0.0, relevance:None })
+            Ok(Candidate { id:format!("sqlite:{id}"), title:clip(title,500), text:serde_json::to_string(row)?, source:"sqlite".into(), location:Some(self.path()), modified:None, event:None, lexical_score:0.0, relevance:None, record:None })
         }).collect()
     }
 }

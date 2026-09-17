@@ -408,6 +408,7 @@ pub fn normalize(source: Source, value: &Value, options: &SearchOptions) -> Resu
             event,
             lexical_score: score,
             relevance: None,
+            record: None,
         });
     }
     Ok(result)

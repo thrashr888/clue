@@ -1,17 +1,17 @@
 use anyhow::{Context, Result, ensure};
-use cider_ai::{
-    Candidate, api, credentials,
+use clap::{Args, Parser, Subcommand};
+use clue::{
+    Candidate, api, credentials, input,
     search::{self, Source, Status},
     skills, sqlite,
 };
-use clap::{Args, Parser, Subcommand};
 use serde_json::{Value, json};
-use std::{io::Read, path::PathBuf, time::Duration};
+use std::{path::PathBuf, time::Duration};
 
 #[derive(Parser)]
 #[command(
     version,
-    about = "Local Mac search and agent context; optional TypeSafe relevance ranking"
+    about = "Semantic ranking for CLI output, local search, and bounded agent context"
 )]
 struct Cli {
     #[arg(long, global = true)]
@@ -45,10 +45,27 @@ enum Cmd {
     /// Rank a JSON candidate array or a search envelope using TypeSafe.
     Rank {
         query: String,
-        #[arg(long, default_value = "-")]
-        input: String,
+        #[command(flatten)]
+        input: input::InputArgs,
         #[arg(long)]
         share_content: bool,
+    },
+    /// Collect JSON/JSONL records locally, preserving originals; never calls TypeSafe.
+    Collect {
+        #[command(flatten)]
+        input: input::InputArgs,
+    },
+    /// Assemble a bounded context bundle from records supplied by any tool.
+    Bundle {
+        #[command(flatten)]
+        input: input::InputArgs,
+        #[arg(long, default_value_t = 12000)]
+        budget_bytes: usize,
+    },
+    /// List or inspect reusable command and field-mapping profiles.
+    Profiles {
+        #[command(subcommand)]
+        command: ProfileCmd,
     },
     /// Inspect or search a SQLite database using a read-only connection.
     Sqlite {
@@ -145,6 +162,12 @@ enum SqliteCmd {
 }
 
 #[derive(Subcommand)]
+enum ProfileCmd {
+    List,
+    Show { name: String },
+}
+
+#[derive(Subcommand)]
 enum AuthCmd {
     Status,
     /// Store a key with private file permissions. Default input is a hidden prompt.
@@ -168,29 +191,6 @@ enum SkillsCmd {
         #[arg(long)]
         force: bool,
     },
-}
-
-fn read_candidates(input: &str) -> Result<Vec<Candidate>> {
-    let mut bytes = Vec::new();
-    let reader: Box<dyn Read> = if input == "-" {
-        Box::new(std::io::stdin())
-    } else {
-        Box::new(std::fs::File::open(input).context("cannot open candidate file")?)
-    };
-    reader.take(4_194_305).read_to_end(&mut bytes)?;
-    ensure!(bytes.len() <= 4_194_304, "candidate input exceeds 4 MiB");
-    let mut value: Value =
-        serde_json::from_slice(&bytes).context("candidate input must be JSON")?;
-    if value.is_object() {
-        value = value
-            .get_mut("results")
-            .context("candidate envelope has no results array")?
-            .take();
-    }
-    let items: Vec<Candidate> =
-        serde_json::from_value(value).context("invalid candidate array; run cider-ai schema")?;
-    api::validate_candidates(&items)?;
-    Ok(items)
 }
 
 async fn do_search(cli: &Cli, args: &SearchArgs, budget: Option<usize>) -> Result<Value> {
@@ -285,19 +285,49 @@ async fn run(cli: &Cli) -> Result<Value> {
                 *share_content,
                 "ranking sends query/title/snippets to TypeSafe; supply --share-content when authorized"
             );
-            cider_ai::validate_query(query)?;
-            let mut items = read_candidates(input)?;
+            clue::validate_query(query)?;
+            let mut collected = input::collect(input, Duration::from_secs(cli.timeout)).await?;
             let meta = api::rank(
                 query,
-                &mut items,
+                &mut collected.items,
                 &cli.model,
                 Duration::from_secs(cli.timeout),
             )
             .await?;
-            Ok(
-                json!({"schema_version":1,"ok":true,"query":query,"mode":"typesafe_reranked","api":meta,"results":items}),
-            )
+            let mut output = collected.envelope();
+            output["mode"] = json!("typesafe_reranked");
+            output["query"] = json!(query);
+            output["api"] = serde_json::to_value(meta)?;
+            Ok(output)
         }
+        Cmd::Bundle {
+            input,
+            budget_bytes,
+        } => {
+            ensure!(
+                (256..=100_000).contains(budget_bytes),
+                "context budget must be 256–100000 bytes"
+            );
+            let mut collected = input::collect(input, Duration::from_secs(cli.timeout)).await?;
+            let available = collected.items.len();
+            let (items, bytes) = search::bounded_context(&collected.items, *budget_bytes)?;
+            collected.items = items;
+            let mut output = collected.envelope();
+            output["mode"] = json!("bounded_context");
+            output["context"] = json!({"budget_bytes":budget_bytes,"context_bytes":bytes,"available":available,"selected":collected.items.len(),"omitted":available-collected.items.len(),"unit":"UTF-8 JSON bytes of results array"});
+            Ok(output)
+        }
+        Cmd::Collect { input } => Ok(input::collect(input, Duration::from_secs(cli.timeout))
+            .await?
+            .envelope()),
+        Cmd::Profiles {
+            command: ProfileCmd::List,
+        } => Ok(
+            json!({"schema_version":1,"ok":true,"profiles":input::PROFILES.iter().map(|(n,_)|n).collect::<Vec<_>>()}),
+        ),
+        Cmd::Profiles {
+            command: ProfileCmd::Show { name },
+        } => Ok(json!({"schema_version":1,"ok":true,"profile":input::profile(name)?})),
         Cmd::Sqlite { command } => {
             let path = match command {
                 SqliteCmd::Schema { database }
@@ -319,7 +349,7 @@ async fn run(cli: &Cli) -> Result<Value> {
                     if *candidates {
                         let mut items = db.candidates(&rows.values, "id", "title", "query")?;
                         for item in &mut items {
-                            item.text = cider_ai::clip(&item.text, 1600);
+                            item.text = clue::clip(&item.text, 1600);
                         }
                         output["results"] = serde_json::to_value(items)?;
                     } else {
@@ -435,7 +465,7 @@ async fn run(cli: &Cli) -> Result<Value> {
             command: SkillsCmd::Install { dir, force },
         } => Ok(json!({"schema_version":1,"ok":true,"installed":skills::install(dir,*force)?})),
         Cmd::Schema => Ok(
-            json!({"schema_version":1,"ok":true,"commands":["search","context","rank","sqlite schema","sqlite search","sqlite query","doctor","auth status","auth set","skills list","skills show","skills install","schema"],"sources":["reminders","notes","safari","files","calendar"],"rank_input":{"type":"array","min_items":1,"max_items":50,"example":[{"id":"doc-1","title":"Notebook sharing","text":"Optional relevant excerpt","source":"alchemy","location":"optional local reference"}]},"result_fields":["id","title","text","source","location","modified","event","lexical_score","relevance"],"relevance":{"score":"0–3 relevance; higher is more relevant","confidence":"0–1 concentration, not correctness","probabilities":"distribution across 0,1,2,3"},"output":{"ok":"false and exit 1 on command failure; partial source failures retain successful results","partial":"inspect individual sources and ai for incomplete reads or ranking failure","schema_version":1},"sqlite":{"commands":["schema","search","query"],"search":"explicit table/columns; bounded ID-ordered scan","query":"single read-only SELECT/CTE; --candidates requires id/title aliases","max_scan_rows":5000,"max_candidates":50,"max_raw_rows":5000,"max_row_json_bytes":4194304,"blob_contents":"omitted with size marker","ai":"optional reranking with --ai --share-content or query --candidates piped to rank"},"calendar":{"source":"opt-in","default_days_back":7,"default_days_ahead":30,"filter":"occurrence start; rolling window","timestamps":"preserved from Cider without inferred timezone"},"context_budget":"UTF-8 bytes of serialized results array","privacy":{"default":"local only","remote_opt_in":"--ai --share-content for search/context; --share-content for rank","sent_fields":["query","title (300 chars)","text (1600 chars)"],"not_sent":["id","location","modified","event"]}}),
+            json!({"schema_version":1,"ok":true,"commands":["search","context","collect","bundle","rank","profiles list","profiles show","sqlite schema","sqlite search","sqlite query","doctor","auth status","auth set","skills list","skills show","skills install","schema"],"sources":["reminders","notes","safari","files","calendar"],"rank_input":{"formats":["JSON array","JSONL","results envelope","single object"],"mapping":"--id/--title/--text/--ref accept field names or JSON Pointer paths; --profile applies saved mappings","execution":"explicit argv after -- or --run-profile; otherwise stdin/file","max_bytes":4194304,"type":"array","min_items":1,"max_items":50,"example":[{"id":"doc-1","title":"Notebook sharing","text":"Optional relevant excerpt","source":"alchemy","location":"optional local reference"}]},"result_fields":["id","title","text","source","location","modified","event","lexical_score","relevance","record"],"relevance":{"score":"0–3 relevance; higher is more relevant","confidence":"0–1 concentration, not correctness","probabilities":"distribution across 0,1,2,3"},"output":{"ok":"false and exit 1 on command failure; partial source failures retain successful results","partial":"inspect individual sources and ai for incomplete reads or ranking failure","schema_version":1},"sqlite":{"commands":["schema","search","query"],"search":"explicit table/columns; bounded ID-ordered scan","query":"single read-only SELECT/CTE; --candidates requires id/title aliases","max_scan_rows":5000,"max_candidates":50,"max_raw_rows":5000,"max_row_json_bytes":4194304,"blob_contents":"omitted with size marker","ai":"optional reranking with --ai --share-content or query --candidates piped to rank"},"calendar":{"source":"opt-in","default_days_back":7,"default_days_ahead":30,"filter":"occurrence start; rolling window","timestamps":"preserved from Cider without inferred timezone"},"context_budget":"UTF-8 bytes of serialized results array","privacy":{"default":"local only","remote_opt_in":"--ai --share-content for search/context; --share-content for rank","sent_fields":["query","title (300 chars)","text (1600 chars)"],"not_sent":["id","location","modified","event","record"]}}),
         ),
     }
 }

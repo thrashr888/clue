@@ -2,21 +2,18 @@ use anyhow::{Result, ensure};
 use std::{fs, path::Path};
 pub const SKILLS: &[(&str, &str)] = &[
     (
-        "cider-ai-sqlite",
-        include_str!("../skills/cider-ai-sqlite/SKILL.md"),
+        "clue-sqlite",
+        include_str!("../skills/clue-sqlite/SKILL.md"),
     ),
     (
-        "cider-ai-search",
-        include_str!("../skills/cider-ai-search/SKILL.md"),
+        "clue-search",
+        include_str!("../skills/clue-search/SKILL.md"),
     ),
     (
-        "cider-ai-context",
-        include_str!("../skills/cider-ai-context/SKILL.md"),
+        "clue-context",
+        include_str!("../skills/clue-context/SKILL.md"),
     ),
-    (
-        "cider-ai-rank",
-        include_str!("../skills/cider-ai-rank/SKILL.md"),
-    ),
+    ("clue-rank", include_str!("../skills/clue-rank/SKILL.md")),
 ];
 
 pub fn install(dir: &Path, force: bool) -> Result<Vec<String>> {
@@ -47,7 +44,7 @@ mod tests {
     fn installation_preserves_edited_skills_unless_requested() {
         let temp = tempfile::tempdir().unwrap();
         assert_eq!(install(temp.path(), false).unwrap().len(), 4);
-        let path = temp.path().join("cider-ai-search/SKILL.md");
+        let path = temp.path().join("clue-search/SKILL.md");
         fs::write(&path, "custom").unwrap();
         assert!(install(temp.path(), false).is_err());
         assert_eq!(fs::read_to_string(&path).unwrap(), "custom");

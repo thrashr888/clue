@@ -1,5 +1,6 @@
 pub mod api;
 pub mod credentials;
+pub mod input;
 pub mod search;
 pub mod skills;
 pub mod sqlite;
@@ -25,6 +26,9 @@ pub struct Candidate {
     pub lexical_score: f64,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub relevance: Option<Judgment>,
+    /// Original mapped input. Retained locally; never sent as an API field.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub record: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

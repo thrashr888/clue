@@ -1,4 +1,4 @@
-use cider_ai::sqlite::{Database, SearchOptions};
+use clue::sqlite::{Database, SearchOptions};
 use rusqlite::Connection;
 use std::time::Duration;
 

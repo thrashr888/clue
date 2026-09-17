@@ -1,5 +1,5 @@
 -- Synthetic project data only. Create a disposable DB with:
--- sqlite3 /tmp/cider-ai-demo.db < examples/projects.sql
+-- sqlite3 /tmp/clue-demo.db < examples/projects.sql
 CREATE TABLE projects (name TEXT PRIMARY KEY, language TEXT NOT NULL);
 CREATE TABLE issues (id INTEGER PRIMARY KEY, project TEXT NOT NULL REFERENCES projects(name), title TEXT NOT NULL, description TEXT NOT NULL, status TEXT NOT NULL);
 INSERT INTO projects VALUES ('Alchemy','Rust + TypeScript'),('Cider','Rust'),('Cortex','Rust'),('AgentKernel','Rust');

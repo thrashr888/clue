@@ -58,7 +58,7 @@ pub fn load() -> Result<Credential> {
         .unwrap_or_else(shared_path)?;
     if !path.exists() {
         bail!(
-            "no TypeSafe credential; set TYPESAFE_API_KEY, TYPESAFE_API_KEY_FILE, or run cider-ai auth set"
+            "no TypeSafe credential; set TYPESAFE_API_KEY, TYPESAFE_API_KEY_FILE, or run clue auth set"
         );
     }
     Ok(Credential {

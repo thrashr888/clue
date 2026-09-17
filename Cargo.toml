@@ -1,9 +1,17 @@
 [package]
-name = "cider-ai"
-version = "0.2.0"
+name = "clue"
+version = "0.3.0"
 edition = "2024"
-description = "Local Mac search and bounded agent context with optional TypeSafe ranking"
+description = "Semantic ranking for CLI output, local search, and bounded agent context"
 license = "MIT"
+
+[[bin]]
+name = "clue"
+path = "src/main.rs"
+
+[[bin]]
+name = "cider-ai"
+path = "src/compat.rs"
 
 [dependencies]
 anyhow = "1"

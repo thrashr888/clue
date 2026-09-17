@@ -1,0 +1,6 @@
+{
+  "name": "github-issues",
+  "description": "Open GitHub issues in the current repository. gh handles authentication and retrieval.",
+  "argv": ["gh", "issue", "list", "--state", "open", "--limit", "50", "--json", "number,title,body,url"],
+  "mapping": {"id":"url", "title":"title", "text":"body", "reference":"url", "source":"github-issues"}
+}
