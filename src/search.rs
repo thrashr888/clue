@@ -18,6 +18,7 @@ use tokio::{
 #[serde(rename_all = "lowercase")]
 pub enum Source {
     Reminders,
+    Calendar,
     Notes,
     Safari,
     Files,
@@ -26,6 +27,7 @@ impl Source {
     pub fn name(self) -> &'static str {
         match self {
             Self::Reminders => "reminders",
+            Self::Calendar => "calendar",
             Self::Notes => "notes",
             Self::Safari => "safari",
             Self::Files => "files",
@@ -46,6 +48,9 @@ pub struct SearchOptions {
     pub sources: Vec<Source>,
     pub directory: Option<PathBuf>,
     pub list: Option<String>,
+    pub calendar: Option<String>,
+    pub days_back: u32,
+    pub days_ahead: u32,
     pub status: Status,
     pub note_bodies: bool,
     pub limit: usize,
@@ -163,7 +168,7 @@ pub fn lexical(query: &str, title: &str, text: &str) -> f64 {
         }
 }
 
-fn excerpt(text: &str, query: &str) -> String {
+pub(crate) fn excerpt(text: &str, query: &str) -> String {
     let lower = text.to_lowercase();
     let position = terms(query)
         .iter()
@@ -219,6 +224,20 @@ fn file_text(path: &Path, root: &Path) -> String {
 
 pub fn command(source: Source, options: &SearchOptions) -> Result<Vec<String>> {
     let mut args: Vec<String> = match source {
+        Source::Calendar => {
+            let mut args = vec![
+                "calendar".into(),
+                "list".into(),
+                "--days-back".into(),
+                options.days_back.to_string(),
+                "--days-ahead".into(),
+                options.days_ahead.to_string(),
+            ];
+            if let Some(calendar) = &options.calendar {
+                args.extend(["--calendar".into(), calendar.clone()]);
+            }
+            args
+        }
         Source::Reminders => ["reminders", "list", "--limit", "500"]
             .map(String::from)
             .to_vec(),
@@ -296,7 +315,43 @@ pub fn normalize(source: Source, value: &Value, options: &SearchOptions) -> Resu
                 continue;
             }
         }
+        if source == Source::Calendar
+            && options
+                .calendar
+                .as_ref()
+                .is_some_and(|name| !string(row, "calendar").eq_ignore_ascii_case(name))
+        {
+            continue;
+        }
+        let event = (source == Source::Calendar).then(|| crate::Event {
+            calendar: string(row, "calendar"),
+            start_date: row["start_date"].as_str().map(String::from),
+            end_date: row["end_date"].as_str().map(String::from),
+            is_all_day: row["is_all_day"].as_bool(),
+            location: row["location"].as_str().map(String::from),
+        });
         let (title, content, location, id) = match source {
+            Source::Calendar => (
+                string(row, "title"),
+                format!(
+                    "Calendar: {}\nStart: {}\nEnd: {}\nLocation: {}\n{}",
+                    string(row, "calendar"),
+                    string(row, "start_date"),
+                    string(row, "end_date"),
+                    string(row, "location"),
+                    string(row, "notes")
+                ),
+                row["url"].as_str().map(String::from),
+                // One recurring event may have multiple occurrences with the same UID.
+                format!(
+                    "{}:{}",
+                    row["id"]
+                        .as_str()
+                        .filter(|id| !id.is_empty())
+                        .context("calendar record has no stable identity")?,
+                    string(row, "start_date")
+                ),
+            ),
             Source::Reminders => (
                 string(row, "title"),
                 format!("{}\n{}", string(row, "list"), string(row, "notes")),
@@ -350,6 +405,7 @@ pub fn normalize(source: Source, value: &Value, options: &SearchOptions) -> Resu
             text: excerpt(&content, &options.query),
             location,
             modified,
+            event,
             lexical_score: score,
             relevance: None,
         });
@@ -366,7 +422,7 @@ async fn fetch(source: Source, options: SearchOptions) -> (SourceReport, Vec<Can
         Ok::<_, anyhow::Error>((count, normalize(source, &value, &options)?))
     }
     .await;
-    let coverage=match source {Source::Reminders=>"Bounded read; Cider may cap at 500/store before list filtering. Order is not verified manual priority.",Source::Notes=>if options.note_bodies{"First 30 notes with bodies; not an exhaustive note search."}else{"Up to 200 note titles/folders; bodies were not read."},Source::Safari=>"Up to 300 recent Safari history entries; other browsers and bookmarks are not included.",Source::Files=>"Up to 200 Spotlight hits in the selected directory; text previews read at most 64 KiB/file."}.into();
+    let coverage=match source {Source::Calendar=>"Up to 500 occurrences whose start is in the requested rolling date window; timestamps and all-day flags are preserved from Cider. Not an availability or overlap query.",Source::Reminders=>"Bounded read; Cider may cap at 500/store before list filtering. Order is not verified manual priority.",Source::Notes=>if options.note_bodies{"First 30 notes with bodies; not an exhaustive note search."}else{"Up to 200 note titles/folders; bodies were not read."},Source::Safari=>"Up to 300 recent Safari history entries; other browsers and bookmarks are not included.",Source::Files=>"Up to 200 Spotlight hits in the selected directory; text previews read at most 64 KiB/file."}.into();
     match result {
         Ok((fetched, items)) => (
             SourceReport {
@@ -402,6 +458,10 @@ pub async fn search(options: SearchOptions) -> Result<SearchResult> {
         "query contains no searchable terms"
     );
     ensure!((1..=50).contains(&options.limit), "limit must be 1–50");
+    ensure!(
+        options.days_back <= 366 && options.days_ahead <= 366,
+        "calendar day bounds must be 0–366"
+    );
     ensure!(!options.sources.is_empty(), "select at least one source");
     if options.sources.contains(&Source::Files) {
         command(Source::Files, &options)?;
@@ -466,6 +526,9 @@ mod tests {
             sources: vec![Source::Reminders],
             directory: None,
             list: Some("Project".into()),
+            calendar: None,
+            days_back: 7,
+            days_ahead: 30,
             status: Status::Completed,
             note_bodies: false,
             limit: 5,
@@ -500,6 +563,41 @@ mod tests {
         o.list = Some("$(touch /tmp/never)".into());
         let args = command(Source::Reminders, &o).unwrap();
         assert!(args.contains(&"$(touch /tmp/never)".into()));
+    }
+    #[test]
+    fn calendar_keeps_occurrences_and_structured_time_fields() {
+        let mut o = options();
+        o.calendar = Some("Work".into());
+        o.days_back = 1;
+        o.days_ahead = 14;
+        let args = command(Source::Calendar, &o).unwrap();
+        assert_eq!(
+            args,
+            [
+                "calendar",
+                "list",
+                "--days-back",
+                "1",
+                "--days-ahead",
+                "14",
+                "--calendar",
+                "Work"
+            ]
+        );
+        let rows = json!([
+            {"id":"series","title":"Sync planning","calendar":"Work","start_date":"2026-09-17T10:00:00","end_date":"2026-09-17T11:00:00","is_all_day":false},
+            {"id":"series","title":"Sync planning","calendar":"Work","start_date":"2026-09-18T10:00:00","is_all_day":true},
+            {"id":"other","title":"Sync planning","calendar":"Personal","start_date":"2026-09-18T10:00:00"}
+        ]);
+        let items = normalize(Source::Calendar, &rows, &o).unwrap();
+        assert_eq!(items.len(), 2);
+        assert_ne!(items[0].id, items[1].id);
+        assert_eq!(
+            items[0].event.as_ref().unwrap().start_date.as_deref(),
+            Some("2026-09-17T10:00:00")
+        );
+        assert_eq!(items[1].event.as_ref().unwrap().is_all_day, Some(true));
+        assert!(items[0].modified.is_none());
     }
     #[test]
     fn byte_budget_and_unicode_are_honest() {

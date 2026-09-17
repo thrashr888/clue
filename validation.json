@@ -1,7 +1,7 @@
 {
-  "validated_on_local_date": "2026-09-16",
-  "tests_passed": 13,
-  "skills_validated": 3,
+  "validated_on_local_date": "2026-09-17",
+  "tests_passed": 22,
+  "skills_validated": 4,
   "local_reads": [
     {
       "source": "reminders",
@@ -41,5 +41,94 @@
     "input_tokens": 899,
     "output_tokens": 60
   },
-  "limitations": "Small smoke checks, not a benchmark; source reads are bounded. No personal candidate contents were sent to TypeSafe."
+  "limitations": "Small smoke checks, not a benchmark; source reads are bounded. No personal candidate contents were sent to TypeSafe.",
+  "prior_validation_date": "2026-09-16",
+  "version": "0.2.0",
+  "calendar_smoke": {
+    "exit": 0,
+    "ok": true,
+    "sources": [
+      {
+        "coverage": "Up to 500 occurrences whose start is in the requested rolling date window; timestamps and all-day flags are preserved from Cider. Not an availability or overlap query.",
+        "elapsed_ms": 694,
+        "fetched": 40,
+        "matched": 2,
+        "ok": true,
+        "source": "calendar"
+      }
+    ],
+    "results": 2,
+    "structured_event": true
+  },
+  "sqlite_smoke": {
+    "schema": {
+      "exit": 0,
+      "ok": true,
+      "rows": 2
+    },
+    "search": {
+      "exit": 0,
+      "ok": true,
+      "rows": 2
+    },
+    "aggregate": {
+      "exit": 0,
+      "ok": true,
+      "rows": 4
+    },
+    "candidates": {
+      "exit": 0,
+      "ok": true,
+      "rows": 4
+    },
+    "sqlite_unchanged": true
+  },
+  "sqlite_synthetic_rank": {
+    "query": "Which component helps an agent recall earlier engineering decisions before continuing work?",
+    "api": {
+      "elapsed_ms": 290,
+      "model": "jev-1.13.0",
+      "sent_candidates": 4,
+      "usage": {
+        "input_tokens": 995,
+        "output_tokens": 60
+      }
+    },
+    "ranking": [
+      {
+        "title": "Retrieve decisions from memory",
+        "score": 2.99
+      },
+      {
+        "title": "Share notebooks across devices",
+        "score": 0.14
+      },
+      {
+        "title": "Calendar search window",
+        "score": 0.1
+      },
+      {
+        "title": "Isolated build environment",
+        "score": 0.09
+      }
+    ]
+  },
+  "sqlite_synthetic_search_rank": {
+    "query": "offline notebook sharing",
+    "ai": {
+      "applied": true,
+      "metadata": {
+        "elapsed_ms": 229,
+        "model": "jev-1.13.0",
+        "sent_candidates": 2,
+        "usage": {
+          "input_tokens": 625,
+          "output_tokens": 32
+        }
+      },
+      "requested": true
+    },
+    "returned": 2,
+    "top_title": "Share notebooks across devices"
+  }
 }

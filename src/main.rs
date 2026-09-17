@@ -2,7 +2,7 @@ use anyhow::{Context, Result, ensure};
 use cider_ai::{
     Candidate, api, credentials,
     search::{self, Source, Status},
-    skills,
+    skills, sqlite,
 };
 use clap::{Args, Parser, Subcommand};
 use serde_json::{Value, json};
@@ -50,6 +50,11 @@ enum Cmd {
         #[arg(long)]
         share_content: bool,
     },
+    /// Inspect or search a SQLite database using a read-only connection.
+    Sqlite {
+        #[command(subcommand)]
+        command: SqliteCmd,
+    },
     /// Inspect Cider and credential availability without reading personal sources.
     Doctor,
     /// Configure a credential shared by tools and agents.
@@ -81,6 +86,13 @@ struct SearchArgs {
     directory: Option<PathBuf>,
     #[arg(long)]
     list: Option<String>,
+    /// Filter Calendar events by calendar name (requires calendar source).
+    #[arg(long)]
+    calendar: Option<String>,
+    #[arg(long, default_value_t = 7, value_parser = clap::value_parser!(u32).range(0..=366))]
+    days_back: u32,
+    #[arg(long, default_value_t = 30, value_parser = clap::value_parser!(u32).range(0..=366))]
+    days_ahead: u32,
     #[arg(long, value_enum, default_value = "open")]
     status: Status,
     /// Read up to 30 note bodies instead of title/folder metadata.
@@ -94,6 +106,42 @@ struct SearchArgs {
     /// Allow query, candidate titles and snippets to be sent to TypeSafe.
     #[arg(long, requires = "ai")]
     share_content: bool,
+}
+
+#[derive(Subcommand)]
+enum SqliteCmd {
+    /// List tables and columns without reading row contents.
+    Schema { database: PathBuf },
+    /// Search selected fields in a bounded table scan; optionally rerank with TypeSafe.
+    Search {
+        database: PathBuf,
+        query: String,
+        #[arg(long)]
+        table: String,
+        #[arg(long, default_value = "id")]
+        id_column: String,
+        #[arg(long, default_value = "title")]
+        title_column: String,
+        #[arg(long, value_delimiter = ',', required = true)]
+        columns: Vec<String>,
+        #[arg(long, default_value_t = 1000)]
+        scan_limit: usize,
+        #[arg(long, default_value_t = 10)]
+        limit: usize,
+        #[arg(long, requires = "share_content")]
+        ai: bool,
+        #[arg(long, requires = "ai")]
+        share_content: bool,
+    },
+    /// Run a single SELECT/CTE. Alias id/title/text and use --candidates to pipe to rank.
+    Query {
+        database: PathBuf,
+        sql: String,
+        #[arg(long, default_value_t = 50)]
+        limit: usize,
+        #[arg(long)]
+        candidates: bool,
+    },
 }
 
 #[derive(Subcommand)]
@@ -154,6 +202,10 @@ async fn do_search(cli: &Cli, args: &SearchArgs, budget: Option<usize>) -> Resul
         args.list.is_none() || sources.contains(&Source::Reminders),
         "--list requires the reminders source"
     );
+    ensure!(
+        args.calendar.is_none() || sources.contains(&Source::Calendar),
+        "--calendar requires the calendar source"
+    );
     if let Some(budget) = budget {
         ensure!(
             (256..=100_000).contains(&budget),
@@ -165,6 +217,9 @@ async fn do_search(cli: &Cli, args: &SearchArgs, budget: Option<usize>) -> Resul
         sources,
         directory: args.directory.clone(),
         list: args.list.clone(),
+        calendar: args.calendar.clone(),
+        days_back: args.days_back,
+        days_ahead: args.days_ahead,
         status: args.status,
         note_bodies: args.note_bodies,
         limit: args.limit,
@@ -243,6 +298,85 @@ async fn run(cli: &Cli) -> Result<Value> {
                 json!({"schema_version":1,"ok":true,"query":query,"mode":"typesafe_reranked","api":meta,"results":items}),
             )
         }
+        Cmd::Sqlite { command } => {
+            let path = match command {
+                SqliteCmd::Schema { database }
+                | SqliteCmd::Search { database, .. }
+                | SqliteCmd::Query { database, .. } => database,
+            };
+            let db = sqlite::Database::open(path, Duration::from_secs(cli.timeout))?;
+            match command {
+                SqliteCmd::Schema { .. } => db.schema(),
+                SqliteCmd::Query {
+                    sql,
+                    limit,
+                    candidates,
+                    ..
+                } => {
+                    ensure!(!candidates || *limit <= 50, "candidate limit must be 1–50");
+                    let rows = db.query(sql, *limit)?;
+                    let mut output = json!({"schema_version":1,"ok":true,"database":db.path(),"read_only":true,"truncated":rows.truncated});
+                    if *candidates {
+                        let mut items = db.candidates(&rows.values, "id", "title", "query")?;
+                        for item in &mut items {
+                            item.text = cider_ai::clip(&item.text, 1600);
+                        }
+                        output["results"] = serde_json::to_value(items)?;
+                    } else {
+                        output["rows"] = json!(rows.values);
+                    }
+                    Ok(output)
+                }
+                SqliteCmd::Search {
+                    query,
+                    table,
+                    id_column,
+                    title_column,
+                    columns,
+                    scan_limit,
+                    limit,
+                    ai,
+                    ..
+                } => {
+                    let mut output = db.search(
+                        query,
+                        &sqlite::SearchOptions {
+                            table: table.clone(),
+                            id_column: id_column.clone(),
+                            title_column: title_column.clone(),
+                            columns: columns.clone(),
+                            scan_limit: *scan_limit,
+                            limit: *limit,
+                        },
+                    )?;
+                    output["ai"] = json!({"requested":ai,"applied":false});
+                    if *ai && !output["results"].as_array().unwrap().is_empty() {
+                        let mut items: Vec<Candidate> =
+                            serde_json::from_value(output["results"].take())?;
+                        match api::rank(
+                            query,
+                            &mut items,
+                            &cli.model,
+                            Duration::from_secs(cli.timeout),
+                        )
+                        .await
+                        {
+                            Ok(meta) => {
+                                output["mode"] = json!("typesafe_reranked");
+                                output["ai"] =
+                                    json!({"requested":true,"applied":true,"metadata":meta});
+                            }
+                            Err(error) => {
+                                output["partial"] = json!(true);
+                                output["ai"] = json!({"requested":true,"applied":false,"error":error.to_string(),"fallback":"local lexical order retained"});
+                            }
+                        }
+                        output["results"] = serde_json::to_value(items)?;
+                    }
+                    Ok(output)
+                }
+            }
+        }
         Cmd::Doctor => {
             let cider = search::run_cider(
                 &cli.cider,
@@ -301,7 +435,7 @@ async fn run(cli: &Cli) -> Result<Value> {
             command: SkillsCmd::Install { dir, force },
         } => Ok(json!({"schema_version":1,"ok":true,"installed":skills::install(dir,*force)?})),
         Cmd::Schema => Ok(
-            json!({"schema_version":1,"ok":true,"commands":["search","context","rank","doctor","auth status","auth set","skills list","skills show","skills install","schema"],"sources":["reminders","notes","safari","files"],"rank_input":{"type":"array","min_items":1,"max_items":50,"example":[{"id":"doc-1","title":"Notebook sharing","text":"Optional relevant excerpt","source":"alchemy","location":"optional local reference"}]},"result_fields":["id","title","text","source","location","modified","lexical_score","relevance"],"relevance":{"score":"0–3 relevance; higher is more relevant","confidence":"0–1 concentration, not correctness","probabilities":"distribution across 0,1,2,3"},"output":{"ok":"false and exit 1 on command failure; partial source failures retain successful results","partial":"inspect individual sources and ai for incomplete reads or ranking failure","schema_version":1},"context_budget":"UTF-8 bytes of serialized results array","privacy":{"default":"local only","remote_opt_in":"--ai --share-content for search/context; --share-content for rank","sent_fields":["query","title (300 chars)","text (1600 chars)"],"not_sent":["id","location","modified"]}}),
+            json!({"schema_version":1,"ok":true,"commands":["search","context","rank","sqlite schema","sqlite search","sqlite query","doctor","auth status","auth set","skills list","skills show","skills install","schema"],"sources":["reminders","notes","safari","files","calendar"],"rank_input":{"type":"array","min_items":1,"max_items":50,"example":[{"id":"doc-1","title":"Notebook sharing","text":"Optional relevant excerpt","source":"alchemy","location":"optional local reference"}]},"result_fields":["id","title","text","source","location","modified","event","lexical_score","relevance"],"relevance":{"score":"0–3 relevance; higher is more relevant","confidence":"0–1 concentration, not correctness","probabilities":"distribution across 0,1,2,3"},"output":{"ok":"false and exit 1 on command failure; partial source failures retain successful results","partial":"inspect individual sources and ai for incomplete reads or ranking failure","schema_version":1},"sqlite":{"commands":["schema","search","query"],"search":"explicit table/columns; bounded ID-ordered scan","query":"single read-only SELECT/CTE; --candidates requires id/title aliases","max_scan_rows":5000,"max_candidates":50,"max_raw_rows":5000,"max_row_json_bytes":4194304,"blob_contents":"omitted with size marker","ai":"optional reranking with --ai --share-content or query --candidates piped to rank"},"calendar":{"source":"opt-in","default_days_back":7,"default_days_ahead":30,"filter":"occurrence start; rolling window","timestamps":"preserved from Cider without inferred timezone"},"context_budget":"UTF-8 bytes of serialized results array","privacy":{"default":"local only","remote_opt_in":"--ai --share-content for search/context; --share-content for rank","sent_fields":["query","title (300 chars)","text (1600 chars)"],"not_sent":["id","location","modified","event"]}}),
         ),
     }
 }

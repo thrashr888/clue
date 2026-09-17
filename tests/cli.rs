@@ -10,6 +10,7 @@ if [ -n "$TYPESAFE_API_KEY" ]; then exit 9; fi
 case "$1" in
 reminders) printf '%s\n' '[{"id":"a","title":"Build notebook sharing","list":"Atlas","notes":"iCloud sync decisions","completed":false},{"id":"b","title":"Finished sync work","list":"Atlas","notes":"done","completed":true}]' ;;
 notes) printf '%s\n' '[{"id":"n","title":"Notebook sync RFC","folder":"Research"}]' ;;
+calendar) printf '%s\n' '[{"id":"event-1","title":"Notebook sync planning","calendar":"Work","start_date":"2026-09-18T10:00:00","end_date":"2026-09-18T11:00:00","is_all_day":false}]' ;;
 safari) exit 2 ;;
 *) printf '%s\n' '{}' ;;
 esac
@@ -118,4 +119,71 @@ fn credential_environment_precedes_file_without_leaking_key() {
     let data: Value = serde_json::from_slice(&output.stdout).unwrap();
     assert_eq!(data["credential"]["source"], "environment:TYPESAFE_API_KEY");
     assert!(!String::from_utf8_lossy(&output.stdout).contains("environment-placeholder"));
+}
+
+#[test]
+fn calendar_search_exposes_event_metadata() {
+    let (_temp, path) = fixture();
+    let out = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+        .args([
+            "--cider",
+            &path,
+            "search",
+            "sync",
+            "--sources",
+            "calendar",
+            "--calendar",
+            "Work",
+            "--days-ahead",
+            "14",
+        ])
+        .output()
+        .unwrap();
+    assert!(out.status.success());
+    let data: Value = serde_json::from_slice(&out.stdout).unwrap();
+    assert_eq!(data["results"][0]["event"]["calendar"], "Work");
+    assert_eq!(data["results"][0]["event"]["is_all_day"], false);
+}
+
+#[test]
+fn sqlite_cli_queries_are_rank_compatible_and_sharing_is_explicit() {
+    let temp = tempfile::tempdir().unwrap();
+    let path = temp.path().join("data.db");
+    rusqlite::Connection::open(&path)
+        .unwrap()
+        .execute_batch(include_str!("../examples/projects.sql"))
+        .unwrap();
+    let out = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+        .args([
+            "sqlite",
+            "query",
+            path.to_str().unwrap(),
+            "SELECT id,title,description AS text FROM issues ORDER BY id",
+            "--candidates",
+        ])
+        .output()
+        .unwrap();
+    assert!(
+        out.status.success(),
+        "{}",
+        String::from_utf8_lossy(&out.stdout)
+    );
+    let data: Value = serde_json::from_slice(&out.stdout).unwrap();
+    let items: Vec<cider_ai::Candidate> = serde_json::from_value(data["results"].clone()).unwrap();
+    cider_ai::api::validate_candidates(&items).unwrap();
+    let out = Command::new(env!("CARGO_BIN_EXE_cider-ai"))
+        .args([
+            "sqlite",
+            "search",
+            path.to_str().unwrap(),
+            "sync",
+            "--table",
+            "issues",
+            "--columns",
+            "description",
+            "--ai",
+        ])
+        .output()
+        .unwrap();
+    assert_eq!(out.status.code(), Some(2));
 }

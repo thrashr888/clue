@@ -2,6 +2,10 @@ use anyhow::{Result, ensure};
 use std::{fs, path::Path};
 pub const SKILLS: &[(&str, &str)] = &[
     (
+        "cider-ai-sqlite",
+        include_str!("../skills/cider-ai-sqlite/SKILL.md"),
+    ),
+    (
         "cider-ai-search",
         include_str!("../skills/cider-ai-search/SKILL.md"),
     ),
@@ -42,7 +46,7 @@ mod tests {
     #[test]
     fn installation_preserves_edited_skills_unless_requested() {
         let temp = tempfile::tempdir().unwrap();
-        assert_eq!(install(temp.path(), false).unwrap().len(), 3);
+        assert_eq!(install(temp.path(), false).unwrap().len(), 4);
         let path = temp.path().join("cider-ai-search/SKILL.md");
         fs::write(&path, "custom").unwrap();
         assert!(install(temp.path(), false).is_err());

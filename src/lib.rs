@@ -2,6 +2,7 @@ pub mod api;
 pub mod credentials;
 pub mod search;
 pub mod skills;
+pub mod sqlite;
 
 use serde::{Deserialize, Serialize};
 
@@ -18,10 +19,22 @@ pub struct Candidate {
     pub location: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub modified: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub event: Option<Event>,
     #[serde(default)]
     pub lexical_score: f64,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub relevance: Option<Judgment>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Event {
+    pub calendar: String,
+    pub start_date: Option<String>,
+    pub end_date: Option<String>,
+    pub is_all_day: Option<bool>,
+    pub location: Option<String>,
 }
 
 fn default_source() -> String {

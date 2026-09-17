@@ -11,7 +11,7 @@ cargo install --path . --locked
 cider-ai doctor
 ```
 
-Requires Rust and an installed `cider` command. Tested on macOS with Cider 0.6.2, Rust 1.98.1, and Jev 1.13.0. `CIDER_BIN` or `--cider` selects a particular Cider executable. JSON candidate ranking can run without Cider; Mac source reads need macOS and its normal data permissions.
+Requires Rust; Mac sources also require an installed `cider` command. Tested on macOS with Cider 0.6.2, Rust 1.98.1, and Jev 1.13.0. `CIDER_BIN` or `--cider` selects a particular Cider executable. SQLite and JSON candidate ranking can run without Cider; Mac source reads need macOS and its normal data permissions.
 
 ## Practical commands
 
@@ -64,13 +64,55 @@ cider-ai auth set --force  # Replace a stored key after rotation
 
 Local search and context do not require credentials. Cider subprocesses do not inherit `TYPESAFE_API_KEY` or `TYPESAFE_API_KEY_FILE`. `TYPESAFE_MODEL` or `--model` can override the default `jev-latest` model.
 
+## Calendar
+
+```sh
+cider-ai search "planning" --sources calendar --days-back 0 --days-ahead 14
+cider-ai search "review" --sources calendar --calendar Work --days-back 7 --days-ahead 30
+cider-ai context "project launch" --sources calendar,reminders,notes --days-ahead 14 --budget-bytes 6000
+```
+
+Calendar is opt-in with `--sources calendar`; existing default sources are unchanged. Each date bound accepts 0–366 days relative to the current time. Cider filters by occurrence start, so this is not an overlap/free-busy query or a natural-language date parser. `event` preserves calendar name, start/end, all-day state, and physical location. Source timestamps are preserved without guessing timezones. Recurring instances retain separate IDs. Reading Calendar requires the same macOS permissions as Cider.
+
+## SQLite: project data as searchable evidence
+
+SQLite works independently of Cider and macOS. Start with the schema, select a table and fields, then search locally:
+
+```sh
+sqlite3 /tmp/cider-ai-demo.db < examples/projects.sql
+cider-ai sqlite schema /tmp/cider-ai-demo.db --pretty
+cider-ai sqlite search /tmp/cider-ai-demo.db "offline notebook sharing" --table issues --columns description,project --pretty
+cider-ai sqlite query /tmp/cider-ai-demo.db "SELECT project, count(*) AS open_count FROM issues WHERE status='open' GROUP BY project"
+```
+
+The fixture contains **synthetic** Alchemy, Cider, Cortex, and AgentKernel issues. Useful real applications include finding related Alchemy sources, recalling Cortex decisions, searching exported issue databases, or analyzing test/run records. Point the CLI at a selected database and inspect its schema first; these examples do not establish integrations with those apps.
+
+Search defaults to `id` and `title`; override with `--id-column` and `--title-column`. IDs must be unique, non-null text/integers and titles must be text. `--columns` chooses additional searchable fields. A Unicode-aware lexical scan reads at most 1,000 rows ordered by ID (`--scan-limit` 1–5,000). `coverage.truncated` and `partial` identify incomplete scans. This is designed for bounded evidence retrieval; use SQL filters/indexes for large databases.
+
+TypeSafe can rank the shortlist when sharing is authorized:
+
+```sh
+# Synthetic data: safe to use for an API smoke test.
+cider-ai sqlite search /tmp/cider-ai-demo.db "offline notebook sharing" --table issues --columns description,project --ai --share-content
+
+# SQL chooses candidates; TypeSafe judges their relevance.
+cider-ai sqlite query /tmp/cider-ai-demo.db "SELECT i.id, i.title, i.description AS text, p.language FROM issues i JOIN projects p ON p.name=i.project WHERE i.status='open' ORDER BY i.id" --candidates | cider-ai rank "keep offline notebook edits consistent across my devices" --share-content
+```
+
+TypeSafe reranks rows rather than generating SQL. `query --candidates` requires `id` and `title` aliases, includes selected fields in the snippet, and produces the same envelope accepted by `rank`. For a composite key, construct a unique text ID in SQL. Query candidate IDs include the database path and a `query` scope; namespace IDs yourself when merging queries from unrelated tables.
+
+Queries use one SELECT/CTE, a read-only connection, `query_only`, an authorizer, and a small allowlist of common read functions. Writes, attachments, extensions, and arbitrary functions are rejected. Live WAL records remain visible; no immutable shortcut is used. SQL execution has a progress-handler deadline (`--timeout`), while lock waits are capped at one second. These are operational bounds, not a sandbox for adversarial databases.
+
+Raw query results preserve text, numbers, and nulls; BLOBs become explicit size/omission markers. `--limit` defaults to 50, supports 1–5,000 raw rows or 1–50 candidates, and reports `truncated`. SQLite values/rows are capped at 1 MiB and accumulated row JSON at 4 MiB; excess produces an error rather than silently losing fields. Candidate snippets are capped at 1,600 characters. Custom extensions, app-specific collations, and encrypted databases are unsupported.
+
 ## Agent skills
 
-Three portable skills are compiled into the binary and also available in `skills/`:
+Four portable skills are compiled into the binary and also available in `skills/`:
 
 | Skill | Workflow |
 | --- | --- |
-| `cider-ai-search` | Find local tasks, notes, browsing history, and files |
+| `cider-ai-search` | Find local tasks, notes, calendar events, browsing history, and files |
+| `cider-ai-sqlite` | Inspect schemas, search selected fields, run read-only SQL, and rank rows |
 | `cider-ai-context` | Resume a project with a bounded evidence bundle |
 | `cider-ai-rank` | Rank externally supplied documents, passages, tasks, or memories |
 
@@ -96,7 +138,7 @@ All operational commands emit one JSON object on stdout. Help/version are plain 
 
 Every envelope includes `schema_version: 1` and `ok`. Failures use `ok: false` and exit status 1. Bad CLI syntax exits 2. A search with some failed sources retains successful results, sets `partial: true`, and exits 0; callers must inspect `sources` and `ai`. If every source fails, the command exits 1 with source diagnostics intact.
 
-Candidates carry stable `id`, `source`, `title`, bounded `text`, optional `location` and `modified`, `lexical_score`, and optional `relevance`. Reminder/Note IDs retain Cider's identity with a source prefix; URLs and file paths remain local source references. To fetch full records, remove the source prefix and use the corresponding Cider read command. The CLI never opens a source, executes a suggested command, or changes user data automatically.
+Candidates carry stable `id`, `source`, `title`, bounded `text`, optional `location`, `modified`, and Calendar `event` metadata, `lexical_score`, and optional `relevance`. Reminder/Note IDs retain Cider's identity with a source prefix; URLs and file paths remain local source references. To fetch full records, remove the source prefix and use the corresponding Cider read command. The CLI never opens a source, executes a suggested command, or changes user data automatically.
 
 `rank` accepts either a candidate array or a previous search/context envelope. Each candidate needs a unique `id` and `title`; see [the example](examples/candidates.json). Inputs are limited to 50 candidates and 4 MiB. API scoring preserves input IDs and validates complete probability distributions before applying any ordering.
 
@@ -110,6 +152,7 @@ Local search uses weighted substring matching over at most 12 query terms. TypeS
 
 | Source | Current coverage |
 | --- | --- |
+| Calendar | Up to 500 occurrences starting in a rolling window, default 7 days back / 30 ahead. Supports calendar name filtering. |
 | Reminders | Bounded Cider read, up to 500 rows; some stores cap before list filtering. Supports list and open/completed/all status. |
 | Notes | Up to 200 titles/folders by default; `--note-bodies` reads a sample of up to 30 bodies. |
 | Safari | Up to 300 recent history entries. Bookmarks and other browsers are not included yet. |
@@ -121,9 +164,11 @@ The default per-source and HTTP timeout is 15 seconds, configurable from 1 to 60
 
 ## Verification
 
-- 13 unit/integration tests pass, covering credentials, subprocess credential isolation, source errors, status filtering, context byte bounds, ranking validation, and skill installation.
+- 22 unit/integration tests cover credentials, source errors, recurring Calendar occurrences, date-window arguments, read-only SQL enforcement, live WAL reads, query limits, Unicode, joins, IDs, ranking validation, context bounds, and skill installation.
+- Calendar live smoke: 40 occurrences read, 2 keyword matches with structured event metadata.
+- SQLite smoke: schema discovery, joins, counts, lexical search, and unchanged database bytes. A synthetic four-row TypeSafe query ranked Cortex decision retrieval first at 2.99/3 (290 ms); no personal rows were sent.
 - `cargo fmt --check` and `cargo clippy --all-targets -- -D warnings` pass.
-- All three SKILL.md files pass the skill validator.
+- All four SKILL.md files pass the skill validator.
 - Real local reads found three Alchemy sync reminders, three Notes title matches, and five displayed AgentKernel file matches. A context bundle used 2,978 of 4,000 available bytes.
 - One synthetic four-candidate API check resolved to `jev-1.13.0`, ranked notebook sharing first at 2.98/3, and took 262 ms with 899 input and 60 output tokens. This is a smoke check, not a benchmark or latency guarantee.
 
