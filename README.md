@@ -60,6 +60,32 @@ these have `relevance.kind: "generated_rating"` and omit `confidence`/`probabili
 Do not compare confidence values between providers as if they were calibrated accuracy. Output metadata records the provider and returned model.
 Invalid or incomplete responses fail before applying any ratings. There is no cloud fallback.
 
+## Global defaults
+
+```sh
+# Start the Kev-4B server first; see docs/local-models.md.
+clue config set --provider systemone --model kev-latest --base-url http://127.0.0.1:8009
+clue config show
+# Use the saved provider/model:
+clue rank "offline sync" --input records.json --timeout 120
+# Explicitly select hosted Jev for one call:
+clue rank "offline sync" --input records.json --provider typesafe --share-content
+clue config reset
+```
+
+Kev-4B passed the small synthetic evaluation below; validate it on your own workload.
+Settings live in `~/.config/clue/config.json` (or `$XDG_CONFIG_HOME/clue/config.json`).
+`CLUE_CONFIG` can select another absolute config-file path. Flags override environment variables,
+which override saved settings, then built-in defaults apply. When overriding the provider, Clue ignores
+saved model/endpoint values belonging to the previous provider. `config set` replaces the saved selection;
+it requires a provider and model and accepts an optional `--base-url`.
+
+The config contains only `provider`, `model`, and optional `base_url`. It never saves credentials or
+`--share-content` consent. Invalid config fails explicitly; `config reset` can remove a malformed file.
+`config show` reports both the saved selection and effective defaults without contacting a model server.
+
+See the [end-to-end evaluation](evals/README.md) before choosing a model: returning valid JSON does not establish ranking quality.
+
 ## Work with any CLI
 
 Let each tool handle its own authentication, data access, filtering, and pagination. Clue works on the records it produces:

@@ -1,0 +1,1399 @@
+{
+  "incomplete": false,
+  "label_provenance": "Assistant-authored synthetic project scenarios, grades fixed before evaluation; not independent human judgments or a production benchmark.",
+  "fixture_sha256": "246f2b526c9f0d1a29739c90ad9f16932dfe995c60793110126a8fdfa17ac9f9",
+  "clue_version": "clue 0.4.0",
+  "provider": "typesafe",
+  "model": "jev-latest",
+  "checkpoint": null,
+  "acceptance": {
+    "description": "Provisional usability gates; not a claim of calibrated probabilities.",
+    "positive_top1_min": 0.9,
+    "mean_ndcg_at_3_min": 0.9,
+    "errors_max": 0,
+    "no_match_max_score": 1.0,
+    "injection_top1_required": true
+  },
+  "summary": {
+    "requests": 36,
+    "errors": 0,
+    "positive_top1": 1.0,
+    "mean_ndcg_at_3": 0.9942807426355798,
+    "no_match_passes": 3,
+    "no_match_requests": 3,
+    "injection_top1": true,
+    "median_wall_ms": 308.5,
+    "p95_wall_ms": 729,
+    "passed_gates": true
+  },
+  "records": [
+    {
+      "case": "sync",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sync-0",
+        "sync-1",
+        "sync-2",
+        "sync-3"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-3",
+        "sync-2",
+        "sync-1"
+      ],
+      "scores": {
+        "sync-0": 2.97,
+        "sync-3": 1.43,
+        "sync-2": 0.59,
+        "sync-1": 0.22
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 249,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 904,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 465
+    },
+    {
+      "case": "sync",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sync-1",
+        "sync-2",
+        "sync-3",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-3",
+        "sync-2",
+        "sync-1"
+      ],
+      "scores": {
+        "sync-0": 2.99,
+        "sync-3": 1.56,
+        "sync-2": 0.64,
+        "sync-1": 0.04
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 235,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 904,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 247
+    },
+    {
+      "case": "sync",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sync-3",
+        "sync-2",
+        "sync-1",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-3",
+        "sync-2",
+        "sync-1"
+      ],
+      "scores": {
+        "sync-0": 2.98,
+        "sync-3": 1.11,
+        "sync-2": 0.69,
+        "sync-1": 0.34
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 178,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 904,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 191
+    },
+    {
+      "case": "tauri",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "tauri-0",
+        "tauri-1",
+        "tauri-2",
+        "tauri-3"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-0",
+        "tauri-3"
+      ],
+      "scores": {
+        "tauri-1": 3.0,
+        "tauri-2": 0.58,
+        "tauri-0": 0.57,
+        "tauri-3": 0.45
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 212,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 901,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 229
+    },
+    {
+      "case": "tauri",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-0",
+        "tauri-3"
+      ],
+      "scores": {
+        "tauri-1": 3.0,
+        "tauri-2": 0.63,
+        "tauri-0": 0.22,
+        "tauri-3": 0.15
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 715,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 901,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 729
+    },
+    {
+      "case": "tauri",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "tauri-3",
+        "tauri-2",
+        "tauri-1",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "scores": {
+        "tauri-1": 3.0,
+        "tauri-2": 0.67,
+        "tauri-3": 0.6,
+        "tauri-0": 0.55
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 192,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 901,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 206
+    },
+    {
+      "case": "sql",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sql-0",
+        "sql-1",
+        "sql-2",
+        "sql-3"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-0",
+        "sql-2",
+        "sql-3"
+      ],
+      "scores": {
+        "sql-1": 2.98,
+        "sql-0": 1.31,
+        "sql-2": 0.78,
+        "sql-3": 0.11
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 201,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 911,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 229
+    },
+    {
+      "case": "sql",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sql-1",
+        "sql-2",
+        "sql-3",
+        "sql-0"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-0",
+        "sql-2",
+        "sql-3"
+      ],
+      "scores": {
+        "sql-1": 2.99,
+        "sql-0": 1.49,
+        "sql-2": 0.61,
+        "sql-3": 0.23
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 252,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 911,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 295
+    },
+    {
+      "case": "sql",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sql-3",
+        "sql-2",
+        "sql-1",
+        "sql-0"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-0",
+        "sql-2",
+        "sql-3"
+      ],
+      "scores": {
+        "sql-1": 2.98,
+        "sql-0": 1.69,
+        "sql-2": 0.47,
+        "sql-3": 0.2
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 367,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 911,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 382
+    },
+    {
+      "case": "calendar",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "calendar-0",
+        "calendar-1",
+        "calendar-2",
+        "calendar-3"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-3",
+        "calendar-2",
+        "calendar-1"
+      ],
+      "scores": {
+        "calendar-0": 2.8,
+        "calendar-3": 1.03,
+        "calendar-2": 0.58,
+        "calendar-1": 0.45
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 288,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 906,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 321
+    },
+    {
+      "case": "calendar",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "calendar-1",
+        "calendar-2",
+        "calendar-3",
+        "calendar-0"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-3",
+        "calendar-1",
+        "calendar-2"
+      ],
+      "scores": {
+        "calendar-0": 2.26,
+        "calendar-3": 0.94,
+        "calendar-1": 0.53,
+        "calendar-2": 0.5
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2568,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 906,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 2586
+    },
+    {
+      "case": "calendar",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "calendar-3",
+        "calendar-2",
+        "calendar-1",
+        "calendar-0"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-3",
+        "calendar-1",
+        "calendar-2"
+      ],
+      "scores": {
+        "calendar-0": 2.31,
+        "calendar-3": 0.95,
+        "calendar-1": 0.58,
+        "calendar-2": 0.41
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 243,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 906,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 259
+    },
+    {
+      "case": "privacy",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "privacy-0",
+        "privacy-1",
+        "privacy-2",
+        "privacy-3"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-3",
+        "privacy-0"
+      ],
+      "scores": {
+        "privacy-1": 2.97,
+        "privacy-2": 1.55,
+        "privacy-3": 1.44,
+        "privacy-0": 0.91
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 252,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 920,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 275
+    },
+    {
+      "case": "privacy",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-3",
+        "privacy-0"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-3",
+        "privacy-0"
+      ],
+      "scores": {
+        "privacy-1": 2.98,
+        "privacy-2": 1.59,
+        "privacy-3": 1.41,
+        "privacy-0": 1.11
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 258,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 920,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 282
+    },
+    {
+      "case": "privacy",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "privacy-3",
+        "privacy-2",
+        "privacy-1",
+        "privacy-0"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-3",
+        "privacy-2",
+        "privacy-0"
+      ],
+      "scores": {
+        "privacy-1": 2.98,
+        "privacy-3": 1.76,
+        "privacy-2": 1.71,
+        "privacy-0": 1.01
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 385,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 920,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 433
+    },
+    {
+      "case": "argv",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "argv-0",
+        "argv-1",
+        "argv-2",
+        "argv-3"
+      ],
+      "ranked_ids": [
+        "argv-1",
+        "argv-0",
+        "argv-3",
+        "argv-2"
+      ],
+      "scores": {
+        "argv-1": 2.99,
+        "argv-0": 1.24,
+        "argv-3": 1.19,
+        "argv-2": 0.87
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 337,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 901,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 398
+    },
+    {
+      "case": "argv",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "argv-1",
+        "argv-2",
+        "argv-3",
+        "argv-0"
+      ],
+      "ranked_ids": [
+        "argv-1",
+        "argv-0",
+        "argv-3",
+        "argv-2"
+      ],
+      "scores": {
+        "argv-1": 2.98,
+        "argv-0": 1.57,
+        "argv-3": 1.24,
+        "argv-2": 1.01
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 338,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 901,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 408
+    },
+    {
+      "case": "argv",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "argv-3",
+        "argv-2",
+        "argv-1",
+        "argv-0"
+      ],
+      "ranked_ids": [
+        "argv-1",
+        "argv-3",
+        "argv-0",
+        "argv-2"
+      ],
+      "scores": {
+        "argv-1": 2.99,
+        "argv-3": 1.63,
+        "argv-0": 1.54,
+        "argv-2": 1.04
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 399,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 901,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 446
+    },
+    {
+      "case": "negation",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "negation-0",
+        "negation-1",
+        "negation-2",
+        "negation-3"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-0",
+        "negation-3",
+        "negation-2"
+      ],
+      "scores": {
+        "negation-1": 3.0,
+        "negation-0": 1.28,
+        "negation-3": 0.91,
+        "negation-2": 0.26
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 269,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 908,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 358
+    },
+    {
+      "case": "negation",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "negation-1",
+        "negation-2",
+        "negation-3",
+        "negation-0"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-0",
+        "negation-3",
+        "negation-2"
+      ],
+      "scores": {
+        "negation-1": 3.0,
+        "negation-0": 1.2,
+        "negation-3": 0.98,
+        "negation-2": 0.22
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 304,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 908,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 396
+    },
+    {
+      "case": "negation",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "negation-3",
+        "negation-2",
+        "negation-1",
+        "negation-0"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-0",
+        "negation-3",
+        "negation-2"
+      ],
+      "scores": {
+        "negation-1": 3.0,
+        "negation-0": 1.24,
+        "negation-3": 1.14,
+        "negation-2": 0.14
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 285,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 908,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 351
+    },
+    {
+      "case": "exact-project",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "exact-project-0",
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-3",
+        "exact-project-2",
+        "exact-project-0"
+      ],
+      "scores": {
+        "exact-project-1": 2.99,
+        "exact-project-3": 1.05,
+        "exact-project-2": 0.41,
+        "exact-project-0": 0.29
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 296,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 906,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 374
+    },
+    {
+      "case": "exact-project",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3",
+        "exact-project-0"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-3",
+        "exact-project-2",
+        "exact-project-0"
+      ],
+      "scores": {
+        "exact-project-1": 2.98,
+        "exact-project-3": 0.88,
+        "exact-project-2": 0.28,
+        "exact-project-0": 0.27
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 379,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 906,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 447
+    },
+    {
+      "case": "exact-project",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "exact-project-3",
+        "exact-project-2",
+        "exact-project-1",
+        "exact-project-0"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-3",
+        "exact-project-2",
+        "exact-project-0"
+      ],
+      "scores": {
+        "exact-project-1": 2.98,
+        "exact-project-3": 0.59,
+        "exact-project-2": 0.27,
+        "exact-project-0": 0.26
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 284,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 906,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 335
+    },
+    {
+      "case": "multilingual",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "multilingual-0",
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-3",
+        "multilingual-2",
+        "multilingual-0"
+      ],
+      "scores": {
+        "multilingual-1": 2.95,
+        "multilingual-3": 1.63,
+        "multilingual-2": 0.05,
+        "multilingual-0": 0.03
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 264,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 919,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 312
+    },
+    {
+      "case": "multilingual",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3",
+        "multilingual-0"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-3",
+        "multilingual-0",
+        "multilingual-2"
+      ],
+      "scores": {
+        "multilingual-1": 2.93,
+        "multilingual-3": 1.48,
+        "multilingual-0": 0.03,
+        "multilingual-2": 0.01
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 261,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 919,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 305
+    },
+    {
+      "case": "multilingual",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "multilingual-3",
+        "multilingual-2",
+        "multilingual-1",
+        "multilingual-0"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-3",
+        "multilingual-0",
+        "multilingual-2"
+      ],
+      "scores": {
+        "multilingual-1": 2.95,
+        "multilingual-3": 1.0,
+        "multilingual-0": 0.17,
+        "multilingual-2": 0.01
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 263,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 919,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 312
+    },
+    {
+      "case": "injection",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "injection-0",
+        "injection-1",
+        "injection-2",
+        "injection-3"
+      ],
+      "ranked_ids": [
+        "injection-1",
+        "injection-3",
+        "injection-2",
+        "injection-0"
+      ],
+      "scores": {
+        "injection-1": 2.98,
+        "injection-3": 1.34,
+        "injection-2": 0.55,
+        "injection-0": 0.5
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 230,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 917,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 246
+    },
+    {
+      "case": "injection",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "injection-1",
+        "injection-2",
+        "injection-3",
+        "injection-0"
+      ],
+      "ranked_ids": [
+        "injection-1",
+        "injection-3",
+        "injection-0",
+        "injection-2"
+      ],
+      "scores": {
+        "injection-1": 2.97,
+        "injection-3": 1.35,
+        "injection-0": 0.61,
+        "injection-2": 0.48
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 267,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 917,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 291
+    },
+    {
+      "case": "injection",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "injection-3",
+        "injection-2",
+        "injection-1",
+        "injection-0"
+      ],
+      "ranked_ids": [
+        "injection-1",
+        "injection-3",
+        "injection-2",
+        "injection-0"
+      ],
+      "scores": {
+        "injection-1": 2.99,
+        "injection-3": 1.3,
+        "injection-2": 0.59,
+        "injection-0": 0.56
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 223,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 917,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 251
+    },
+    {
+      "case": "versions",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "versions-0",
+        "versions-1",
+        "versions-2",
+        "versions-3"
+      ],
+      "ranked_ids": [
+        "versions-1",
+        "versions-0",
+        "versions-3",
+        "versions-2"
+      ],
+      "scores": {
+        "versions-1": 3.0,
+        "versions-0": 1.4,
+        "versions-3": 0.9,
+        "versions-2": 0.49
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 212,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 943,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 238
+    },
+    {
+      "case": "versions",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "versions-1",
+        "versions-2",
+        "versions-3",
+        "versions-0"
+      ],
+      "ranked_ids": [
+        "versions-1",
+        "versions-0",
+        "versions-3",
+        "versions-2"
+      ],
+      "scores": {
+        "versions-1": 3.0,
+        "versions-0": 1.93,
+        "versions-3": 1.01,
+        "versions-2": 0.48
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 242,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 943,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 270
+    },
+    {
+      "case": "versions",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "versions-3",
+        "versions-2",
+        "versions-1",
+        "versions-0"
+      ],
+      "ranked_ids": [
+        "versions-1",
+        "versions-0",
+        "versions-3",
+        "versions-2"
+      ],
+      "scores": {
+        "versions-1": 3.0,
+        "versions-0": 2.14,
+        "versions-3": 0.94,
+        "versions-2": 0.64
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 229,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 943,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 261
+    },
+    {
+      "case": "empty",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "empty-0",
+        "empty-1",
+        "empty-2",
+        "empty-3"
+      ],
+      "ranked_ids": [
+        "empty-0",
+        "empty-1",
+        "empty-2",
+        "empty-3"
+      ],
+      "scores": {
+        "empty-0": 0.0,
+        "empty-1": 0.0,
+        "empty-2": 0.0,
+        "empty-3": 0.0
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 267,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 887,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 289
+    },
+    {
+      "case": "empty",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "empty-1",
+        "empty-2",
+        "empty-3",
+        "empty-0"
+      ],
+      "ranked_ids": [
+        "empty-1",
+        "empty-2",
+        "empty-3",
+        "empty-0"
+      ],
+      "scores": {
+        "empty-1": 0.0,
+        "empty-2": 0.0,
+        "empty-3": 0.0,
+        "empty-0": 0.0
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 279,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 887,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 317
+    },
+    {
+      "case": "empty",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "empty-3",
+        "empty-2",
+        "empty-1",
+        "empty-0"
+      ],
+      "ranked_ids": [
+        "empty-3",
+        "empty-2",
+        "empty-1",
+        "empty-0"
+      ],
+      "scores": {
+        "empty-3": 0.0,
+        "empty-2": 0.0,
+        "empty-1": 0.0,
+        "empty-0": 0.0
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 218,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 887,
+          "output_tokens": 60
+        }
+      },
+      "wall_ms": 240
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "model": "hf.co/prism-ml/Ternary-Bonsai-2-27B-gguf:PTQ1_0",
+  "scope": "runtime probe; no quality result",
+  "exit_code": 1,
+  "response": {
+    "error": {
+      "code": "command_failed",
+      "message": "provider returned HTTP 500; no ranking was applied"
+    },
+    "ok": false,
+    "schema_version": 1
+  }
+}

@@ -1,0 +1,1400 @@
+{
+  "incomplete": false,
+  "label_provenance": "Assistant-authored synthetic project scenarios, grades fixed before evaluation; not independent human judgments or a production benchmark.",
+  "fixture_sha256": "246f2b526c9f0d1a29739c90ad9f16932dfe995c60793110126a8fdfa17ac9f9",
+  "clue_version": "clue 0.4.0",
+  "provider": "systemone",
+  "model": "kev-latest",
+  "checkpoint": "jaredpalmer/kev-4b-metal-bf16",
+  "acceptance": {
+    "description": "Provisional usability gates; not a claim of calibrated probabilities.",
+    "positive_top1_min": 0.9,
+    "mean_ndcg_at_3_min": 0.9,
+    "errors_max": 0,
+    "no_match_max_score": 1.0,
+    "injection_top1_required": true
+  },
+  "summary": {
+    "planned_requests": 36,
+    "requests": 36,
+    "errors": 0,
+    "positive_top1": 0.9696969696969697,
+    "mean_ndcg_at_3": 0.961472239990518,
+    "no_match_passes": 3,
+    "no_match_requests": 3,
+    "injection_top1": true,
+    "median_wall_ms": 6425.0,
+    "p95_wall_ms": 30699,
+    "passed_gates": true
+  },
+  "records": [
+    {
+      "case": "sync",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sync-0",
+        "sync-1",
+        "sync-2",
+        "sync-3"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-3",
+        "sync-2",
+        "sync-1"
+      ],
+      "scores": {
+        "sync-0": 2.56,
+        "sync-3": 0.87,
+        "sync-2": 0.77,
+        "sync-1": 0.42
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 23918,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 491,
+          "output_tokens": 524
+        }
+      },
+      "wall_ms": 23932
+    },
+    {
+      "case": "sync",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sync-1",
+        "sync-2",
+        "sync-3",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-3",
+        "sync-2",
+        "sync-1"
+      ],
+      "scores": {
+        "sync-0": 2.49,
+        "sync-3": 1.5,
+        "sync-2": 0.98,
+        "sync-1": 0.47
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 6464,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 491,
+          "output_tokens": 523
+        }
+      },
+      "wall_ms": 6478
+    },
+    {
+      "case": "sync",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sync-3",
+        "sync-2",
+        "sync-1",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-1",
+        "sync-3",
+        "sync-2"
+      ],
+      "scores": {
+        "sync-0": 2.5,
+        "sync-1": 1.76,
+        "sync-3": 1.08,
+        "sync-2": 0.56
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 7784,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 491,
+          "output_tokens": 522
+        }
+      },
+      "wall_ms": 7797
+    },
+    {
+      "case": "tauri",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "tauri-0",
+        "tauri-1",
+        "tauri-2",
+        "tauri-3"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-0",
+        "tauri-3",
+        "tauri-2"
+      ],
+      "scores": {
+        "tauri-1": 2.91,
+        "tauri-0": 1.99,
+        "tauri-3": 1.06,
+        "tauri-2": 0.57
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 8785,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 499,
+          "output_tokens": 524
+        }
+      },
+      "wall_ms": 8801
+    },
+    {
+      "case": "tauri",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-0",
+        "tauri-2",
+        "tauri-3"
+      ],
+      "scores": {
+        "tauri-1": 2.91,
+        "tauri-0": 1.63,
+        "tauri-2": 1.1,
+        "tauri-3": 1.03
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 8378,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 499,
+          "output_tokens": 523
+        }
+      },
+      "wall_ms": 8394
+    },
+    {
+      "case": "tauri",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "tauri-3",
+        "tauri-2",
+        "tauri-1",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-0",
+        "tauri-3",
+        "tauri-2"
+      ],
+      "scores": {
+        "tauri-1": 2.86,
+        "tauri-0": 2.84,
+        "tauri-3": 0.64,
+        "tauri-2": 0.59
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 6036,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 499,
+          "output_tokens": 523
+        }
+      },
+      "wall_ms": 6052
+    },
+    {
+      "case": "sql",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sql-0",
+        "sql-1",
+        "sql-2",
+        "sql-3"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-0",
+        "sql-3",
+        "sql-2"
+      ],
+      "scores": {
+        "sql-1": 2.44,
+        "sql-0": 0.97,
+        "sql-3": 0.25,
+        "sql-2": 0.23
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2506,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 501,
+          "output_tokens": 522
+        }
+      },
+      "wall_ms": 2522
+    },
+    {
+      "case": "sql",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sql-1",
+        "sql-2",
+        "sql-3",
+        "sql-0"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-0",
+        "sql-3",
+        "sql-2"
+      ],
+      "scores": {
+        "sql-1": 2.82,
+        "sql-0": 1.0,
+        "sql-3": 0.26,
+        "sql-2": 0.18
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 7723,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 501,
+          "output_tokens": 521
+        }
+      },
+      "wall_ms": 7742
+    },
+    {
+      "case": "sql",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sql-3",
+        "sql-2",
+        "sql-1",
+        "sql-0"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-0",
+        "sql-3",
+        "sql-2"
+      ],
+      "scores": {
+        "sql-1": 2.25,
+        "sql-0": 1.56,
+        "sql-3": 0.46,
+        "sql-2": 0.26
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 8199,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 501,
+          "output_tokens": 520
+        }
+      },
+      "wall_ms": 8216
+    },
+    {
+      "case": "calendar",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "calendar-0",
+        "calendar-1",
+        "calendar-2",
+        "calendar-3"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-3",
+        "calendar-1",
+        "calendar-2"
+      ],
+      "scores": {
+        "calendar-0": 1.67,
+        "calendar-3": 0.55,
+        "calendar-1": 0.52,
+        "calendar-2": 0.33
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 7375,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 496,
+          "output_tokens": 524
+        }
+      },
+      "wall_ms": 7404
+    },
+    {
+      "case": "calendar",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "calendar-1",
+        "calendar-2",
+        "calendar-3",
+        "calendar-0"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-3",
+        "calendar-1",
+        "calendar-2"
+      ],
+      "scores": {
+        "calendar-0": 1.26,
+        "calendar-3": 1.06,
+        "calendar-1": 0.61,
+        "calendar-2": 0.48
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 4810,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 496,
+          "output_tokens": 523
+        }
+      },
+      "wall_ms": 4906
+    },
+    {
+      "case": "calendar",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "calendar-3",
+        "calendar-2",
+        "calendar-1",
+        "calendar-0"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-3",
+        "calendar-1",
+        "calendar-2"
+      ],
+      "scores": {
+        "calendar-0": 0.91,
+        "calendar-3": 0.73,
+        "calendar-1": 0.47,
+        "calendar-2": 0.39
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3244,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 496,
+          "output_tokens": 522
+        }
+      },
+      "wall_ms": 3456
+    },
+    {
+      "case": "privacy",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "privacy-0",
+        "privacy-1",
+        "privacy-2",
+        "privacy-3"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-3",
+        "privacy-0"
+      ],
+      "scores": {
+        "privacy-1": 1.52,
+        "privacy-2": 0.68,
+        "privacy-3": 0.63,
+        "privacy-0": 0.36
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2707,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 510,
+          "output_tokens": 524
+        }
+      },
+      "wall_ms": 2724
+    },
+    {
+      "case": "privacy",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-3",
+        "privacy-0"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-3",
+        "privacy-0"
+      ],
+      "scores": {
+        "privacy-1": 2.4,
+        "privacy-2": 0.75,
+        "privacy-3": 0.66,
+        "privacy-0": 0.52
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2438,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 510,
+          "output_tokens": 521
+        }
+      },
+      "wall_ms": 2450
+    },
+    {
+      "case": "privacy",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "privacy-3",
+        "privacy-2",
+        "privacy-1",
+        "privacy-0"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-0",
+        "privacy-3",
+        "privacy-2"
+      ],
+      "scores": {
+        "privacy-1": 1.13,
+        "privacy-0": 0.91,
+        "privacy-3": 0.88,
+        "privacy-2": 0.71
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2562,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 510,
+          "output_tokens": 520
+        }
+      },
+      "wall_ms": 2579
+    },
+    {
+      "case": "argv",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "argv-0",
+        "argv-1",
+        "argv-2",
+        "argv-3"
+      ],
+      "ranked_ids": [
+        "argv-1",
+        "argv-0",
+        "argv-3",
+        "argv-2"
+      ],
+      "scores": {
+        "argv-1": 2.22,
+        "argv-0": 1.09,
+        "argv-3": 0.93,
+        "argv-2": 0.53
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3291,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 494,
+          "output_tokens": 522
+        }
+      },
+      "wall_ms": 3323
+    },
+    {
+      "case": "argv",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "argv-1",
+        "argv-2",
+        "argv-3",
+        "argv-0"
+      ],
+      "ranked_ids": [
+        "argv-1",
+        "argv-0",
+        "argv-3",
+        "argv-2"
+      ],
+      "scores": {
+        "argv-1": 2.22,
+        "argv-0": 0.98,
+        "argv-3": 0.73,
+        "argv-2": 0.43
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2608,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 494,
+          "output_tokens": 522
+        }
+      },
+      "wall_ms": 2638
+    },
+    {
+      "case": "argv",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "argv-3",
+        "argv-2",
+        "argv-1",
+        "argv-0"
+      ],
+      "ranked_ids": [
+        "argv-1",
+        "argv-0",
+        "argv-3",
+        "argv-2"
+      ],
+      "scores": {
+        "argv-1": 1.68,
+        "argv-0": 1.31,
+        "argv-3": 1.18,
+        "argv-2": 0.92
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2837,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 494,
+          "output_tokens": 523
+        }
+      },
+      "wall_ms": 2864
+    },
+    {
+      "case": "negation",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "negation-0",
+        "negation-1",
+        "negation-2",
+        "negation-3"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-0",
+        "negation-2",
+        "negation-3"
+      ],
+      "scores": {
+        "negation-1": 2.87,
+        "negation-0": 0.71,
+        "negation-2": 0.43,
+        "negation-3": 0.23
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2549,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 496,
+          "output_tokens": 524
+        }
+      },
+      "wall_ms": 2567
+    },
+    {
+      "case": "negation",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "negation-1",
+        "negation-2",
+        "negation-3",
+        "negation-0"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-2",
+        "negation-0",
+        "negation-3"
+      ],
+      "scores": {
+        "negation-1": 2.8,
+        "negation-2": 0.6,
+        "negation-0": 0.39,
+        "negation-3": 0.33
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 6019,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 496,
+          "output_tokens": 519
+        }
+      },
+      "wall_ms": 6034
+    },
+    {
+      "case": "negation",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "negation-3",
+        "negation-2",
+        "negation-1",
+        "negation-0"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-2",
+        "negation-3",
+        "negation-0"
+      ],
+      "scores": {
+        "negation-1": 2.87,
+        "negation-2": 1.64,
+        "negation-3": 1.03,
+        "negation-0": 0.81
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 6348,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 496,
+          "output_tokens": 523
+        }
+      },
+      "wall_ms": 6372
+    },
+    {
+      "case": "exact-project",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "exact-project-0",
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3",
+        "exact-project-0"
+      ],
+      "scores": {
+        "exact-project-1": 2.74,
+        "exact-project-2": 1.64,
+        "exact-project-3": 1.14,
+        "exact-project-0": 0.24
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 29516,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 497,
+          "output_tokens": 523
+        }
+      },
+      "wall_ms": 29538
+    },
+    {
+      "case": "exact-project",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3",
+        "exact-project-0"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3",
+        "exact-project-0"
+      ],
+      "scores": {
+        "exact-project-1": 2.81,
+        "exact-project-2": 1.0,
+        "exact-project-3": 0.36,
+        "exact-project-0": 0.3
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 30099,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 497,
+          "output_tokens": 519
+        }
+      },
+      "wall_ms": 30107
+    },
+    {
+      "case": "exact-project",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "exact-project-3",
+        "exact-project-2",
+        "exact-project-1",
+        "exact-project-0"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-0",
+        "exact-project-2",
+        "exact-project-3"
+      ],
+      "scores": {
+        "exact-project-1": 2.88,
+        "exact-project-0": 2.79,
+        "exact-project-2": 0.76,
+        "exact-project-3": 0.47
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 29304,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 497,
+          "output_tokens": 524
+        }
+      },
+      "wall_ms": 29313
+    },
+    {
+      "case": "multilingual",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "multilingual-0",
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-3",
+        "multilingual-0",
+        "multilingual-2"
+      ],
+      "scores": {
+        "multilingual-1": 2.89,
+        "multilingual-3": 2.39,
+        "multilingual-0": 2.0,
+        "multilingual-2": 1.71
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 29597,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 500,
+          "output_tokens": 522
+        }
+      },
+      "wall_ms": 29606
+    },
+    {
+      "case": "multilingual",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3",
+        "multilingual-0"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-0",
+        "multilingual-3",
+        "multilingual-2"
+      ],
+      "scores": {
+        "multilingual-1": 2.91,
+        "multilingual-0": 2.56,
+        "multilingual-3": 2.34,
+        "multilingual-2": 2.12
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 30516,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 500,
+          "output_tokens": 520
+        }
+      },
+      "wall_ms": 30526
+    },
+    {
+      "case": "multilingual",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "multilingual-3",
+        "multilingual-2",
+        "multilingual-1",
+        "multilingual-0"
+      ],
+      "ranked_ids": [
+        "multilingual-0",
+        "multilingual-1",
+        "multilingual-3",
+        "multilingual-2"
+      ],
+      "scores": {
+        "multilingual-0": 2.9,
+        "multilingual-1": 2.88,
+        "multilingual-3": 1.42,
+        "multilingual-2": 0.65
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6442869262030828,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 30007,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 500,
+          "output_tokens": 523
+        }
+      },
+      "wall_ms": 30016
+    },
+    {
+      "case": "injection",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "injection-0",
+        "injection-1",
+        "injection-2",
+        "injection-3"
+      ],
+      "ranked_ids": [
+        "injection-1",
+        "injection-0",
+        "injection-3",
+        "injection-2"
+      ],
+      "scores": {
+        "injection-1": 2.8,
+        "injection-0": 1.38,
+        "injection-3": 0.8,
+        "injection-2": 0.26
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 30688,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 509,
+          "output_tokens": 522
+        }
+      },
+      "wall_ms": 30699
+    },
+    {
+      "case": "injection",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "injection-1",
+        "injection-2",
+        "injection-3",
+        "injection-0"
+      ],
+      "ranked_ids": [
+        "injection-1",
+        "injection-0",
+        "injection-3",
+        "injection-2"
+      ],
+      "scores": {
+        "injection-1": 2.67,
+        "injection-0": 1.22,
+        "injection-3": 1.16,
+        "injection-2": 0.4
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 31806,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 509,
+          "output_tokens": 521
+        }
+      },
+      "wall_ms": 31818
+    },
+    {
+      "case": "injection",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "injection-3",
+        "injection-2",
+        "injection-1",
+        "injection-0"
+      ],
+      "ranked_ids": [
+        "injection-1",
+        "injection-0",
+        "injection-3",
+        "injection-2"
+      ],
+      "scores": {
+        "injection-1": 2.7,
+        "injection-0": 2.28,
+        "injection-3": 1.31,
+        "injection-2": 0.42
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 29015,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 509,
+          "output_tokens": 520
+        }
+      },
+      "wall_ms": 29029
+    },
+    {
+      "case": "versions",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "versions-0",
+        "versions-1",
+        "versions-2",
+        "versions-3"
+      ],
+      "ranked_ids": [
+        "versions-1",
+        "versions-0",
+        "versions-2",
+        "versions-3"
+      ],
+      "scores": {
+        "versions-1": 2.95,
+        "versions-0": 1.31,
+        "versions-2": 0.51,
+        "versions-3": 0.33
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2707,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 533,
+          "output_tokens": 521
+        }
+      },
+      "wall_ms": 2722
+    },
+    {
+      "case": "versions",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "versions-1",
+        "versions-2",
+        "versions-3",
+        "versions-0"
+      ],
+      "ranked_ids": [
+        "versions-1",
+        "versions-3",
+        "versions-2",
+        "versions-0"
+      ],
+      "scores": {
+        "versions-1": 2.95,
+        "versions-3": 1.68,
+        "versions-2": 1.13,
+        "versions-0": 0.83
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2291,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 533,
+          "output_tokens": 520
+        }
+      },
+      "wall_ms": 2321
+    },
+    {
+      "case": "versions",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "versions-3",
+        "versions-2",
+        "versions-1",
+        "versions-0"
+      ],
+      "ranked_ids": [
+        "versions-1",
+        "versions-0",
+        "versions-3",
+        "versions-2"
+      ],
+      "scores": {
+        "versions-1": 2.95,
+        "versions-0": 2.95,
+        "versions-3": 2.82,
+        "versions-2": 0.49
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2443,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 533,
+          "output_tokens": 519
+        }
+      },
+      "wall_ms": 2682
+    },
+    {
+      "case": "empty",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "empty-0",
+        "empty-1",
+        "empty-2",
+        "empty-3"
+      ],
+      "ranked_ids": [
+        "empty-3",
+        "empty-2",
+        "empty-0",
+        "empty-1"
+      ],
+      "scores": {
+        "empty-3": 0.12,
+        "empty-2": 0.1,
+        "empty-0": 0.09,
+        "empty-1": 0.09
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 7456,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 476,
+          "output_tokens": 523
+        }
+      },
+      "wall_ms": 8112
+    },
+    {
+      "case": "empty",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "empty-1",
+        "empty-2",
+        "empty-3",
+        "empty-0"
+      ],
+      "ranked_ids": [
+        "empty-1",
+        "empty-3",
+        "empty-0",
+        "empty-2"
+      ],
+      "scores": {
+        "empty-1": 0.11,
+        "empty-3": 0.11,
+        "empty-0": 0.11,
+        "empty-2": 0.09
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 2368,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 476,
+          "output_tokens": 524
+        }
+      },
+      "wall_ms": 2392
+    },
+    {
+      "case": "empty",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "empty-3",
+        "empty-2",
+        "empty-1",
+        "empty-0"
+      ],
+      "ranked_ids": [
+        "empty-0",
+        "empty-1",
+        "empty-3",
+        "empty-2"
+      ],
+      "scores": {
+        "empty-0": 0.1,
+        "empty-1": 0.09,
+        "empty-3": 0.08,
+        "empty-2": 0.08
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 1890,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 476,
+          "output_tokens": 523
+        }
+      },
+      "wall_ms": 1980
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "date": "2026-09-21",
+  "fixture_labels": "Authored before inference; see ranking-cases.json",
+  "runtime_conditions": "Quality runs overlapped with setup and other inference; wall times are not controlled comparative latency benchmarks.",
+  "source_revisions": {
+    "kev": "cd2054cb9f73c0ca76bb4daa2f18559b51deb839",
+    "jeff": "34b32f99a727c47b679adde33f4702a001e02979"
+  },
+  "model_revisions": {
+    "jaredpalmer/kev-4b": "485ace8703592fcf405488b262449990824cfed1",
+    "convaiinnovations/laya": "1c5edc17a7acd8701df6fc341c0d179f1c62c982",
+    "knowledgator/gliformer-large-v1": "d0a4e53d09cebe6bc963dd9be319d4279084bb2d"
+  },
+  "kev_server": {
+    "run": "jaredpalmer/kev-4b",
+    "device": "mps",
+    "base": "Qwen/Qwen3.5-4B-Base",
+    "lora": 16,
+    "none_option": "None of the above",
+    "distractors": {
+      "weather": "Bad weather caused it",
+      "purple": "The colour purple",
+      "pancakes": "A recipe for pancakes",
+      "taxes": "Unrelated: quarterly tax filing"
+    },
+    "has_eval": false,
+    "prefix_cache": {
+      "size": 4,
+      "min_state_tokens": 384,
+      "hits": 0,
+      "misses": 0,
+      "cached_states": 0
+    }
+  }
+}

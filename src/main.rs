@@ -1,7 +1,7 @@
 use anyhow::{Context, Result, ensure};
 use clap::{Args, Parser, Subcommand};
 use clue::{
-    Candidate, credentials, input, provider,
+    Candidate, config, credentials, input, provider,
     search::{self, Source, Status},
     skills, sqlite,
 };
@@ -19,7 +19,7 @@ struct Cli {
     #[arg(long, global = true, env = "CIDER_BIN", default_value = "cider")]
     cider: PathBuf,
     #[command(flatten)]
-    provider: provider::Options,
+    provider: provider::Selection,
     #[arg(long,global=true,default_value_t=15,value_parser=clap::value_parser!(u64).range(1..=600))]
     timeout: u64,
     #[command(subcommand)]
@@ -81,6 +81,21 @@ enum Cmd {
     },
     /// Describe the machine-readable input/output contract.
     Schema,
+    /// Manage global provider/model defaults. Never stores keys or sharing consent.
+    Config {
+        #[command(subcommand)]
+        command: ConfigCmd,
+    },
+}
+
+#[derive(Subcommand)]
+enum ConfigCmd {
+    /// Show the saved and effective defaults, including environment/flag overrides.
+    Show,
+    /// Save --provider, --model, and optional --base-url as global defaults.
+    Set,
+    /// Remove saved defaults; credentials remain separate.
+    Reset,
 }
 
 #[derive(Args)]
@@ -273,6 +288,40 @@ async fn do_search(cli: &Cli, args: &SearchArgs, budget: Option<usize>) -> Resul
 
 async fn run(cli: &Cli) -> Result<Value> {
     match &cli.command {
+        Cmd::Config { command } => {
+            let path = config::path()?;
+            match command {
+                ConfigCmd::Show => {
+                    let saved = config::load()?;
+                    let effective = cli.provider.effective(saved.as_ref()).resolve(true)?;
+                    Ok(
+                        json!({"schema_version":1,"ok":true,"path":path,"saved":saved,"effective":effective.description(),"precedence":["flags","environment","matching-provider config","built-in defaults"],"sharing_authorized":false}),
+                    )
+                }
+                ConfigCmd::Set => {
+                    let provider = cli
+                        .provider
+                        .provider
+                        .context("config set requires --provider and --model")?;
+                    let model = cli
+                        .provider
+                        .model
+                        .clone()
+                        .context("config set requires --provider and --model")?;
+                    let saved = config::Saved {
+                        provider,
+                        model: Some(model),
+                        base_url: cli.provider.base_url.clone(),
+                    };
+                    config::save(&path, &saved)?;
+                    Ok(json!({"schema_version":1,"ok":true,"path":path,"saved":saved}))
+                }
+                ConfigCmd::Reset => {
+                    config::reset()?;
+                    Ok(json!({"schema_version":1,"ok":true,"path":path,"reset":true}))
+                }
+            }
+        }
         Cmd::Search(args) => do_search(cli, args, None).await,
         Cmd::Context {
             search,
@@ -479,7 +528,7 @@ async fn run(cli: &Cli) -> Result<Value> {
             command: SkillsCmd::Install { dir, force },
         } => Ok(json!({"schema_version":1,"ok":true,"installed":skills::install(dir,*force)?})),
         Cmd::Schema => Ok(
-            json!({"schema_version":1,"ok":true,"commands":["search","context","collect","bundle","rank","profiles list","profiles show","sqlite schema","sqlite search","sqlite query","doctor","auth status","auth set","skills list","skills show","skills install","schema"],"providers":["typesafe","systemone","ollama"],"sources":["reminders","notes","safari","files","calendar"],"rank_input":{"formats":["JSON array","JSONL","results envelope","single object"],"mapping":"--id/--title/--text/--ref accept field names or JSON Pointer paths; --profile applies saved mappings","execution":"explicit argv after -- or --run-profile; otherwise stdin/file","max_bytes":4194304,"type":"array","min_items":1,"max_items":50,"example":[{"id":"doc-1","title":"Notebook sharing","text":"Optional relevant excerpt","source":"alchemy","location":"optional local reference"}]},"result_fields":["id","title","text","source","location","modified","event","lexical_score","relevance","record"],"relevance":{"score":"0–3 relevance; higher is more relevant","kind":"native_distribution or generated_rating","confidence":"optional; native 0–1 concentration, not correctness","probabilities":"optional; native distribution across 0,1,2,3; omitted for Ollama"},"output":{"ok":"false and exit 1 on command failure; partial source failures retain successful results","partial":"inspect individual sources and ai for incomplete reads or ranking failure","schema_version":1},"sqlite":{"commands":["schema","search","query"],"search":"explicit table/columns; bounded ID-ordered scan","query":"single read-only SELECT/CTE; --candidates requires id/title aliases","max_scan_rows":5000,"max_candidates":50,"max_raw_rows":5000,"max_row_json_bytes":4194304,"blob_contents":"omitted with size marker","ai":"optional reranking with --ai --share-content or query --candidates piped to rank"},"calendar":{"source":"opt-in","default_days_back":7,"default_days_ahead":30,"filter":"occurrence start; rolling window","timestamps":"preserved from Cider without inferred timezone"},"context_budget":"UTF-8 bytes of serialized results array","privacy":{"default":"local only","remote_opt_in":"--share-content for remote providers or Ollama cloud models; loopback ranking does not require it","sent_fields":["query","title (300 chars)","text (1600 chars)"],"not_sent":["id","location","modified","event","record"]}}),
+            json!({"schema_version":1,"ok":true,"config":{"path":"$XDG_CONFIG_HOME/clue/config.json or ~/.config/clue/config.json","override_path":"CLUE_CONFIG (absolute path)","precedence":["flags","environment","matching-provider config","built-in defaults"],"stores":["provider","model","base_url"],"credentials_and_sharing":"never stored"},"commands":["config show","config set","config reset","search","context","collect","bundle","rank","profiles list","profiles show","sqlite schema","sqlite search","sqlite query","doctor","auth status","auth set","skills list","skills show","skills install","schema"],"providers":["typesafe","systemone","ollama"],"sources":["reminders","notes","safari","files","calendar"],"rank_input":{"formats":["JSON array","JSONL","results envelope","single object"],"mapping":"--id/--title/--text/--ref accept field names or JSON Pointer paths; --profile applies saved mappings","execution":"explicit argv after -- or --run-profile; otherwise stdin/file","max_bytes":4194304,"type":"array","min_items":1,"max_items":50,"example":[{"id":"doc-1","title":"Notebook sharing","text":"Optional relevant excerpt","source":"alchemy","location":"optional local reference"}]},"result_fields":["id","title","text","source","location","modified","event","lexical_score","relevance","record"],"relevance":{"score":"0–3 relevance; higher is more relevant","kind":"native_distribution or generated_rating","confidence":"optional; native 0–1 concentration, not correctness","probabilities":"optional; native distribution across 0,1,2,3; omitted for Ollama"},"output":{"ok":"false and exit 1 on command failure; partial source failures retain successful results","partial":"inspect individual sources and ai for incomplete reads or ranking failure","schema_version":1},"sqlite":{"commands":["schema","search","query"],"search":"explicit table/columns; bounded ID-ordered scan","query":"single read-only SELECT/CTE; --candidates requires id/title aliases","max_scan_rows":5000,"max_candidates":50,"max_raw_rows":5000,"max_row_json_bytes":4194304,"blob_contents":"omitted with size marker","ai":"optional reranking with --ai --share-content or query --candidates piped to rank"},"calendar":{"source":"opt-in","default_days_back":7,"default_days_ahead":30,"filter":"occurrence start; rolling window","timestamps":"preserved from Cider without inferred timezone"},"context_budget":"UTF-8 bytes of serialized results array","privacy":{"default":"local only","remote_opt_in":"--share-content for remote providers or Ollama cloud models; loopback ranking does not require it","sent_fields":["query","title (300 chars)","text (1600 chars)"],"not_sent":["id","location","modified","event","record"]}}),
         ),
     }
 }

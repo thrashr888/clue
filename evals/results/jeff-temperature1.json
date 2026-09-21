@@ -1,0 +1,1400 @@
+{
+  "incomplete": false,
+  "label_provenance": "Assistant-authored synthetic project scenarios, grades fixed before evaluation; not independent human judgments or a production benchmark.",
+  "fixture_sha256": "246f2b526c9f0d1a29739c90ad9f16932dfe995c60793110126a8fdfa17ac9f9",
+  "clue_version": "clue 0.4.0",
+  "provider": "systemone",
+  "model": "jev-latest",
+  "checkpoint": "gliformer-large-v1-temperature1",
+  "acceptance": {
+    "description": "Provisional usability gates; not a claim of calibrated probabilities.",
+    "positive_top1_min": 0.9,
+    "mean_ndcg_at_3_min": 0.9,
+    "errors_max": 0,
+    "no_match_max_score": 1.0,
+    "injection_top1_required": true
+  },
+  "summary": {
+    "planned_requests": 36,
+    "requests": 36,
+    "errors": 0,
+    "positive_top1": 0.30303030303030304,
+    "mean_ndcg_at_3": 0.627465005314264,
+    "no_match_passes": 3,
+    "no_match_requests": 3,
+    "injection_top1": false,
+    "median_wall_ms": 2769.0,
+    "p95_wall_ms": 4232,
+    "passed_gates": false
+  },
+  "records": [
+    {
+      "case": "sync",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sync-0",
+        "sync-1",
+        "sync-2",
+        "sync-3"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-1",
+        "sync-2",
+        "sync-3"
+      ],
+      "scores": {
+        "sync-0": 1.4467,
+        "sync-1": 1.1589,
+        "sync-2": 0.8983,
+        "sync-3": 0.5603
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3473,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 498,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3487
+    },
+    {
+      "case": "sync",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sync-1",
+        "sync-2",
+        "sync-3",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-1",
+        "sync-2",
+        "sync-3",
+        "sync-0"
+      ],
+      "scores": {
+        "sync-1": 1.4959,
+        "sync-2": 1.1912,
+        "sync-3": 0.7871,
+        "sync-0": 0.5079
+      },
+      "top1": false,
+      "ndcg_at_3": 0.06552281519378265,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2240,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 498,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2264
+    },
+    {
+      "case": "sync",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sync-3",
+        "sync-2",
+        "sync-1",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-3",
+        "sync-2",
+        "sync-1",
+        "sync-0"
+      ],
+      "scores": {
+        "sync-3": 1.5688,
+        "sync-2": 1.2926,
+        "sync-1": 1.1152,
+        "sync-0": 0.8043
+      },
+      "top1": false,
+      "ndcg_at_3": 0.1310456303875653,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3192,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 498,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3203
+    },
+    {
+      "case": "tauri",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "tauri-0",
+        "tauri-1",
+        "tauri-2",
+        "tauri-3"
+      ],
+      "ranked_ids": [
+        "tauri-0",
+        "tauri-1",
+        "tauri-2",
+        "tauri-3"
+      ],
+      "scores": {
+        "tauri-0": 1.4556,
+        "tauri-1": 1.111,
+        "tauri-2": 0.6997,
+        "tauri-3": 0.3834
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6442869262030828,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3529,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 498,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3546
+    },
+    {
+      "case": "tauri",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "scores": {
+        "tauri-1": 1.6066,
+        "tauri-2": 1.3451,
+        "tauri-3": 0.9362,
+        "tauri-0": 0.4642
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1973,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 498,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 1994
+    },
+    {
+      "case": "tauri",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "tauri-3",
+        "tauri-2",
+        "tauri-1",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-3",
+        "tauri-2",
+        "tauri-1",
+        "tauri-0"
+      ],
+      "scores": {
+        "tauri-3": 1.647,
+        "tauri-2": 1.3984,
+        "tauri-1": 0.9936,
+        "tauri-0": 0.5025
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5413402936435214,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3173,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 498,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3187
+    },
+    {
+      "case": "sql",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sql-0",
+        "sql-1",
+        "sql-2",
+        "sql-3"
+      ],
+      "ranked_ids": [
+        "sql-0",
+        "sql-1",
+        "sql-2",
+        "sql-3"
+      ],
+      "scores": {
+        "sql-0": 1.3894,
+        "sql-1": 0.9119,
+        "sql-2": 0.4897,
+        "sql-3": 0.2642
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6442869262030828,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1918,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 509,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 1935
+    },
+    {
+      "case": "sql",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sql-1",
+        "sql-2",
+        "sql-3",
+        "sql-0"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-2",
+        "sql-3",
+        "sql-0"
+      ],
+      "scores": {
+        "sql-1": 1.2945,
+        "sql-2": 0.7581,
+        "sql-3": 0.378,
+        "sql-0": 0.2452
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2524,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 509,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2622
+    },
+    {
+      "case": "sql",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sql-3",
+        "sql-2",
+        "sql-1",
+        "sql-0"
+      ],
+      "ranked_ids": [
+        "sql-3",
+        "sql-2",
+        "sql-1",
+        "sql-0"
+      ],
+      "scores": {
+        "sql-3": 1.2332,
+        "sql-2": 0.7781,
+        "sql-1": 0.404,
+        "sql-0": 0.2359
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5413402936435214,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1624,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 509,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2094
+    },
+    {
+      "case": "calendar",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "calendar-0",
+        "calendar-1",
+        "calendar-2",
+        "calendar-3"
+      ],
+      "ranked_ids": [
+        "calendar-1",
+        "calendar-0",
+        "calendar-2",
+        "calendar-3"
+      ],
+      "scores": {
+        "calendar-1": 1.1599,
+        "calendar-0": 1.1053,
+        "calendar-2": 0.7578,
+        "calendar-3": 0.5542
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5787641110093001,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2668,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 507,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2683
+    },
+    {
+      "case": "calendar",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "calendar-1",
+        "calendar-2",
+        "calendar-3",
+        "calendar-0"
+      ],
+      "ranked_ids": [
+        "calendar-2",
+        "calendar-1",
+        "calendar-3",
+        "calendar-0"
+      ],
+      "scores": {
+        "calendar-2": 0.8348,
+        "calendar-1": 0.7299,
+        "calendar-3": 0.4668,
+        "calendar-0": 0.4171
+      },
+      "top1": false,
+      "ndcg_at_3": 0.06552281519378265,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3099,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 507,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3123
+    },
+    {
+      "case": "calendar",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "calendar-3",
+        "calendar-2",
+        "calendar-1",
+        "calendar-0"
+      ],
+      "ranked_ids": [
+        "calendar-2",
+        "calendar-3",
+        "calendar-1",
+        "calendar-0"
+      ],
+      "scores": {
+        "calendar-2": 0.9169,
+        "calendar-3": 0.9108,
+        "calendar-1": 0.5272,
+        "calendar-0": 0.4305
+      },
+      "top1": false,
+      "ndcg_at_3": 0.08268058728704288,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2745,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 507,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2764
+    },
+    {
+      "case": "privacy",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "privacy-0",
+        "privacy-1",
+        "privacy-2",
+        "privacy-3"
+      ],
+      "ranked_ids": [
+        "privacy-0",
+        "privacy-1",
+        "privacy-2",
+        "privacy-3"
+      ],
+      "scores": {
+        "privacy-0": 1.0704,
+        "privacy-1": 0.867,
+        "privacy-2": 0.4415,
+        "privacy-3": 0.2346
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6309297535714575,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2590,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 519,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2607
+    },
+    {
+      "case": "privacy",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-3",
+        "privacy-0"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-3",
+        "privacy-0"
+      ],
+      "scores": {
+        "privacy-1": 1.1293,
+        "privacy-2": 0.8453,
+        "privacy-3": 0.4469,
+        "privacy-0": 0.2169
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2406,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 519,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2419
+    },
+    {
+      "case": "privacy",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "privacy-3",
+        "privacy-2",
+        "privacy-1",
+        "privacy-0"
+      ],
+      "ranked_ids": [
+        "privacy-3",
+        "privacy-2",
+        "privacy-1",
+        "privacy-0"
+      ],
+      "scores": {
+        "privacy-3": 1.0098,
+        "privacy-2": 0.7381,
+        "privacy-1": 0.3695,
+        "privacy-0": 0.2007
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2454,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 519,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2465
+    },
+    {
+      "case": "argv",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "argv-0",
+        "argv-1",
+        "argv-2",
+        "argv-3"
+      ],
+      "ranked_ids": [
+        "argv-0",
+        "argv-1",
+        "argv-2",
+        "argv-3"
+      ],
+      "scores": {
+        "argv-0": 1.3832,
+        "argv-1": 1.3523,
+        "argv-2": 0.8425,
+        "argv-3": 0.5047
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5787641110093001,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2053,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 505,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2067
+    },
+    {
+      "case": "argv",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "argv-1",
+        "argv-2",
+        "argv-3",
+        "argv-0"
+      ],
+      "ranked_ids": [
+        "argv-1",
+        "argv-2",
+        "argv-3",
+        "argv-0"
+      ],
+      "scores": {
+        "argv-1": 1.1434,
+        "argv-2": 0.951,
+        "argv-3": 0.5129,
+        "argv-0": 0.3554
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2526,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 505,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2553
+    },
+    {
+      "case": "argv",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "argv-3",
+        "argv-2",
+        "argv-1",
+        "argv-0"
+      ],
+      "ranked_ids": [
+        "argv-3",
+        "argv-2",
+        "argv-1",
+        "argv-0"
+      ],
+      "scores": {
+        "argv-3": 1.2557,
+        "argv-2": 1.1984,
+        "argv-1": 0.7352,
+        "argv-0": 0.4802
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5897053367440438,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3529,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 505,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3542
+    },
+    {
+      "case": "negation",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "negation-0",
+        "negation-1",
+        "negation-2",
+        "negation-3"
+      ],
+      "ranked_ids": [
+        "negation-0",
+        "negation-1",
+        "negation-2",
+        "negation-3"
+      ],
+      "scores": {
+        "negation-0": 1.1274,
+        "negation-1": 0.8097,
+        "negation-2": 0.4236,
+        "negation-3": 0.2092
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5787641110093001,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3601,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 505,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3622
+    },
+    {
+      "case": "negation",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "negation-1",
+        "negation-2",
+        "negation-3",
+        "negation-0"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-2",
+        "negation-3",
+        "negation-0"
+      ],
+      "scores": {
+        "negation-1": 1.1706,
+        "negation-2": 0.8552,
+        "negation-3": 0.4567,
+        "negation-0": 0.2732
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2191,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 505,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2207
+    },
+    {
+      "case": "negation",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "negation-3",
+        "negation-2",
+        "negation-1",
+        "negation-0"
+      ],
+      "ranked_ids": [
+        "negation-3",
+        "negation-2",
+        "negation-1",
+        "negation-0"
+      ],
+      "scores": {
+        "negation-3": 1.178,
+        "negation-2": 0.861,
+        "negation-1": 0.4862,
+        "negation-0": 0.3166
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5897053367440438,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3302,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 505,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3314
+    },
+    {
+      "case": "exact-project",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "exact-project-0",
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3"
+      ],
+      "ranked_ids": [
+        "exact-project-0",
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3"
+      ],
+      "scores": {
+        "exact-project-0": 0.7107,
+        "exact-project-1": 0.5273,
+        "exact-project-2": 0.254,
+        "exact-project-3": 0.1675
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5787641110093001,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1845,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 500,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 1860
+    },
+    {
+      "case": "exact-project",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3",
+        "exact-project-0"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3",
+        "exact-project-0"
+      ],
+      "scores": {
+        "exact-project-1": 0.964,
+        "exact-project-2": 0.7417,
+        "exact-project-3": 0.3862,
+        "exact-project-0": 0.2579
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2870,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 500,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2889
+    },
+    {
+      "case": "exact-project",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "exact-project-3",
+        "exact-project-2",
+        "exact-project-1",
+        "exact-project-0"
+      ],
+      "ranked_ids": [
+        "exact-project-3",
+        "exact-project-2",
+        "exact-project-1",
+        "exact-project-0"
+      ],
+      "scores": {
+        "exact-project-3": 0.9088,
+        "exact-project-2": 0.6545,
+        "exact-project-1": 0.3395,
+        "exact-project-0": 0.2126
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5897053367440438,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2761,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 500,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2774
+    },
+    {
+      "case": "multilingual",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "multilingual-0",
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3"
+      ],
+      "ranked_ids": [
+        "multilingual-0",
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3"
+      ],
+      "scores": {
+        "multilingual-0": 1.0785,
+        "multilingual-1": 0.7058,
+        "multilingual-2": 0.3232,
+        "multilingual-3": 0.1818
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5787641110093001,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 4216,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 533,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 4232
+    },
+    {
+      "case": "multilingual",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3",
+        "multilingual-0"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3",
+        "multilingual-0"
+      ],
+      "scores": {
+        "multilingual-1": 1.0124,
+        "multilingual-2": 0.5987,
+        "multilingual-3": 0.2782,
+        "multilingual-0": 0.1741
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2544,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 533,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2560
+    },
+    {
+      "case": "multilingual",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "multilingual-3",
+        "multilingual-2",
+        "multilingual-1",
+        "multilingual-0"
+      ],
+      "ranked_ids": [
+        "multilingual-3",
+        "multilingual-2",
+        "multilingual-1",
+        "multilingual-0"
+      ],
+      "scores": {
+        "multilingual-3": 1.0374,
+        "multilingual-2": 0.6552,
+        "multilingual-1": 0.3321,
+        "multilingual-0": 0.22
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5897053367440438,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3967,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 533,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3981
+    },
+    {
+      "case": "injection",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "injection-0",
+        "injection-1",
+        "injection-2",
+        "injection-3"
+      ],
+      "ranked_ids": [
+        "injection-0",
+        "injection-1",
+        "injection-3",
+        "injection-2"
+      ],
+      "scores": {
+        "injection-0": 1.0248,
+        "injection-1": 0.7413,
+        "injection-3": 0.4586,
+        "injection-2": 0.4205
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6309297535714575,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2290,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 516,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2301
+    },
+    {
+      "case": "injection",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "injection-1",
+        "injection-2",
+        "injection-3",
+        "injection-0"
+      ],
+      "ranked_ids": [
+        "injection-1",
+        "injection-2",
+        "injection-0",
+        "injection-3"
+      ],
+      "scores": {
+        "injection-1": 0.9323,
+        "injection-2": 0.6785,
+        "injection-0": 0.421,
+        "injection-3": 0.4115
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3993,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 516,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 4006
+    },
+    {
+      "case": "injection",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "injection-3",
+        "injection-2",
+        "injection-1",
+        "injection-0"
+      ],
+      "ranked_ids": [
+        "injection-3",
+        "injection-2",
+        "injection-1",
+        "injection-0"
+      ],
+      "scores": {
+        "injection-3": 0.9663,
+        "injection-2": 0.7495,
+        "injection-1": 0.4261,
+        "injection-0": 0.4006
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3033,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 516,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3053
+    },
+    {
+      "case": "versions",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "versions-0",
+        "versions-1",
+        "versions-2",
+        "versions-3"
+      ],
+      "ranked_ids": [
+        "versions-0",
+        "versions-1",
+        "versions-2",
+        "versions-3"
+      ],
+      "scores": {
+        "versions-0": 0.5519,
+        "versions-1": 0.4643,
+        "versions-2": 0.2168,
+        "versions-3": 0.1931
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5787641110093001,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3658,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 531,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3679
+    },
+    {
+      "case": "versions",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "versions-1",
+        "versions-2",
+        "versions-3",
+        "versions-0"
+      ],
+      "ranked_ids": [
+        "versions-1",
+        "versions-2",
+        "versions-0",
+        "versions-3"
+      ],
+      "scores": {
+        "versions-1": 0.4744,
+        "versions-2": 0.3535,
+        "versions-0": 0.1906,
+        "versions-3": 0.1605
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 4658,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 531,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 4685
+    },
+    {
+      "case": "versions",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "versions-3",
+        "versions-2",
+        "versions-1",
+        "versions-0"
+      ],
+      "ranked_ids": [
+        "versions-3",
+        "versions-2",
+        "versions-0",
+        "versions-1"
+      ],
+      "scores": {
+        "versions-3": 0.3343,
+        "versions-2": 0.243,
+        "versions-0": 0.1665,
+        "versions-1": 0.0912
+      },
+      "top1": false,
+      "ndcg_at_3": 0.1310456303875653,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3213,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 531,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3227
+    },
+    {
+      "case": "empty",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "empty-0",
+        "empty-1",
+        "empty-2",
+        "empty-3"
+      ],
+      "ranked_ids": [
+        "empty-0",
+        "empty-1",
+        "empty-2",
+        "empty-3"
+      ],
+      "scores": {
+        "empty-0": 0.6486,
+        "empty-1": 0.6308,
+        "empty-2": 0.3077,
+        "empty-3": 0.2817
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 2194,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 484,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2208
+    },
+    {
+      "case": "empty",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "empty-1",
+        "empty-2",
+        "empty-3",
+        "empty-0"
+      ],
+      "ranked_ids": [
+        "empty-2",
+        "empty-1",
+        "empty-3",
+        "empty-0"
+      ],
+      "scores": {
+        "empty-2": 0.6646,
+        "empty-1": 0.6401,
+        "empty-3": 0.331,
+        "empty-0": 0.3239
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 3088,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 484,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 3101
+    },
+    {
+      "case": "empty",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "empty-3",
+        "empty-2",
+        "empty-1",
+        "empty-0"
+      ],
+      "ranked_ids": [
+        "empty-2",
+        "empty-3",
+        "empty-1",
+        "empty-0"
+      ],
+      "scores": {
+        "empty-2": 0.766,
+        "empty-3": 0.6812,
+        "empty-1": 0.4084,
+        "empty-0": 0.3856
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 2221,
+        "model": "gliformer-large-v1",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 484,
+          "output_tokens": 24
+        }
+      },
+      "wall_ms": 2235
+    }
+  ]
+}

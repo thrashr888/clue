@@ -1,0 +1,341 @@
+{
+  "incomplete": true,
+  "label_provenance": "Assistant-authored synthetic project scenarios, grades fixed before evaluation; not independent human judgments or a production benchmark.",
+  "fixture_sha256": "246f2b526c9f0d1a29739c90ad9f16932dfe995c60793110126a8fdfa17ac9f9",
+  "clue_version": "clue 0.4.0",
+  "provider": "ollama",
+  "model": "qwen3.8:27b-mlx",
+  "checkpoint": null,
+  "acceptance": {
+    "description": "Provisional usability gates; not a claim of calibrated probabilities.",
+    "positive_top1_min": 0.9,
+    "mean_ndcg_at_3_min": 0.9,
+    "errors_max": 0,
+    "no_match_max_score": 1.0,
+    "injection_top1_required": true
+  },
+  "summary": {
+    "planned_requests": 36,
+    "requests": 13,
+    "errors": 6,
+    "positive_top1": 0.5384615384615384,
+    "mean_ndcg_at_3": 0.5358218812164215,
+    "no_match_passes": 0,
+    "no_match_requests": 0,
+    "injection_top1": null,
+    "median_wall_ms": 19002,
+    "p95_wall_ms": 20355,
+    "passed_gates": false
+  },
+  "records": [
+    {
+      "case": "sync",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sync-0",
+        "sync-1",
+        "sync-2",
+        "sync-3"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-3",
+        "sync-1",
+        "sync-2"
+      ],
+      "scores": {
+        "sync-0": 3.0,
+        "sync-3": 1.0,
+        "sync-1": 0.0,
+        "sync-2": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 5755,
+        "model": "qwen3.8:27b-mlx",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 195,
+          "output_tokens": 38
+        }
+      },
+      "wall_ms": 5772
+    },
+    {
+      "case": "sync",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sync-1",
+        "sync-2",
+        "sync-3",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-3",
+        "sync-1",
+        "sync-2"
+      ],
+      "scores": {
+        "sync-0": 3.0,
+        "sync-3": 1.0,
+        "sync-1": 0.0,
+        "sync-2": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 18982,
+        "model": "qwen3.8:27b-mlx",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 195,
+          "output_tokens": 38
+        }
+      },
+      "wall_ms": 19002
+    },
+    {
+      "case": "sync",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sync-3",
+        "sync-2",
+        "sync-1",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-3",
+        "sync-2",
+        "sync-1"
+      ],
+      "scores": {
+        "sync-0": 3.0,
+        "sync-3": 1.0,
+        "sync-2": 0.0,
+        "sync-1": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 10882,
+        "model": "qwen3.8:27b-mlx",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 195,
+          "output_tokens": 38
+        }
+      },
+      "wall_ms": 10901
+    },
+    {
+      "case": "tauri",
+      "order": 0,
+      "ok": false,
+      "error": "provider exceeded the timeout; no ranking was applied",
+      "wall_ms": 20030
+    },
+    {
+      "case": "tauri",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "scores": {
+        "tauri-1": 3.0,
+        "tauri-2": 0.0,
+        "tauri-3": 0.0,
+        "tauri-0": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 4175,
+        "model": "qwen3.8:27b-mlx",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 38
+        }
+      },
+      "wall_ms": 4199
+    },
+    {
+      "case": "tauri",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "tauri-3",
+        "tauri-2",
+        "tauri-1",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-3",
+        "tauri-2",
+        "tauri-0"
+      ],
+      "scores": {
+        "tauri-1": 3.0,
+        "tauri-3": 0.0,
+        "tauri-2": 0.0,
+        "tauri-0": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 13685,
+        "model": "qwen3.8:27b-mlx",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 38
+        }
+      },
+      "wall_ms": 13710
+    },
+    {
+      "case": "sql",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sql-0",
+        "sql-1",
+        "sql-2",
+        "sql-3"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-0",
+        "sql-2",
+        "sql-3"
+      ],
+      "scores": {
+        "sql-1": 3.0,
+        "sql-0": 0.0,
+        "sql-2": 0.0,
+        "sql-3": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2184,
+        "model": "qwen3.8:27b-mlx",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 202,
+          "output_tokens": 38
+        }
+      },
+      "wall_ms": 2212
+    },
+    {
+      "case": "sql",
+      "order": 1,
+      "ok": false,
+      "error": "provider exceeded the timeout; no ranking was applied",
+      "wall_ms": 20122
+    },
+    {
+      "case": "sql",
+      "order": 2,
+      "ok": false,
+      "error": "provider exceeded the timeout; no ranking was applied",
+      "wall_ms": 20355
+    },
+    {
+      "case": "calendar",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "calendar-0",
+        "calendar-1",
+        "calendar-2",
+        "calendar-3"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-3",
+        "calendar-1",
+        "calendar-2"
+      ],
+      "scores": {
+        "calendar-0": 3.0,
+        "calendar-3": 1.0,
+        "calendar-1": 0.0,
+        "calendar-2": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 9961,
+        "model": "qwen3.8:27b-mlx",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 38
+        }
+      },
+      "wall_ms": 10047
+    },
+    {
+      "case": "calendar",
+      "order": 1,
+      "ok": false,
+      "error": "provider exceeded the timeout; no ranking was applied",
+      "wall_ms": 20074
+    },
+    {
+      "case": "calendar",
+      "order": 2,
+      "ok": false,
+      "error": "provider exceeded the timeout; no ranking was applied",
+      "wall_ms": 20011
+    },
+    {
+      "case": "privacy",
+      "order": 0,
+      "ok": false,
+      "error": "provider exceeded the timeout; no ranking was applied",
+      "wall_ms": 20009
+    }
+  ],
+  "limitation": "Incomplete exploratory run with 20-second timeout during concurrent GPU inference. Not a standalone model-quality result."
+}

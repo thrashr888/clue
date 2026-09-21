@@ -1,0 +1,237 @@
+{
+  "incomplete": true,
+  "records": [
+    {
+      "case": "sync",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 4890
+    },
+    {
+      "case": "sync",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 6014
+    },
+    {
+      "case": "sync",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3050
+    },
+    {
+      "case": "tauri",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 5339
+    },
+    {
+      "case": "tauri",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 6250
+    },
+    {
+      "case": "tauri",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3874
+    },
+    {
+      "case": "sql",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 4691
+    },
+    {
+      "case": "sql",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 5873
+    },
+    {
+      "case": "sql",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 6916
+    },
+    {
+      "case": "calendar",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 6165
+    },
+    {
+      "case": "calendar",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 4602
+    },
+    {
+      "case": "calendar",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 4087
+    },
+    {
+      "case": "privacy",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3613
+    },
+    {
+      "case": "privacy",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 6670
+    },
+    {
+      "case": "privacy",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 4411
+    },
+    {
+      "case": "argv",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3298
+    },
+    {
+      "case": "argv",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 5079
+    },
+    {
+      "case": "argv",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3459
+    },
+    {
+      "case": "negation",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3381
+    },
+    {
+      "case": "negation",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3359
+    },
+    {
+      "case": "negation",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 5041
+    },
+    {
+      "case": "exact-project",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3445
+    },
+    {
+      "case": "exact-project",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3646
+    },
+    {
+      "case": "exact-project",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 5137
+    },
+    {
+      "case": "multilingual",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 2634
+    },
+    {
+      "case": "multilingual",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 4980
+    },
+    {
+      "case": "multilingual",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 2861
+    },
+    {
+      "case": "injection",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3175
+    },
+    {
+      "case": "injection",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 3336
+    },
+    {
+      "case": "injection",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 2897
+    },
+    {
+      "case": "versions",
+      "order": 0,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 2975
+    },
+    {
+      "case": "versions",
+      "order": 1,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 4436
+    },
+    {
+      "case": "versions",
+      "order": 2,
+      "ok": false,
+      "error": "score does not match its distribution",
+      "wall_ms": 2735
+    }
+  ],
+  "stopped_reason": "Stopped after repeated score/probability mismatch with default temperature 3.2; retry temperature 1."
+}

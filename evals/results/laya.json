@@ -1,0 +1,1399 @@
+{
+  "incomplete": false,
+  "label_provenance": "Assistant-authored synthetic project scenarios, grades fixed before evaluation; not independent human judgments or a production benchmark.",
+  "fixture_sha256": "246f2b526c9f0d1a29739c90ad9f16932dfe995c60793110126a8fdfa17ac9f9",
+  "clue_version": "clue 0.4.0",
+  "provider": "systemone",
+  "model": "laya",
+  "checkpoint": "convaiinnovations/laya",
+  "acceptance": {
+    "description": "Provisional usability gates; not a claim of calibrated probabilities.",
+    "positive_top1_min": 0.9,
+    "mean_ndcg_at_3_min": 0.9,
+    "errors_max": 0,
+    "no_match_max_score": 1.0,
+    "injection_top1_required": true
+  },
+  "summary": {
+    "requests": 36,
+    "errors": 0,
+    "positive_top1": 0.8181818181818182,
+    "mean_ndcg_at_3": 0.9234745953000888,
+    "no_match_passes": 3,
+    "no_match_requests": 3,
+    "injection_top1": false,
+    "median_wall_ms": 5588.5,
+    "p95_wall_ms": 9718,
+    "passed_gates": false
+  },
+  "records": [
+    {
+      "case": "sync",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sync-0",
+        "sync-1",
+        "sync-2",
+        "sync-3"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-2",
+        "sync-3",
+        "sync-1"
+      ],
+      "scores": {
+        "sync-0": 2.2474,
+        "sync-2": 1.4382,
+        "sync-3": 1.4133,
+        "sync-1": 0.9466
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3705,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 517,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 3721
+    },
+    {
+      "case": "sync",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sync-1",
+        "sync-2",
+        "sync-3",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-2",
+        "sync-3",
+        "sync-1"
+      ],
+      "scores": {
+        "sync-0": 2.2474,
+        "sync-2": 1.4382,
+        "sync-3": 1.4133,
+        "sync-1": 0.9466
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 8476,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 517,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 8492
+    },
+    {
+      "case": "sync",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sync-3",
+        "sync-2",
+        "sync-1",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-2",
+        "sync-3",
+        "sync-1"
+      ],
+      "scores": {
+        "sync-0": 2.2474,
+        "sync-2": 1.4382,
+        "sync-3": 1.4133,
+        "sync-1": 0.9466
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 10523,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 517,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 10539
+    },
+    {
+      "case": "tauri",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "tauri-0",
+        "tauri-1",
+        "tauri-2",
+        "tauri-3"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "scores": {
+        "tauri-1": 2.3201,
+        "tauri-2": 1.6637,
+        "tauri-3": 1.5045,
+        "tauri-0": 0.2748
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 9586,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 518,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 9615
+    },
+    {
+      "case": "tauri",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "scores": {
+        "tauri-1": 2.3201,
+        "tauri-2": 1.6637,
+        "tauri-3": 1.5045,
+        "tauri-0": 0.2748
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 7406,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 518,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 7423
+    },
+    {
+      "case": "tauri",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "tauri-3",
+        "tauri-2",
+        "tauri-1",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "scores": {
+        "tauri-1": 2.3201,
+        "tauri-2": 1.6637,
+        "tauri-3": 1.5045,
+        "tauri-0": 0.2748
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 5363,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 518,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 5389
+    },
+    {
+      "case": "sql",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sql-0",
+        "sql-1",
+        "sql-2",
+        "sql-3"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-0",
+        "sql-3",
+        "sql-2"
+      ],
+      "scores": {
+        "sql-1": 2.1895,
+        "sql-0": 2.1522,
+        "sql-3": 1.5763,
+        "sql-2": 0.8206
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 6310,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 532,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 6344
+    },
+    {
+      "case": "sql",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sql-1",
+        "sql-2",
+        "sql-3",
+        "sql-0"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-0",
+        "sql-3",
+        "sql-2"
+      ],
+      "scores": {
+        "sql-1": 2.1895,
+        "sql-0": 2.1522,
+        "sql-3": 1.5763,
+        "sql-2": 0.8206
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 9698,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 532,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 9718
+    },
+    {
+      "case": "sql",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sql-3",
+        "sql-2",
+        "sql-1",
+        "sql-0"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-0",
+        "sql-3",
+        "sql-2"
+      ],
+      "scores": {
+        "sql-1": 2.1895,
+        "sql-0": 2.1522,
+        "sql-3": 1.5763,
+        "sql-2": 0.8206
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 5770,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 532,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 5794
+    },
+    {
+      "case": "calendar",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "calendar-0",
+        "calendar-1",
+        "calendar-2",
+        "calendar-3"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-3",
+        "calendar-2",
+        "calendar-1"
+      ],
+      "scores": {
+        "calendar-0": 2.0024,
+        "calendar-3": 1.1522,
+        "calendar-2": 0.9701,
+        "calendar-1": 0.7054
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3012,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 521,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 3024
+    },
+    {
+      "case": "calendar",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "calendar-1",
+        "calendar-2",
+        "calendar-3",
+        "calendar-0"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-3",
+        "calendar-2",
+        "calendar-1"
+      ],
+      "scores": {
+        "calendar-0": 2.0024,
+        "calendar-3": 1.1522,
+        "calendar-2": 0.9701,
+        "calendar-1": 0.7054
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3503,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 521,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 3517
+    },
+    {
+      "case": "calendar",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "calendar-3",
+        "calendar-2",
+        "calendar-1",
+        "calendar-0"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-3",
+        "calendar-2",
+        "calendar-1"
+      ],
+      "scores": {
+        "calendar-0": 2.0024,
+        "calendar-3": 1.1522,
+        "calendar-2": 0.9701,
+        "calendar-1": 0.7054
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2805,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 521,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 2823
+    },
+    {
+      "case": "privacy",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "privacy-0",
+        "privacy-1",
+        "privacy-2",
+        "privacy-3"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-0",
+        "privacy-3"
+      ],
+      "scores": {
+        "privacy-1": 2.0861,
+        "privacy-2": 1.9759,
+        "privacy-0": 1.9355,
+        "privacy-3": 1.7218
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3128,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 531,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 3224
+    },
+    {
+      "case": "privacy",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-3",
+        "privacy-0"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-0",
+        "privacy-3"
+      ],
+      "scores": {
+        "privacy-1": 2.0861,
+        "privacy-2": 1.9759,
+        "privacy-0": 1.9355,
+        "privacy-3": 1.7218
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 2935,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 531,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 2947
+    },
+    {
+      "case": "privacy",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "privacy-3",
+        "privacy-2",
+        "privacy-1",
+        "privacy-0"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-0",
+        "privacy-3"
+      ],
+      "scores": {
+        "privacy-1": 2.0861,
+        "privacy-2": 1.9759,
+        "privacy-0": 1.9355,
+        "privacy-3": 1.7218
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 3612,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 531,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 3634
+    },
+    {
+      "case": "argv",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "argv-0",
+        "argv-1",
+        "argv-2",
+        "argv-3"
+      ],
+      "ranked_ids": [
+        "argv-0",
+        "argv-1",
+        "argv-3",
+        "argv-2"
+      ],
+      "scores": {
+        "argv-0": 2.4784,
+        "argv-1": 2.2996,
+        "argv-3": 1.8019,
+        "argv-2": 1.668
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6442869262030828,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 4337,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 509,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 4349
+    },
+    {
+      "case": "argv",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "argv-1",
+        "argv-2",
+        "argv-3",
+        "argv-0"
+      ],
+      "ranked_ids": [
+        "argv-0",
+        "argv-1",
+        "argv-3",
+        "argv-2"
+      ],
+      "scores": {
+        "argv-0": 2.4784,
+        "argv-1": 2.2996,
+        "argv-3": 1.8019,
+        "argv-2": 1.668
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6442869262030828,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 5379,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 509,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 5393
+    },
+    {
+      "case": "argv",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "argv-3",
+        "argv-2",
+        "argv-1",
+        "argv-0"
+      ],
+      "ranked_ids": [
+        "argv-0",
+        "argv-1",
+        "argv-3",
+        "argv-2"
+      ],
+      "scores": {
+        "argv-0": 2.4784,
+        "argv-1": 2.2996,
+        "argv-3": 1.8019,
+        "argv-2": 1.668
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6442869262030828,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 4853,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 509,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 4870
+    },
+    {
+      "case": "negation",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "negation-0",
+        "negation-1",
+        "negation-2",
+        "negation-3"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-3",
+        "negation-0",
+        "negation-2"
+      ],
+      "scores": {
+        "negation-1": 2.443,
+        "negation-3": 1.9066,
+        "negation-0": 1.7543,
+        "negation-2": 1.6522
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 6897,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 503,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 6914
+    },
+    {
+      "case": "negation",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "negation-1",
+        "negation-2",
+        "negation-3",
+        "negation-0"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-3",
+        "negation-0",
+        "negation-2"
+      ],
+      "scores": {
+        "negation-1": 2.443,
+        "negation-3": 1.9066,
+        "negation-0": 1.7543,
+        "negation-2": 1.6522
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 5587,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 503,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 5605
+    },
+    {
+      "case": "negation",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "negation-3",
+        "negation-2",
+        "negation-1",
+        "negation-0"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-3",
+        "negation-0",
+        "negation-2"
+      ],
+      "scores": {
+        "negation-1": 2.443,
+        "negation-3": 1.9066,
+        "negation-0": 1.7543,
+        "negation-2": 1.6522
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 8816,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 503,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 8846
+    },
+    {
+      "case": "exact-project",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "exact-project-0",
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-3",
+        "exact-project-0",
+        "exact-project-2"
+      ],
+      "scores": {
+        "exact-project-1": 2.0313,
+        "exact-project-3": 1.6441,
+        "exact-project-0": 1.4592,
+        "exact-project-2": 1.3696
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 5907,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 519,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 5946
+    },
+    {
+      "case": "exact-project",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3",
+        "exact-project-0"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-3",
+        "exact-project-0",
+        "exact-project-2"
+      ],
+      "scores": {
+        "exact-project-1": 2.0313,
+        "exact-project-3": 1.6441,
+        "exact-project-0": 1.4592,
+        "exact-project-2": 1.3696
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 5818,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 519,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 5831
+    },
+    {
+      "case": "exact-project",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "exact-project-3",
+        "exact-project-2",
+        "exact-project-1",
+        "exact-project-0"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-3",
+        "exact-project-0",
+        "exact-project-2"
+      ],
+      "scores": {
+        "exact-project-1": 2.0313,
+        "exact-project-3": 1.6441,
+        "exact-project-0": 1.4592,
+        "exact-project-2": 1.3696
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 9700,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 519,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 9716
+    },
+    {
+      "case": "multilingual",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "multilingual-0",
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-3",
+        "multilingual-0",
+        "multilingual-2"
+      ],
+      "scores": {
+        "multilingual-1": 1.6404,
+        "multilingual-3": 1.364,
+        "multilingual-0": 0.7012,
+        "multilingual-2": 0.3186
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 9605,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 562,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 9636
+    },
+    {
+      "case": "multilingual",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3",
+        "multilingual-0"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-3",
+        "multilingual-0",
+        "multilingual-2"
+      ],
+      "scores": {
+        "multilingual-1": 1.6404,
+        "multilingual-3": 1.364,
+        "multilingual-0": 0.7012,
+        "multilingual-2": 0.3186
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 6780,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 562,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 6799
+    },
+    {
+      "case": "multilingual",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "multilingual-3",
+        "multilingual-2",
+        "multilingual-1",
+        "multilingual-0"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-3",
+        "multilingual-0",
+        "multilingual-2"
+      ],
+      "scores": {
+        "multilingual-1": 1.6404,
+        "multilingual-3": 1.364,
+        "multilingual-0": 0.7012,
+        "multilingual-2": 0.3186
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 4679,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 562,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 4708
+    },
+    {
+      "case": "injection",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "injection-0",
+        "injection-1",
+        "injection-2",
+        "injection-3"
+      ],
+      "ranked_ids": [
+        "injection-3",
+        "injection-1",
+        "injection-0",
+        "injection-2"
+      ],
+      "scores": {
+        "injection-3": 2.1395,
+        "injection-1": 2.1019,
+        "injection-0": 1.1796,
+        "injection-2": 1.0181
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6309297535714575,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 9259,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 520,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 9284
+    },
+    {
+      "case": "injection",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "injection-1",
+        "injection-2",
+        "injection-3",
+        "injection-0"
+      ],
+      "ranked_ids": [
+        "injection-3",
+        "injection-1",
+        "injection-0",
+        "injection-2"
+      ],
+      "scores": {
+        "injection-3": 2.1395,
+        "injection-1": 2.1019,
+        "injection-0": 1.1796,
+        "injection-2": 1.0181
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6309297535714575,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 4329,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 520,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 4343
+    },
+    {
+      "case": "injection",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "injection-3",
+        "injection-2",
+        "injection-1",
+        "injection-0"
+      ],
+      "ranked_ids": [
+        "injection-3",
+        "injection-1",
+        "injection-0",
+        "injection-2"
+      ],
+      "scores": {
+        "injection-3": 2.1395,
+        "injection-1": 2.1019,
+        "injection-0": 1.1796,
+        "injection-2": 1.0181
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6309297535714575,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 5375,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 520,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 5412
+    },
+    {
+      "case": "versions",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "versions-0",
+        "versions-1",
+        "versions-2",
+        "versions-3"
+      ],
+      "ranked_ids": [
+        "versions-1",
+        "versions-0",
+        "versions-3",
+        "versions-2"
+      ],
+      "scores": {
+        "versions-1": 2.2637,
+        "versions-0": 1.61,
+        "versions-3": 1.5522,
+        "versions-2": 1.2708
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 5530,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 541,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 5572
+    },
+    {
+      "case": "versions",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "versions-1",
+        "versions-2",
+        "versions-3",
+        "versions-0"
+      ],
+      "ranked_ids": [
+        "versions-1",
+        "versions-0",
+        "versions-3",
+        "versions-2"
+      ],
+      "scores": {
+        "versions-1": 2.2637,
+        "versions-0": 1.61,
+        "versions-3": 1.5522,
+        "versions-2": 1.2708
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 4557,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 541,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 4580
+    },
+    {
+      "case": "versions",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "versions-3",
+        "versions-2",
+        "versions-1",
+        "versions-0"
+      ],
+      "ranked_ids": [
+        "versions-1",
+        "versions-0",
+        "versions-3",
+        "versions-2"
+      ],
+      "scores": {
+        "versions-1": 2.2637,
+        "versions-0": 1.61,
+        "versions-3": 1.5522,
+        "versions-2": 1.2708
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 6357,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 541,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 6373
+    },
+    {
+      "case": "empty",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "empty-0",
+        "empty-1",
+        "empty-2",
+        "empty-3"
+      ],
+      "ranked_ids": [
+        "empty-0",
+        "empty-3",
+        "empty-2",
+        "empty-1"
+      ],
+      "scores": {
+        "empty-0": 0.407,
+        "empty-3": 0.2794,
+        "empty-2": 0.1267,
+        "empty-1": 0.037
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 4508,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 491,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 4525
+    },
+    {
+      "case": "empty",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "empty-1",
+        "empty-2",
+        "empty-3",
+        "empty-0"
+      ],
+      "ranked_ids": [
+        "empty-0",
+        "empty-3",
+        "empty-2",
+        "empty-1"
+      ],
+      "scores": {
+        "empty-0": 0.407,
+        "empty-3": 0.2794,
+        "empty-2": 0.1267,
+        "empty-1": 0.037
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 5651,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 491,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 5725
+    },
+    {
+      "case": "empty",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "empty-3",
+        "empty-2",
+        "empty-1",
+        "empty-0"
+      ],
+      "ranked_ids": [
+        "empty-0",
+        "empty-3",
+        "empty-2",
+        "empty-1"
+      ],
+      "scores": {
+        "empty-0": 0.407,
+        "empty-3": 0.2794,
+        "empty-2": 0.1267,
+        "empty-1": 0.037
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 2869,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 491,
+          "output_tokens": 0
+        }
+      },
+      "wall_ms": 3547
+    }
+  ]
+}

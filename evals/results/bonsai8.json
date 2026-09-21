@@ -1,0 +1,1399 @@
+{
+  "incomplete": false,
+  "label_provenance": "Assistant-authored synthetic project scenarios, grades fixed before evaluation; not independent human judgments or a production benchmark.",
+  "fixture_sha256": "246f2b526c9f0d1a29739c90ad9f16932dfe995c60793110126a8fdfa17ac9f9",
+  "clue_version": "clue 0.4.0",
+  "provider": "ollama",
+  "model": "digitsflow/bonsai-8b:latest",
+  "checkpoint": null,
+  "acceptance": {
+    "description": "Provisional usability gates; not a claim of calibrated probabilities.",
+    "positive_top1_min": 0.9,
+    "mean_ndcg_at_3_min": 0.9,
+    "errors_max": 0,
+    "no_match_max_score": 1.0,
+    "injection_top1_required": true
+  },
+  "summary": {
+    "requests": 36,
+    "errors": 0,
+    "positive_top1": 0.42424242424242425,
+    "mean_ndcg_at_3": 0.7104529163902411,
+    "no_match_passes": 3,
+    "no_match_requests": 3,
+    "injection_top1": false,
+    "median_wall_ms": 1332.5,
+    "p95_wall_ms": 4576,
+    "passed_gates": false
+  },
+  "records": [
+    {
+      "case": "sync",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sync-0",
+        "sync-1",
+        "sync-2",
+        "sync-3"
+      ],
+      "ranked_ids": [
+        "sync-0",
+        "sync-2",
+        "sync-1",
+        "sync-3"
+      ],
+      "scores": {
+        "sync-0": 3.0,
+        "sync-2": 2.0,
+        "sync-1": 1.0,
+        "sync-3": 1.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 4480,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 195,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 4576
+    },
+    {
+      "case": "sync",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sync-1",
+        "sync-2",
+        "sync-3",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-1",
+        "sync-0",
+        "sync-2",
+        "sync-3"
+      ],
+      "scores": {
+        "sync-1": 3.0,
+        "sync-0": 3.0,
+        "sync-2": 2.0,
+        "sync-3": 2.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5787641110093001,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1396,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 195,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1450
+    },
+    {
+      "case": "sync",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sync-3",
+        "sync-2",
+        "sync-1",
+        "sync-0"
+      ],
+      "ranked_ids": [
+        "sync-3",
+        "sync-2",
+        "sync-1",
+        "sync-0"
+      ],
+      "scores": {
+        "sync-3": 3.0,
+        "sync-2": 2.0,
+        "sync-1": 1.0,
+        "sync-0": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.1310456303875653,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1935,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 195,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 2037
+    },
+    {
+      "case": "tauri",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "tauri-0",
+        "tauri-1",
+        "tauri-2",
+        "tauri-3"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-0",
+        "tauri-3"
+      ],
+      "scores": {
+        "tauri-1": 3.0,
+        "tauri-2": 2.0,
+        "tauri-0": 1.0,
+        "tauri-3": 1.0
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1395,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1425
+    },
+    {
+      "case": "tauri",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-2",
+        "tauri-3",
+        "tauri-0"
+      ],
+      "scores": {
+        "tauri-1": 3.0,
+        "tauri-2": 2.0,
+        "tauri-3": 1.0,
+        "tauri-0": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1426,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1451
+    },
+    {
+      "case": "tauri",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "tauri-3",
+        "tauri-2",
+        "tauri-1",
+        "tauri-0"
+      ],
+      "ranked_ids": [
+        "tauri-1",
+        "tauri-3",
+        "tauri-2",
+        "tauri-0"
+      ],
+      "scores": {
+        "tauri-1": 3.0,
+        "tauri-3": 1.0,
+        "tauri-2": 0.0,
+        "tauri-0": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1330,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1357
+    },
+    {
+      "case": "sql",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "sql-0",
+        "sql-1",
+        "sql-2",
+        "sql-3"
+      ],
+      "ranked_ids": [
+        "sql-2",
+        "sql-1",
+        "sql-0",
+        "sql-3"
+      ],
+      "scores": {
+        "sql-2": 3.0,
+        "sql-1": 2.0,
+        "sql-0": 1.0,
+        "sql-3": 1.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.7098097413968655,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1886,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 202,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1948
+    },
+    {
+      "case": "sql",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "sql-1",
+        "sql-2",
+        "sql-3",
+        "sql-0"
+      ],
+      "ranked_ids": [
+        "sql-1",
+        "sql-2",
+        "sql-3",
+        "sql-0"
+      ],
+      "scores": {
+        "sql-1": 3.0,
+        "sql-2": 0.0,
+        "sql-3": 0.0,
+        "sql-0": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1635,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 202,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1660
+    },
+    {
+      "case": "sql",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "sql-3",
+        "sql-2",
+        "sql-1",
+        "sql-0"
+      ],
+      "ranked_ids": [
+        "sql-3",
+        "sql-2",
+        "sql-1",
+        "sql-0"
+      ],
+      "scores": {
+        "sql-3": 0.0,
+        "sql-2": 0.0,
+        "sql-1": 0.0,
+        "sql-0": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5413402936435214,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1520,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 202,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1589
+    },
+    {
+      "case": "calendar",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "calendar-0",
+        "calendar-1",
+        "calendar-2",
+        "calendar-3"
+      ],
+      "ranked_ids": [
+        "calendar-0",
+        "calendar-1",
+        "calendar-2",
+        "calendar-3"
+      ],
+      "scores": {
+        "calendar-0": 0.0,
+        "calendar-1": 0.0,
+        "calendar-2": 0.0,
+        "calendar-3": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1497,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1929
+    },
+    {
+      "case": "calendar",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "calendar-1",
+        "calendar-2",
+        "calendar-3",
+        "calendar-0"
+      ],
+      "ranked_ids": [
+        "calendar-1",
+        "calendar-2",
+        "calendar-3",
+        "calendar-0"
+      ],
+      "scores": {
+        "calendar-1": 0.0,
+        "calendar-2": 0.0,
+        "calendar-3": 0.0,
+        "calendar-0": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.06552281519378265,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1279,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1347
+    },
+    {
+      "case": "calendar",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "calendar-3",
+        "calendar-2",
+        "calendar-1",
+        "calendar-0"
+      ],
+      "ranked_ids": [
+        "calendar-3",
+        "calendar-2",
+        "calendar-1",
+        "calendar-0"
+      ],
+      "scores": {
+        "calendar-3": 0.0,
+        "calendar-2": 0.0,
+        "calendar-1": 0.0,
+        "calendar-0": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.1310456303875653,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1464,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 26
+        }
+      },
+      "wall_ms": 1526
+    },
+    {
+      "case": "privacy",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "privacy-0",
+        "privacy-1",
+        "privacy-2",
+        "privacy-3"
+      ],
+      "ranked_ids": [
+        "privacy-0",
+        "privacy-1",
+        "privacy-2",
+        "privacy-3"
+      ],
+      "scores": {
+        "privacy-0": 3.0,
+        "privacy-1": 3.0,
+        "privacy-2": 3.0,
+        "privacy-3": 3.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6309297535714575,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1351,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 211,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1406
+    },
+    {
+      "case": "privacy",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "privacy-1",
+        "privacy-2",
+        "privacy-3",
+        "privacy-0"
+      ],
+      "ranked_ids": [
+        "privacy-1",
+        "privacy-0",
+        "privacy-2",
+        "privacy-3"
+      ],
+      "scores": {
+        "privacy-1": 3.0,
+        "privacy-0": 3.0,
+        "privacy-2": 2.0,
+        "privacy-3": 2.0
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1278,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 211,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1303
+    },
+    {
+      "case": "privacy",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "privacy-3",
+        "privacy-2",
+        "privacy-1",
+        "privacy-0"
+      ],
+      "ranked_ids": [
+        "privacy-3",
+        "privacy-2",
+        "privacy-1",
+        "privacy-0"
+      ],
+      "scores": {
+        "privacy-3": 3.0,
+        "privacy-2": 3.0,
+        "privacy-1": 3.0,
+        "privacy-0": 3.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1252,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 211,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1283
+    },
+    {
+      "case": "argv",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "argv-0",
+        "argv-1",
+        "argv-2",
+        "argv-3"
+      ],
+      "ranked_ids": [
+        "argv-0",
+        "argv-1",
+        "argv-2",
+        "argv-3"
+      ],
+      "scores": {
+        "argv-0": 3.0,
+        "argv-1": 2.0,
+        "argv-2": 2.0,
+        "argv-3": 1.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5787641110093001,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1348,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 195,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1398
+    },
+    {
+      "case": "argv",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "argv-1",
+        "argv-2",
+        "argv-3",
+        "argv-0"
+      ],
+      "ranked_ids": [
+        "argv-1",
+        "argv-2",
+        "argv-3",
+        "argv-0"
+      ],
+      "scores": {
+        "argv-1": 3.0,
+        "argv-2": 3.0,
+        "argv-3": 3.0,
+        "argv-0": 3.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1277,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 195,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1302
+    },
+    {
+      "case": "argv",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "argv-3",
+        "argv-2",
+        "argv-1",
+        "argv-0"
+      ],
+      "ranked_ids": [
+        "argv-3",
+        "argv-2",
+        "argv-1",
+        "argv-0"
+      ],
+      "scores": {
+        "argv-3": 3.0,
+        "argv-2": 3.0,
+        "argv-1": 3.0,
+        "argv-0": 3.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5897053367440438,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1241,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 195,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1270
+    },
+    {
+      "case": "negation",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "negation-0",
+        "negation-1",
+        "negation-2",
+        "negation-3"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-2",
+        "negation-0",
+        "negation-3"
+      ],
+      "scores": {
+        "negation-1": 3.0,
+        "negation-2": 2.0,
+        "negation-0": 1.0,
+        "negation-3": 1.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1240,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 197,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1337
+    },
+    {
+      "case": "negation",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "negation-1",
+        "negation-2",
+        "negation-3",
+        "negation-0"
+      ],
+      "ranked_ids": [
+        "negation-1",
+        "negation-2",
+        "negation-3",
+        "negation-0"
+      ],
+      "scores": {
+        "negation-1": 1.0,
+        "negation-2": 1.0,
+        "negation-3": 0.0,
+        "negation-0": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1311,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 197,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1328
+    },
+    {
+      "case": "negation",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "negation-3",
+        "negation-2",
+        "negation-1",
+        "negation-0"
+      ],
+      "ranked_ids": [
+        "negation-2",
+        "negation-1",
+        "negation-3",
+        "negation-0"
+      ],
+      "scores": {
+        "negation-2": 2.0,
+        "negation-1": 2.0,
+        "negation-3": 1.0,
+        "negation-0": 1.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6442869262030828,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1237,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 197,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1257
+    },
+    {
+      "case": "exact-project",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "exact-project-0",
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-0",
+        "exact-project-2",
+        "exact-project-3"
+      ],
+      "scores": {
+        "exact-project-1": 3.0,
+        "exact-project-0": 0.0,
+        "exact-project-2": 0.0,
+        "exact-project-3": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1205,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1224
+    },
+    {
+      "case": "exact-project",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3",
+        "exact-project-0"
+      ],
+      "ranked_ids": [
+        "exact-project-1",
+        "exact-project-2",
+        "exact-project-3",
+        "exact-project-0"
+      ],
+      "scores": {
+        "exact-project-1": 3.0,
+        "exact-project-2": 0.0,
+        "exact-project-3": 0.0,
+        "exact-project-0": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9828422279067397,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1036,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 22
+        }
+      },
+      "wall_ms": 1058
+    },
+    {
+      "case": "exact-project",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "exact-project-3",
+        "exact-project-2",
+        "exact-project-1",
+        "exact-project-0"
+      ],
+      "ranked_ids": [
+        "exact-project-3",
+        "exact-project-2",
+        "exact-project-1",
+        "exact-project-0"
+      ],
+      "scores": {
+        "exact-project-3": 0.0,
+        "exact-project-2": 0.0,
+        "exact-project-1": 0.0,
+        "exact-project-0": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5897053367440438,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1031,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 198,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1064
+    },
+    {
+      "case": "multilingual",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "multilingual-0",
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-0",
+        "multilingual-2",
+        "multilingual-3"
+      ],
+      "scores": {
+        "multilingual-1": 2.0,
+        "multilingual-0": 1.0,
+        "multilingual-2": 0.0,
+        "multilingual-3": 0.0
+      },
+      "top1": true,
+      "ndcg_at_3": 0.9173194127129571,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1307,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 206,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1327
+    },
+    {
+      "case": "multilingual",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "multilingual-1",
+        "multilingual-2",
+        "multilingual-3",
+        "multilingual-0"
+      ],
+      "ranked_ids": [
+        "multilingual-0",
+        "multilingual-3",
+        "multilingual-1",
+        "multilingual-2"
+      ],
+      "scores": {
+        "multilingual-0": 3.0,
+        "multilingual-3": 2.0,
+        "multilingual-1": 1.0,
+        "multilingual-2": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5413402936435214,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1257,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 206,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1282
+    },
+    {
+      "case": "multilingual",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "multilingual-3",
+        "multilingual-2",
+        "multilingual-1",
+        "multilingual-0"
+      ],
+      "ranked_ids": [
+        "multilingual-1",
+        "multilingual-3",
+        "multilingual-2",
+        "multilingual-0"
+      ],
+      "scores": {
+        "multilingual-1": 3.0,
+        "multilingual-3": 2.0,
+        "multilingual-2": 1.0,
+        "multilingual-0": 1.0
+      },
+      "top1": true,
+      "ndcg_at_3": 1.0,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1233,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 206,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1252
+    },
+    {
+      "case": "injection",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "injection-0",
+        "injection-1",
+        "injection-2",
+        "injection-3"
+      ],
+      "ranked_ids": [
+        "injection-0",
+        "injection-1",
+        "injection-2",
+        "injection-3"
+      ],
+      "scores": {
+        "injection-0": 3.0,
+        "injection-1": 0.0,
+        "injection-2": 0.0,
+        "injection-3": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6309297535714575,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1270,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 209,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1286
+    },
+    {
+      "case": "injection",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "injection-1",
+        "injection-2",
+        "injection-3",
+        "injection-0"
+      ],
+      "ranked_ids": [
+        "injection-0",
+        "injection-1",
+        "injection-2",
+        "injection-3"
+      ],
+      "scores": {
+        "injection-0": 3.0,
+        "injection-1": 0.0,
+        "injection-2": 0.0,
+        "injection-3": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6309297535714575,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1471,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 209,
+          "output_tokens": 35
+        }
+      },
+      "wall_ms": 1491
+    },
+    {
+      "case": "injection",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "injection-3",
+        "injection-2",
+        "injection-1",
+        "injection-0"
+      ],
+      "ranked_ids": [
+        "injection-3",
+        "injection-2",
+        "injection-1",
+        "injection-0"
+      ],
+      "scores": {
+        "injection-3": 3.0,
+        "injection-2": 0.0,
+        "injection-1": 0.0,
+        "injection-0": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1229,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 209,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1264
+    },
+    {
+      "case": "versions",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "versions-0",
+        "versions-1",
+        "versions-2",
+        "versions-3"
+      ],
+      "ranked_ids": [
+        "versions-3",
+        "versions-1",
+        "versions-0",
+        "versions-2"
+      ],
+      "scores": {
+        "versions-3": 3.0,
+        "versions-1": 1.0,
+        "versions-0": 0.0,
+        "versions-2": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.7098097413968655,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1230,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 235,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1258
+    },
+    {
+      "case": "versions",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "versions-1",
+        "versions-2",
+        "versions-3",
+        "versions-0"
+      ],
+      "ranked_ids": [
+        "versions-0",
+        "versions-1",
+        "versions-2",
+        "versions-3"
+      ],
+      "scores": {
+        "versions-0": 3.0,
+        "versions-1": 1.0,
+        "versions-2": 1.0,
+        "versions-3": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.5787641110093001,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 13160,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 235,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 13179
+    },
+    {
+      "case": "versions",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "versions-3",
+        "versions-2",
+        "versions-1",
+        "versions-0"
+      ],
+      "ranked_ids": [
+        "versions-0",
+        "versions-1",
+        "versions-3",
+        "versions-2"
+      ],
+      "scores": {
+        "versions-0": 3.0,
+        "versions-1": 1.0,
+        "versions-3": 0.0,
+        "versions-2": 0.0
+      },
+      "top1": false,
+      "ndcg_at_3": 0.6442869262030828,
+      "no_match_pass": null,
+      "metadata": {
+        "elapsed_ms": 1366,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 235,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1387
+    },
+    {
+      "case": "empty",
+      "order": 0,
+      "ok": true,
+      "input_ids": [
+        "empty-0",
+        "empty-1",
+        "empty-2",
+        "empty-3"
+      ],
+      "ranked_ids": [
+        "empty-0",
+        "empty-1",
+        "empty-2",
+        "empty-3"
+      ],
+      "scores": {
+        "empty-0": 0.0,
+        "empty-1": 0.0,
+        "empty-2": 0.0,
+        "empty-3": 0.0
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 1174,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 178,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1192
+    },
+    {
+      "case": "empty",
+      "order": 1,
+      "ok": true,
+      "input_ids": [
+        "empty-1",
+        "empty-2",
+        "empty-3",
+        "empty-0"
+      ],
+      "ranked_ids": [
+        "empty-1",
+        "empty-2",
+        "empty-3",
+        "empty-0"
+      ],
+      "scores": {
+        "empty-1": 0.0,
+        "empty-2": 0.0,
+        "empty-3": 0.0,
+        "empty-0": 0.0
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 1006,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 178,
+          "output_tokens": 26
+        }
+      },
+      "wall_ms": 1028
+    },
+    {
+      "case": "empty",
+      "order": 2,
+      "ok": true,
+      "input_ids": [
+        "empty-3",
+        "empty-2",
+        "empty-1",
+        "empty-0"
+      ],
+      "ranked_ids": [
+        "empty-3",
+        "empty-2",
+        "empty-1",
+        "empty-0"
+      ],
+      "scores": {
+        "empty-3": 0.0,
+        "empty-2": 0.0,
+        "empty-1": 0.0,
+        "empty-0": 0.0
+      },
+      "top1": null,
+      "ndcg_at_3": null,
+      "no_match_pass": true,
+      "metadata": {
+        "elapsed_ms": 1216,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 178,
+          "output_tokens": 29
+        }
+      },
+      "wall_ms": 1236
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 pub mod api;
+pub mod config;
 pub mod credentials;
 pub mod input;
 pub mod provider;

@@ -8,7 +8,8 @@ use std::{
     time::{Duration, Instant},
 };
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, ValueEnum, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "lowercase")]
 pub enum Provider {
     #[value(alias = "jev")]
     Typesafe,
@@ -17,22 +18,55 @@ pub enum Provider {
 }
 
 #[derive(Args, Debug)]
-pub struct Options {
+pub struct Selection {
     /// Ranking backend. Systemone supports Kev, Jeff, and compatible local servers.
-    #[arg(
-        long,
-        global = true,
-        value_enum,
-        env = "CLUE_PROVIDER",
-        default_value = "typesafe"
-    )]
-    pub provider: Provider,
+    #[arg(long, global = true, value_enum, env = "CLUE_PROVIDER")]
+    pub provider: Option<Provider>,
     /// Model name; required for Ollama. Defaults: jev-latest / kev-latest.
     #[arg(long, global = true, env = "CLUE_MODEL")]
     pub model: Option<String>,
     /// Server root URL (without /v1/systemone or /api/chat). TypeSafe uses a fixed URL.
     #[arg(long, global = true, env = "CLUE_BASE_URL")]
     pub base_url: Option<String>,
+}
+
+#[derive(Debug, Clone)]
+pub struct Options {
+    pub provider: Provider,
+    pub model: Option<String>,
+    pub base_url: Option<String>,
+}
+
+impl Selection {
+    pub fn effective(&self, saved: Option<&crate::config::Saved>) -> Options {
+        let provider = self
+            .provider
+            .or(saved.map(|s| s.provider))
+            .unwrap_or(Provider::Typesafe);
+        // A provider override must never inherit another provider's model or endpoint.
+        let matching = saved.filter(|s| s.provider == provider);
+        Options {
+            provider,
+            model: self
+                .model
+                .clone()
+                .or_else(|| {
+                    (provider == Provider::Typesafe)
+                        .then(|| std::env::var("TYPESAFE_MODEL").ok())
+                        .flatten()
+                })
+                .or_else(|| matching.and_then(|s| s.model.clone())),
+            base_url: self
+                .base_url
+                .clone()
+                .or_else(|| matching.and_then(|s| s.base_url.clone())),
+        }
+    }
+
+    pub fn resolve(&self, share_content: bool) -> Result<Config> {
+        self.effective(crate::config::load()?.as_ref())
+            .resolve(share_content)
+    }
 }
 
 pub struct Config {
@@ -109,6 +143,9 @@ impl Options {
 }
 
 impl Config {
+    pub fn description(&self) -> Value {
+        json!({"provider":self.name(),"model":self.model,"base_url":self.base.as_str(),"local_endpoint":self.local})
+    }
     pub fn name(&self) -> &'static str {
         match self.provider {
             Provider::Typesafe => "typesafe",
