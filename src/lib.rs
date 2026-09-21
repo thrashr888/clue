@@ -1,6 +1,7 @@
 pub mod api;
 pub mod credentials;
 pub mod input;
+pub mod provider;
 pub mod search;
 pub mod skills;
 pub mod sqlite;
@@ -48,8 +49,12 @@ fn default_source() -> String {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Judgment {
     pub score: f64,
-    pub confidence: f64,
-    pub probabilities: std::collections::BTreeMap<String, f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub confidence: Option<f64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub probabilities: Option<std::collections::BTreeMap<String, f64>>,
+    #[serde(default = "distribution_kind")]
+    pub kind: String,
 }
 
 pub fn clip(text: &str, max: usize) -> String {
@@ -62,4 +67,8 @@ pub fn validate_query(query: &str) -> anyhow::Result<()> {
         "query must contain 1–500 characters"
     );
     Ok(())
+}
+
+fn distribution_kind() -> String {
+    "native_distribution".into()
 }

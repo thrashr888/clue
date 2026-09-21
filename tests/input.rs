@@ -141,12 +141,13 @@ mod commands {
         let temp = tempfile::tempdir().unwrap();
         let path = executable(
             temp.path(),
-            "#!/bin/sh\n[ -z \"$TYPESAFE_API_KEY$TYPESAFE_API_KEY_FILE\" ] || exit 9\n[ \"$1\" = '$(touch NEVER)' ] || exit 8\nprintf '%s' '[{\"id\":\"a\",\"title\":\"Works\"}]'\n",
+            "#!/bin/sh\n[ -z \"$TYPESAFE_API_KEY$TYPESAFE_API_KEY_FILE$CLUE_PROVIDER_API_KEY\" ] || exit 9\n[ \"$1\" = '$(touch NEVER)' ] || exit 8\nprintf '%s' '[{\"id\":\"a\",\"title\":\"Works\"}]'\n",
         );
         let out = Command::new(env!("CARGO_BIN_EXE_clue"))
             .args(["collect", "--", path.to_str().unwrap(), "$(touch NEVER)"])
             .env("TYPESAFE_API_KEY", "fixture-secret")
             .env("TYPESAFE_API_KEY_FILE", "fixture-path")
+            .env("CLUE_PROVIDER_API_KEY", "provider-secret")
             .output()
             .unwrap();
         assert!(

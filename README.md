@@ -1,8 +1,8 @@
 # clue
 
-**Semantic ranking for the tools you already use.** Clue reads JSON/JSONL from `gh`, `bd`, Cider, SQLite, or any other CLI, preserves the original records, and optionally asks TypeSafe to rank them. Agents can also consume bounded evidence bundles.
+**Semantic ranking for the tools you already use.** Clue reads JSON/JSONL from `gh`, `bd`, Cider, SQLite, or any other CLI, preserves the original records, and ranks them with Jev, local System One servers such as Kev/Laya, or Ollama. Agents can also consume bounded evidence bundles.
 
-The executable is `clue`, and agent skills use the `clue-` prefix. Cider search, Calendar, SQLite, and shared TypeSafe credentials are supported.
+The executable is `clue`, and agent skills use the `clue-` prefix. Cider search, Calendar, SQLite, and shared TypeSafe credentials are supported. See [local model setup and findings](docs/local-models.md).
 
 ## Install
 
@@ -22,6 +22,43 @@ clue --help
 ```
 
 Requires Rust to build. Generic collection, ranking, and SQLite do not require Cider. Mac source commands require an installed `cider` and its normal macOS data permissions. Tested with Rust 1.98.1, Cider 0.6.2, and Jev 1.13.0. `clue doctor` currently diagnoses Cider and TypeSafe; Cider being unavailable does not disable generic workflows.
+
+## Choose a ranking provider
+
+```sh
+# Hosted Jev (the default); explicit permission to share selected content.
+clue rank "offline sync" --input examples/candidates.json --provider typesafe --share-content
+
+# Local Ollama: choose a model already installed in your server.
+clue rank "offline sync" --input examples/candidates.json \
+  --provider ollama --model digitsflow/bonsai-8b:latest --timeout 120
+
+# Kev's TypeSafe-compatible server, running separately.
+clue rank "offline sync" --input examples/candidates.json \
+  --provider systemone --base-url http://127.0.0.1:8009 --model kev-latest
+
+# Optional Laya bridge; first run downloads the Python runtime and model.
+uv run scripts/serve_laya.py
+# In another terminal:
+clue rank "offline sync" --input examples/candidates.json \
+  --provider systemone --base-url http://127.0.0.1:8010 --model laya
+```
+
+The same provider flags apply to `search --ai`, `context --ai`, and `sqlite search --ai`.
+Set `CLUE_PROVIDER`, `CLUE_MODEL`, and `CLUE_BASE_URL` to reuse a configuration across tools.
+`TYPESAFE_MODEL` remains specific to the TypeSafe provider. `--provider jev` is another spelling of `typesafe`.
+Ollama requires an explicit model; Clue never downloads a model or switches providers automatically.
+
+Loopback servers need no `--share-content` flag and receive no TypeSafe key. Non-loopback URLs require HTTPS and `--share-content`.
+Use `CLUE_PROVIDER_API_KEY` only for a self-hosted server that requires its own bearer key (such as Jeff).
+Base URLs are server roots, without API paths, credentials, query strings, or fragments.
+Local requests bypass HTTP proxies and redirects are disabled. Ollama cloud models also require `--share-content`,
+including cloud models discovered by `/api/show`. A local proxy that forwards requests must still be configured by its operator for local-only inference.
+
+Native System One responses retain their probability distribution and confidence. Ollama generates integer ratings from 0 to 3;
+these have `relevance.kind: "generated_rating"` and omit `confidence`/`probabilities`. Native results use `"native_distribution"`.
+Do not compare confidence values between providers as if they were calibrated accuracy. Output metadata records the provider and returned model.
+Invalid or incomplete responses fail before applying any ratings. There is no cloud fallback.
 
 ## Work with any CLI
 
@@ -91,7 +128,7 @@ A custom profile follows this shape:
 
 Commands execute directly in the current working directory, with no shell interpolation. To change options, supply explicit argv after `--` or edit a profile. Profiles are never auto-discovered or auto-executed. The calling user/agent chooses the command; TypeSafe never supplies executable commands. A custom profile or explicit command is **not restricted to read-only operations or sandboxed**; choose read commands when collecting evidence.
 
-Child stdin is closed, each output stream is capped at 4 MiB, and `--timeout` bounds the child process. Failure/timeout produces an error instead of an empty result. Clue removes TypeSafe key environment variables from children, keeps other tool authentication intact, and does not echo child stderr or full argv in JSON output. It does not isolate the child's filesystem or guarantee cleanup of independently spawned descendants. Never place secrets in command arguments or profile files.
+Child stdin is closed, each output stream is capped at 4 MiB, and `--timeout` bounds the child process. Failure/timeout produces an error instead of an empty result. Clue removes TypeSafe and `CLUE_PROVIDER_API_KEY` environment variables from children, keeps other tool authentication intact, and does not echo child stderr or full argv in JSON output. It does not isolate the child's filesystem or guarantee cleanup of independently spawned descendants. Never place secrets in command arguments or profile files.
 
 ## Practical commands
 
@@ -228,7 +265,7 @@ Context budgets measure the compact UTF-8 JSON encoding of the returned `results
 
 Search is local by default. External ranking requires `--share-content`; it sends only the query and each candidate's first 300 title characters and 1,600 text characters. Original `record`, upstream metadata, IDs, source paths/URLs in the `location` field, and timestamps are not sent as separate fields, but such information may still occur within the title or snippet itself. This is field minimization, not automatic sensitive-data redaction.
 
-Local search uses weighted substring matching over at most 12 query terms. TypeSafe reranks the candidates it receives; it cannot recover items that local retrieval missed. No persistent index or embeddings are built in this version.
+Local search uses weighted substring matching over at most 12 query terms. The selected model reranks the candidates it receives; it cannot recover items that local retrieval missed. No persistent index or embeddings are built in this version.
 
 | Source | Current coverage |
 | --- | --- |
@@ -240,14 +277,14 @@ Local search uses weighted substring matching over at most 12 query terms. TypeS
 
 Empty results do not establish that the full store has no matches. Search order is not manual task priority. File retrieval depends on Spotlight indexing. macOS sandbox/TCC restrictions can cause individual sources to fail even when they work in Terminal.
 
-The default per-source and HTTP timeout is 15 seconds, configurable from 1 to 60 with `--timeout`. Search sources run concurrently. API calls are not retried automatically. If optional search reranking fails, the CLI retains the local ordering and explicitly reports that fallback. Standalone `rank` fails instead of claiming a ranking was applied. Relevance scores range from 0 to 3; confidence describes answer-distribution concentration, not correctness.
+The default per-source and HTTP timeout is 15 seconds, configurable from 1 to 600 with `--timeout`. Search sources run concurrently. API calls are not retried automatically. If optional search reranking fails, the CLI retains the local ordering and explicitly reports that fallback. Standalone `rank` fails instead of claiming a ranking was applied. Relevance scores range from 0 to 3; native confidence describes answer-distribution concentration, not correctness. Ollama returns generated ratings without probabilities. Its input uses a conservative byte-based context bound, capped at 32,768 tokens (or a smaller reported model limit), with output/template space reserved; reduce candidate count or text if rejected.
 
 ## Verification
 
 The v0.3.0 checks cover generic JSON/JSONL mapping, original-record retention, API field minimization, profiles, explicit argv execution, credential isolation, timeouts/failures, incomplete input metadata, and record-aware context budgets. Prior local-source and SQLite smoke results below are retained as historical checks.
 
 
-- 33 unit/integration tests cover credentials, source errors, recurring Calendar occurrences, date-window arguments, read-only SQL enforcement, live WAL reads, query limits, Unicode, joins, IDs, ranking validation, context bounds, and skill installation.
+- Unit/integration tests cover credentials, source errors, recurring Calendar occurrences, date-window arguments, read-only SQL enforcement, live WAL reads, query limits, Unicode, joins, IDs, ranking validation, context bounds, and skill installation.
 - Calendar live smoke: 40 occurrences read, 2 keyword matches with structured event metadata.
 - SQLite smoke: schema discovery, joins, counts, lexical search, and unchanged database bytes. A synthetic four-row TypeSafe query ranked Cortex decision retrieval first at 2.99/3 (290 ms); no personal rows were sent.
 - `cargo fmt --check` and `cargo clippy --all-targets -- -D warnings` pass.

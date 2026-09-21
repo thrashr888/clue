@@ -185,5 +185,6 @@ fn sqlite_cli_queries_are_rank_compatible_and_sharing_is_explicit() {
         ])
         .output()
         .unwrap();
-    assert_eq!(out.status.code(), Some(2));
+    assert_eq!(out.status.code(), Some(1));
+    assert!(String::from_utf8_lossy(&out.stdout).contains("--share-content"));
 }

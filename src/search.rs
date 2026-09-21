@@ -92,6 +92,7 @@ pub async fn run_cider(binary: &Path, args: &[String], timeout: Duration) -> Res
         .args(args)
         .env_remove("TYPESAFE_API_KEY")
         .env_remove("TYPESAFE_API_KEY_FILE")
+        .env_remove("CLUE_PROVIDER_API_KEY")
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())

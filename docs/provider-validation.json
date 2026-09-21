@@ -1,0 +1,155 @@
+{
+  "date": "2026-09-21",
+  "fixture": "examples/candidates.json",
+  "method": "One synthetic query, four records, one HTTP call per provider after model startup. Timings include request and response handling. This is not a representative quality benchmark.",
+  "runs": [
+    {
+      "model": "jev-1.13.0",
+      "query": "sync a research notebook between Mac and iPhone",
+      "ok": true,
+      "metadata": {
+        "elapsed_ms": 291,
+        "model": "jev-1.13.0",
+        "provider": "typesafe",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 904,
+          "output_tokens": 60
+        }
+      },
+      "ranked": [
+        {
+          "id": "note-sync",
+          "score": 2.97
+        },
+        {
+          "id": "task-ui",
+          "score": 0.26
+        },
+        {
+          "id": "weak-keyword",
+          "score": 0.09
+        },
+        {
+          "id": "unrelated",
+          "score": 0.01
+        }
+      ],
+      "error": null
+    },
+    {
+      "model": "jaredpalmer/kev-0.6b",
+      "query": "sync a research notebook between Mac and iPhone",
+      "ok": true,
+      "metadata": {
+        "elapsed_ms": 10298,
+        "model": "kev-latest",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 482,
+          "output_tokens": 522
+        }
+      },
+      "ranked": [
+        {
+          "id": "note-sync",
+          "score": 2.6
+        },
+        {
+          "id": "task-ui",
+          "score": 2.56
+        },
+        {
+          "id": "weak-keyword",
+          "score": 2.54
+        },
+        {
+          "id": "unrelated",
+          "score": 2.53
+        }
+      ],
+      "error": null
+    },
+    {
+      "model": "convaiinnovations/laya",
+      "query": "sync a research notebook between Mac and iPhone",
+      "ok": true,
+      "metadata": {
+        "elapsed_ms": 448,
+        "model": "convaiinnovations/laya",
+        "provider": "systemone",
+        "score_kind": "native_distribution",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 494,
+          "output_tokens": 0
+        }
+      },
+      "ranked": [
+        {
+          "id": "note-sync",
+          "score": 2.2891
+        },
+        {
+          "id": "task-ui",
+          "score": 1.2523
+        },
+        {
+          "id": "unrelated",
+          "score": 0.395
+        },
+        {
+          "id": "weak-keyword",
+          "score": 0.0479
+        }
+      ],
+      "error": null
+    },
+    {
+      "model": "digitsflow/bonsai-8b:latest",
+      "query": "sync a research notebook between Mac and iPhone",
+      "ok": true,
+      "metadata": {
+        "elapsed_ms": 1644,
+        "model": "digitsflow/bonsai-8b:latest",
+        "provider": "ollama",
+        "score_kind": "generated_rating",
+        "sent_candidates": 4,
+        "usage": {
+          "input_tokens": 190,
+          "output_tokens": 29
+        }
+      },
+      "ranked": [
+        {
+          "id": "note-sync",
+          "score": 3.0
+        },
+        {
+          "id": "task-ui",
+          "score": 2.0
+        },
+        {
+          "id": "unrelated",
+          "score": 0.0
+        },
+        {
+          "id": "weak-keyword",
+          "score": 0.0
+        }
+      ],
+      "error": null
+    }
+  ],
+  "blocked": [
+    {
+      "model": "hf.co/prism-ml/Ternary-Bonsai-2-27B-gguf:PTQ1_0",
+      "stage": "Ollama /api/show and /api/chat",
+      "reason": "HTTP 500: GGUF metadata output.weight size overflows in installed runtime"
+    }
+  ],
+  "laya_context_overflow_check": "Passed: token-dense synthetic excerpt rejected with HTTP 422 before inference"
+}

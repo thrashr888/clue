@@ -1,7 +1,7 @@
 use anyhow::{Context, Result, ensure};
 use clap::{Args, Parser, Subcommand};
 use clue::{
-    Candidate, api, credentials, input,
+    Candidate, credentials, input, provider,
     search::{self, Source, Status},
     skills, sqlite,
 };
@@ -18,14 +18,9 @@ struct Cli {
     pretty: bool,
     #[arg(long, global = true, env = "CIDER_BIN", default_value = "cider")]
     cider: PathBuf,
-    #[arg(
-        long,
-        global = true,
-        env = "TYPESAFE_MODEL",
-        default_value = "jev-latest"
-    )]
-    model: String,
-    #[arg(long,global=true,default_value_t=15,value_parser=clap::value_parser!(u64).range(1..=60))]
+    #[command(flatten)]
+    provider: provider::Options,
+    #[arg(long,global=true,default_value_t=15,value_parser=clap::value_parser!(u64).range(1..=600))]
     timeout: u64,
     #[command(subcommand)]
     command: Cmd,
@@ -42,7 +37,7 @@ enum Cmd {
         #[arg(long, default_value_t = 12000)]
         budget_bytes: usize,
     },
-    /// Rank a JSON candidate array or a search envelope using TypeSafe.
+    /// Rank a JSON candidate array or a search envelope using the selected provider.
     Rank {
         query: String,
         #[command(flatten)]
@@ -50,7 +45,7 @@ enum Cmd {
         #[arg(long)]
         share_content: bool,
     },
-    /// Collect JSON/JSONL records locally, preserving originals; never calls TypeSafe.
+    /// Collect JSON/JSONL records locally, preserving originals; never calls a ranking provider.
     Collect {
         #[command(flatten)]
         input: input::InputArgs,
@@ -117,10 +112,10 @@ struct SearchArgs {
     note_bodies: bool,
     #[arg(long, default_value_t = 10)]
     limit: usize,
-    /// Rerank local candidates with TypeSafe; requires --share-content.
-    #[arg(long, requires = "share_content")]
+    /// Rerank local candidates with the selected provider; remote inference requires --share-content.
+    #[arg(long)]
     ai: bool,
-    /// Allow query, candidate titles and snippets to be sent to TypeSafe.
+    /// Allow query, candidate titles and snippets to be sent to a remote provider.
     #[arg(long, requires = "ai")]
     share_content: bool,
 }
@@ -129,7 +124,7 @@ struct SearchArgs {
 enum SqliteCmd {
     /// List tables and columns without reading row contents.
     Schema { database: PathBuf },
-    /// Search selected fields in a bounded table scan; optionally rerank with TypeSafe.
+    /// Search selected fields in a bounded table scan; optionally rerank with the selected provider.
     Search {
         database: PathBuf,
         query: String,
@@ -145,7 +140,7 @@ enum SqliteCmd {
         scan_limit: usize,
         #[arg(long, default_value_t = 10)]
         limit: usize,
-        #[arg(long, requires = "share_content")]
+        #[arg(long)]
         ai: bool,
         #[arg(long, requires = "ai")]
         share_content: bool,
@@ -194,6 +189,10 @@ enum SkillsCmd {
 }
 
 async fn do_search(cli: &Cli, args: &SearchArgs, budget: Option<usize>) -> Result<Value> {
+    let ranking = args
+        .ai
+        .then(|| cli.provider.resolve(args.share_content))
+        .transpose()?;
     let mut sources = args.sources.clone();
     if args.directory.is_some() && !sources.contains(&Source::Files) {
         sources.push(Source::Files);
@@ -230,16 +229,19 @@ async fn do_search(cli: &Cli, args: &SearchArgs, budget: Option<usize>) -> Resul
     let all_failed = result.sources.iter().all(|s| !s.ok);
     let mut ai_status = json!({"requested":args.ai,"applied":false});
     if args.ai && !result.results.is_empty() {
-        match api::rank(
-            &args.query,
-            &mut result.results,
-            &cli.model,
-            Duration::from_secs(cli.timeout),
-        )
-        .await
+        match ranking
+            .as_ref()
+            .unwrap()
+            .rank(
+                &args.query,
+                &mut result.results,
+                Duration::from_secs(cli.timeout),
+                args.share_content,
+            )
+            .await
         {
             Ok(meta) => {
-                result.mode = "typesafe_reranked".into();
+                result.mode = ranking.as_ref().unwrap().mode();
                 ai_status = json!({"requested":true,"applied":true,"metadata":meta});
             }
             Err(error) => {
@@ -281,21 +283,19 @@ async fn run(cli: &Cli) -> Result<Value> {
             input,
             share_content,
         } => {
-            ensure!(
-                *share_content,
-                "ranking sends query/title/snippets to TypeSafe; supply --share-content when authorized"
-            );
+            let ranking = cli.provider.resolve(*share_content)?;
             clue::validate_query(query)?;
             let mut collected = input::collect(input, Duration::from_secs(cli.timeout)).await?;
-            let meta = api::rank(
-                query,
-                &mut collected.items,
-                &cli.model,
-                Duration::from_secs(cli.timeout),
-            )
-            .await?;
+            let meta = ranking
+                .rank(
+                    query,
+                    &mut collected.items,
+                    Duration::from_secs(cli.timeout),
+                    *share_content,
+                )
+                .await?;
             let mut output = collected.envelope();
-            output["mode"] = json!("typesafe_reranked");
+            output["mode"] = json!(ranking.mode());
             output["query"] = json!(query);
             output["api"] = serde_json::to_value(meta)?;
             Ok(output)
@@ -329,6 +329,16 @@ async fn run(cli: &Cli) -> Result<Value> {
             command: ProfileCmd::Show { name },
         } => Ok(json!({"schema_version":1,"ok":true,"profile":input::profile(name)?})),
         Cmd::Sqlite { command } => {
+            let ranking = if let SqliteCmd::Search {
+                ai: true,
+                share_content,
+                ..
+            } = command
+            {
+                Some(cli.provider.resolve(*share_content)?)
+            } else {
+                None
+            };
             let path = match command {
                 SqliteCmd::Schema { database }
                 | SqliteCmd::Search { database, .. }
@@ -366,6 +376,7 @@ async fn run(cli: &Cli) -> Result<Value> {
                     scan_limit,
                     limit,
                     ai,
+                    share_content,
                     ..
                 } => {
                     let mut output = db.search(
@@ -383,16 +394,19 @@ async fn run(cli: &Cli) -> Result<Value> {
                     if *ai && !output["results"].as_array().unwrap().is_empty() {
                         let mut items: Vec<Candidate> =
                             serde_json::from_value(output["results"].take())?;
-                        match api::rank(
-                            query,
-                            &mut items,
-                            &cli.model,
-                            Duration::from_secs(cli.timeout),
-                        )
-                        .await
+                        match ranking
+                            .as_ref()
+                            .unwrap()
+                            .rank(
+                                query,
+                                &mut items,
+                                Duration::from_secs(cli.timeout),
+                                *share_content,
+                            )
+                            .await
                         {
                             Ok(meta) => {
-                                output["mode"] = json!("typesafe_reranked");
+                                output["mode"] = json!(ranking.as_ref().unwrap().mode());
                                 output["ai"] =
                                     json!({"requested":true,"applied":true,"metadata":meta});
                             }
@@ -465,7 +479,7 @@ async fn run(cli: &Cli) -> Result<Value> {
             command: SkillsCmd::Install { dir, force },
         } => Ok(json!({"schema_version":1,"ok":true,"installed":skills::install(dir,*force)?})),
         Cmd::Schema => Ok(
-            json!({"schema_version":1,"ok":true,"commands":["search","context","collect","bundle","rank","profiles list","profiles show","sqlite schema","sqlite search","sqlite query","doctor","auth status","auth set","skills list","skills show","skills install","schema"],"sources":["reminders","notes","safari","files","calendar"],"rank_input":{"formats":["JSON array","JSONL","results envelope","single object"],"mapping":"--id/--title/--text/--ref accept field names or JSON Pointer paths; --profile applies saved mappings","execution":"explicit argv after -- or --run-profile; otherwise stdin/file","max_bytes":4194304,"type":"array","min_items":1,"max_items":50,"example":[{"id":"doc-1","title":"Notebook sharing","text":"Optional relevant excerpt","source":"alchemy","location":"optional local reference"}]},"result_fields":["id","title","text","source","location","modified","event","lexical_score","relevance","record"],"relevance":{"score":"0–3 relevance; higher is more relevant","confidence":"0–1 concentration, not correctness","probabilities":"distribution across 0,1,2,3"},"output":{"ok":"false and exit 1 on command failure; partial source failures retain successful results","partial":"inspect individual sources and ai for incomplete reads or ranking failure","schema_version":1},"sqlite":{"commands":["schema","search","query"],"search":"explicit table/columns; bounded ID-ordered scan","query":"single read-only SELECT/CTE; --candidates requires id/title aliases","max_scan_rows":5000,"max_candidates":50,"max_raw_rows":5000,"max_row_json_bytes":4194304,"blob_contents":"omitted with size marker","ai":"optional reranking with --ai --share-content or query --candidates piped to rank"},"calendar":{"source":"opt-in","default_days_back":7,"default_days_ahead":30,"filter":"occurrence start; rolling window","timestamps":"preserved from Cider without inferred timezone"},"context_budget":"UTF-8 bytes of serialized results array","privacy":{"default":"local only","remote_opt_in":"--ai --share-content for search/context; --share-content for rank","sent_fields":["query","title (300 chars)","text (1600 chars)"],"not_sent":["id","location","modified","event","record"]}}),
+            json!({"schema_version":1,"ok":true,"commands":["search","context","collect","bundle","rank","profiles list","profiles show","sqlite schema","sqlite search","sqlite query","doctor","auth status","auth set","skills list","skills show","skills install","schema"],"providers":["typesafe","systemone","ollama"],"sources":["reminders","notes","safari","files","calendar"],"rank_input":{"formats":["JSON array","JSONL","results envelope","single object"],"mapping":"--id/--title/--text/--ref accept field names or JSON Pointer paths; --profile applies saved mappings","execution":"explicit argv after -- or --run-profile; otherwise stdin/file","max_bytes":4194304,"type":"array","min_items":1,"max_items":50,"example":[{"id":"doc-1","title":"Notebook sharing","text":"Optional relevant excerpt","source":"alchemy","location":"optional local reference"}]},"result_fields":["id","title","text","source","location","modified","event","lexical_score","relevance","record"],"relevance":{"score":"0–3 relevance; higher is more relevant","kind":"native_distribution or generated_rating","confidence":"optional; native 0–1 concentration, not correctness","probabilities":"optional; native distribution across 0,1,2,3; omitted for Ollama"},"output":{"ok":"false and exit 1 on command failure; partial source failures retain successful results","partial":"inspect individual sources and ai for incomplete reads or ranking failure","schema_version":1},"sqlite":{"commands":["schema","search","query"],"search":"explicit table/columns; bounded ID-ordered scan","query":"single read-only SELECT/CTE; --candidates requires id/title aliases","max_scan_rows":5000,"max_candidates":50,"max_raw_rows":5000,"max_row_json_bytes":4194304,"blob_contents":"omitted with size marker","ai":"optional reranking with --ai --share-content or query --candidates piped to rank"},"calendar":{"source":"opt-in","default_days_back":7,"default_days_ahead":30,"filter":"occurrence start; rolling window","timestamps":"preserved from Cider without inferred timezone"},"context_budget":"UTF-8 bytes of serialized results array","privacy":{"default":"local only","remote_opt_in":"--share-content for remote providers or Ollama cloud models; loopback ranking does not require it","sent_fields":["query","title (300 chars)","text (1600 chars)"],"not_sent":["id","location","modified","event","record"]}}),
         ),
     }
 }

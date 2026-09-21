@@ -224,6 +224,7 @@ pub async fn execute(argv: &[String], timeout: Duration) -> Result<Vec<u8>> {
         .args(&argv[1..])
         .env_remove("TYPESAFE_API_KEY")
         .env_remove("TYPESAFE_API_KEY_FILE")
+        .env_remove("CLUE_PROVIDER_API_KEY")
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())

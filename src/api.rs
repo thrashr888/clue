@@ -1,16 +1,13 @@
-use crate::{Candidate, Judgment, clip, credentials};
+use crate::{Candidate, Judgment, clip};
 use anyhow::{Context, Result, ensure};
 use serde::Serialize;
 use serde_json::{Value, json};
-use std::{
-    collections::{BTreeMap, HashSet},
-    time::{Duration, Instant},
-};
-
-const ENDPOINT: &str = "https://api.typesafe.ai/v1/systemone";
+use std::collections::{BTreeMap, HashSet};
 
 #[derive(Debug, Serialize)]
 pub struct ApiMeta {
+    pub provider: String,
+    pub score_kind: String,
     pub model: String,
     pub elapsed_ms: u128,
     pub usage: Value,
@@ -98,8 +95,9 @@ pub fn apply_rank(response: &Value, items: &mut [Candidate]) -> Result<()> {
             );
             Ok(Judgment {
                 score,
-                confidence,
-                probabilities,
+                confidence: Some(confidence),
+                probabilities: Some(probabilities),
+                kind: "native_distribution".into(),
             })
         })
         .collect();
@@ -115,50 +113,6 @@ pub fn apply_rank(response: &Value, items: &mut [Candidate]) -> Result<()> {
             .then_with(|| b.lexical_score.total_cmp(&a.lexical_score))
     });
     Ok(())
-}
-
-pub async fn rank(
-    query: &str,
-    items: &mut [Candidate],
-    model: &str,
-    timeout: Duration,
-) -> Result<ApiMeta> {
-    crate::validate_query(query)?;
-    validate_candidates(items)?;
-    let credential = credentials::load()?;
-    let client = reqwest::Client::builder()
-        .timeout(timeout)
-        .redirect(reqwest::redirect::Policy::none())
-        .build()?;
-    let start = Instant::now();
-    let response = client
-        .post(ENDPOINT)
-        .bearer_auth(&credential.key)
-        .json(&rank_payload(query, items, model))
-        .send()
-        .await
-        .map_err(|_| {
-            anyhow::anyhow!(
-                "TypeSafe connection failed or exceeded the timeout; no ranking was applied"
-            )
-        })?;
-    ensure!(
-        response.status().is_success(),
-        "TypeSafe returned HTTP {}; no ranking was applied",
-        response.status().as_u16()
-    );
-    // Do not return server error bodies or request headers; they may contain secrets.
-    let response: Value = response
-        .json()
-        .await
-        .map_err(|_| anyhow::anyhow!("TypeSafe returned invalid JSON"))?;
-    apply_rank(&response, items)?;
-    Ok(ApiMeta {
-        model: response["model"].as_str().unwrap_or(model).into(),
-        elapsed_ms: start.elapsed().as_millis(),
-        usage: response["usage"].clone(),
-        sent_candidates: items.len(),
-    })
 }
 
 #[cfg(test)]
