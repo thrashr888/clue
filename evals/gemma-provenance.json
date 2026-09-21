@@ -1,0 +1,71 @@
+{
+  "date": "2026-09-21",
+  "ollama_version": "0.34.2",
+  "clue_version": "0.5.0",
+  "conditions": "Gemma runs are sequential; other previously loaded models may remain resident. No controlled cross-model latency claim. Existing rubric and fixture unchanged.",
+  "models": [
+    {
+      "model": "gemma4:12b-mlx",
+      "digest": "117d0d84cf2ab865feb59afc2cd30ff5d55f0035e05eb8d1b814f9688e3f3671",
+      "size": 7651251181,
+      "details": {
+        "parent_model": "",
+        "format": "safetensors",
+        "family": "gemma4_unified",
+        "families": null,
+        "parameter_size": "12.4B",
+        "quantization_level": "nvfp4"
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "audio",
+        "tools",
+        "thinking"
+      ],
+      "parameters": "temperature                    1\ntop_k                          64\ntop_p                          0.95",
+      "model_info": {
+        "gemma4_unified.block_count": 48,
+        "gemma4_unified.context_length": 262144,
+        "gemma4_unified.embedding_length": 3840,
+        "general.architecture": "gemma4_unified",
+        "general.parameter_count": 12382568756
+      }
+    },
+    {
+      "model": "gemma4:31b-mlx",
+      "digest": "700de81aa19146a0fece741451ebd960e2042aa27775638f9e4cf8910fac70d4",
+      "size": 20234756907,
+      "details": {
+        "parent_model": "",
+        "format": "safetensors",
+        "family": "gemma4",
+        "families": null,
+        "parameter_size": "31.3B",
+        "quantization_level": "nvfp4"
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ],
+      "parameters": "temperature                    1\ntop_k                          64\ntop_p                          0.95",
+      "model_info": {
+        "gemma4.block_count": 60,
+        "gemma4.context_length": 262144,
+        "gemma4.embedding_length": 5376,
+        "general.architecture": "gemma4",
+        "general.parameter_count": 31273088876
+      }
+    }
+  ],
+  "clue_request_options": {
+    "temperature": 0,
+    "num_predict": 1024,
+    "num_ctx": 32768,
+    "think": false,
+    "format": "JSON schema, same existing four-level relevance rubric"
+  },
+  "note": "Model defaults reported by /api/show are overridden by these Clue request options. This measures Clue defaults, not every possible Gemma configuration."
+}

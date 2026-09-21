@@ -8,6 +8,7 @@ Reviewed against upstream documentation on 2026-09-21. Clue keeps retrieval and 
 | [Kev-0.5B](https://huggingface.co/jaredpalmer/kev-0.5b) | Historical Qwen2.5 prototype. Upstream now recommends the 0.8B/4B/9B family, with earlier Qwen3 models still available for Mac latency. | Use current server/model instructions, rather than assuming the prototype is the best checkpoint. |
 | [Laya](https://huggingface.co/convaiinnovations/laya) | Small encoder decision model with English, multilingual, and specialized checkpoints. Root model: 421M parameters, 512-token context. Its own card reports weak zero-shot ordinal scoring and overconfidence. | Optional Python bridge in `scripts/serve_laya.py`; not an Ollama chat model. Evaluate on your own relevance labels. |
 | [GLiFormer](https://huggingface.co/knowledgator/gliformer-large-v1) / [Jeff](https://github.com/logan-markewich/jeff) | GLiFormer is a 575.6M encoder for classification/extraction. Jeff exposes a System One API around it. Extraction may be as useful as reranking for future Clue workflows. | Generic System One provider. Jeff documentation requires a server bearer key. See the [end-to-end evaluation](../evals/README.md) for live results and required server settings. |
+| [Gemma 4](https://ai.google.dev/gemma/docs/core) | General-purpose model family; installed 12B and 31B MLX variants are evaluated with Clue’s existing structured-rating rubric. | Ollama provider; see the Gemma section and evaluation results below. |
 | [Bonsai 2 27B](https://prismml.com/news/bonsai-2-27b) | A compressed generative model; potentially useful for scoring through structured output. Its published memory/speed claims are not Clue measurements. | Ollama provider if the installed runtime supports its weight format. The installed GGUF failed metadata loading on this machine; see validation below. |
 | [CUA-S1-FORMS Core ML](https://huggingface.co/FluidInference/cua-s1-forms-coreml) | A 706K-parameter specialist choosing supplied form actions. Relevant to testing form workflows in Tauri Browser, rather than general text relevance. | No Clue ranking adapter: a different task/schema and Core ML runtime. |
 
@@ -63,9 +64,24 @@ clue rank "offline notebook sync" --input examples/candidates.json \
 
 The API model alias here is Jeff's documented accepted value, not a request to TypeSafe. Clue does not forward the shared TypeSafe credential.
 
+## Gemma
+
+Gemma 4 uses the existing Ollama provider; no dedicated adapter is needed. The evaluated local tags are `gemma4:12b-mlx` and `gemma4:31b-mlx`, running through Ollama 0.34.2. Both passed the fixed 36-request suite with 33/33 correct positive top results, all adversarial and no-match checks, and no response errors. 12B is a reasonable first local trial; its observed median was about 3 seconds versus 16 seconds for 31B, though system load was not controlled. Exact installed digests, quantization, and request options are in [gemma-provenance.json](../evals/gemma-provenance.json); results use the same fixed labels and rubric as the other models.
+
+```sh
+clue rank "offline notebook sync" --input examples/candidates.json \
+  --provider ollama --model gemma4:12b-mlx --timeout 120
+# Once you have evaluated the installed model, optionally save it:
+clue config set --provider ollama --model gemma4:12b-mlx
+```
+
+Clue requests temperature 0, thinking disabled, and JSON-schema ratings. These are generated integer ratings, without native probability distributions. This evaluates the shipped Clue configuration rather than tuning Gemma settings on the test cases. See the [full results](../evals/README.md) before choosing a default.
+
+[EmbeddingGemma](https://ai.google.dev/gemma/docs/embeddinggemma) is a separate 308M text-embedding model that could retrieve semantic candidates before reranking. It is not a drop-in ranking provider, and this evaluation does not test an embedding index.
+
 ## Validation
 
-The [end-to-end evaluation](../evals/README.md) supersedes the initial smoke conclusions below. Across 36 requests per model (12 synthetic scenarios in three orders), Jev achieved 33/33 correct top results and Kev-4B achieved 32/33. Both passed the predeclared gates, including adversarial and no-match cases. Laya achieved 27/33, Bonsai 8B 14/33, and Jeff with temperature 1 achieved 10/33; all three failed the adversarial gate. These are small assistant-labeled fixtures, not production validation or independent human judgments.
+The [end-to-end evaluation](../evals/README.md) supersedes the initial smoke conclusions below. Across 36 requests per model (12 synthetic scenarios in three orders), Jev and both tested Gemma 4 models achieved 33/33 correct top results; Kev-4B achieved 32/33. All four passed the predeclared gates, including adversarial and no-match cases. Laya achieved 27/33, Bonsai 8B 14/33, and Jeff with temperature 1 achieved 10/33; all three failed the adversarial gate. These are small assistant-labeled fixtures, not production validation or independent human judgments.
 
 After starting the Kev server above, save it as your default:
 
